@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 
 
-namespace HalfDiggers.Runner
+namespace MSuhininTestovoe.B2B
 {
     public class DeathSystems
     {

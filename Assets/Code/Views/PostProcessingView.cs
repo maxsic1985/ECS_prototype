@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
-namespace HMSuhininTestovoe.B2B
+namespace MSuhininTestovoe.B2B
 {
     public sealed class PostProcessingView : BaseView
     {

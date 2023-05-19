@@ -2,7 +2,7 @@ using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 
 
-namespace HalfDiggers.Runner
+namespace MSuhininTestovoe.B2B
 {
     public class DeathSystem : IEcsInitSystem, IEcsRunSystem
     {

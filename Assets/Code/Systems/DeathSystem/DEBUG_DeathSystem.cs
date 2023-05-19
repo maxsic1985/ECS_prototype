@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-namespace HalfDiggers.Runner
+namespace MSuhininTestovoe.B2B
 {
     public class DEBUG_DeathSystem : IEcsInitSystem, IEcsRunSystem
     {
