@@ -13,7 +13,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
         private EcsPool<DestinationComponent> _destinationComponentPool;
         private EcsPool<PlatformSideComponent> _platformSideComponentPool;
-        private EcsPool<GravityComponent> _gravityComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
 
@@ -27,7 +26,6 @@ namespace MSuhininTestovoe.B2B
             _platformSideComponentPool = _world.GetPool<PlatformSideComponent>();
             _destinationComponentPool = _world.GetPool<DestinationComponent>();
             _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
-            _gravityComponentPool = _world.GetPool<GravityComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
         }
@@ -54,7 +52,6 @@ namespace MSuhininTestovoe.B2B
                     ref PlatformSideComponent platformSideComponent = ref _platformSideComponentPool.Add(entity);
                     platformSideComponent.PlatformSide = PlatformSide.Center;
 
-                    _gravityComponentPool.Add(entity);
                     _transformComponentPool.Add(entity);
                     _playerInputComponentPool.Add(entity);
                 }

@@ -19,22 +19,18 @@ namespace MSuhininTestovoe.B2B
             IPoolService poolService = new PoolService();
             await poolService.Initialize();
 
-            IPatternService patternService = new PatternService();
-            await patternService.Initialize();
-
             var world = new EcsWorld();
-            _systems = new EcsSystems(world,shared);
+            _systems = new EcsSystems(world, shared);
 
             new InitializeAllSystem(_systems, poolService);
 
             _systems
-                .AddWorld (new EcsWorld (), WorldsNamesConstants.EVENTS)
+                .AddWorld(new EcsWorld(), WorldsNamesConstants.EVENTS)
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(WorldsNamesConstants.EVENTS))
-
 #endif
-                .InjectUgui (uguiEmitter, WorldsNamesConstants.EVENTS)
+                .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
                 .Init();
             _hasInitCompleted = true;
         }
@@ -49,10 +45,11 @@ namespace MSuhininTestovoe.B2B
         {
             if (_systems != null)
             {
-                foreach (var worlds in  _systems.GetAllNamedWorlds())
+                foreach (var worlds in _systems.GetAllNamedWorlds())
                 {
                     worlds.Value.Destroy();
                 }
+
                 _systems.GetWorld().Destroy();
                 _systems = null;
             }

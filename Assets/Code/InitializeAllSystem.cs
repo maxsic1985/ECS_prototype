@@ -10,22 +10,13 @@ namespace MSuhininTestovoe.B2B
                 .Add(new InitializeServiceSystem(poolService))
                 .Add(new LoadPrefabSystem())
                 .Add(new LoadDataByNameSystem())
-              //  .Add(new RespawnPlatformSystem())
-                .Add(new OnGroundSystem());
-              //  .Add(new InstantiatePickableObjectsSystem());
-          
+                .Add(new TriggerSystem());
+
             new CommonSystems(systems);
             new PlayerSystems(systems);
             new CameraSystems(systems);
             new MenuSystems(systems);
-            //   new PostProcessingSystems(systems);
-           
-            //Use Gravity 
-            //Sounds
             new SoundSystems(systems);
-           // new DeathSystems(systems);
-            //Trigger
-            systems.Add(new TriggerSystem());
         }
     }
 }

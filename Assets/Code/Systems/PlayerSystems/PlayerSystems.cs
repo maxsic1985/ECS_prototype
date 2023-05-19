@@ -11,8 +11,8 @@ namespace MSuhininTestovoe.B2B
                 .Add(new PlayerInitSystem())
                 .Add(new PlayerBuildSystem())
                 .Add(new PlayerInputSystem())
-                .Add(new PlayerMoveSystem())
-                .Add(new PlayerJumpSystem());
+                .Add(new PlayerMoveSystem());
+
         }
     }
 }

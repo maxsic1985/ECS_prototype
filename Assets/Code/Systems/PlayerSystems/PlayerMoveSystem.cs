@@ -43,9 +43,6 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (int entity in _playerFilter)
             {
-                //if (!_isOnGroundComponentPool.Has(entity)) return;
-                //if(_isPlayerJumpComponentPool.Has(entity)) return;
-
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
                 ref PlayerInputComponent playerInputComponent = ref _playerInputComponentPool.Get(entity);
                 ref DestinationComponent destinationComponent = ref _destinationComponentPool.Get(entity);
