@@ -1,5 +1,40 @@
 {
   "dependencies": {
+    "com.leopotam.ecslite": {
+      "version": "https://github.com/Leopotam/ecslite.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6b83a518237d3083f013fc0e0ab7580046c24aca"
+    },
+    "com.leopotam.ecslite.di": {
+      "version": "https://github.com/Leopotam/ecslite-di.git#develop",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6aae1f0586067a8614353ac6e6b2b3c4c630b4b4"
+    },
+    "com.leopotam.ecslite.unity.ugui": {
+      "version": "https://github.com/Leopotam/ecslite-unity-ugui.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "18a643c67639838e3d74c06b83316e98d0ac17a0"
+    },
+    "com.leopotam.ecslite.unityeditor": {
+      "version": "https://github.com/Leopotam/ecslite-unityeditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "65affd1090e235d8441582903dd95f7e86587849"
+    },
+    "com.leopotam.globals": {
+      "version": "https://github.com/Leopotam/globals.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bd471093eb39824b4ec75e82c680b1d33999ec4c"
+    },
     "com.unity.2d.animation": {
       "version": "7.0.5",
       "depth": 0,
@@ -73,6 +108,20 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.addressables": {
+      "version": "1.19.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.19.6",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 2,
@@ -133,6 +182,13 @@
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
       "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.scriptablebuildpipeline": {
+      "version": "1.20.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
