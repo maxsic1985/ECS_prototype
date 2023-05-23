@@ -9,14 +9,14 @@ namespace MSuhininTestovoe.B2B
             systems
                 .Add(new InitializeServiceSystem(poolService))
                 .Add(new LoadPrefabSystem())
-                .Add(new LoadDataByNameSystem())
-                .Add(new TriggerSystem());
+                .Add(new LoadDataByNameSystem());
+              //  .Add(new TriggerSystem());
 
             new CommonSystems(systems);
             new PlayerSystems(systems);
-            new CameraSystems(systems);
-            new MenuSystems(systems);
-            new SoundSystems(systems);
+         //   new CameraSystems(systems);
+        //    new MenuSystems(systems);
+         //   new SoundSystems(systems);
         }
     }
 }

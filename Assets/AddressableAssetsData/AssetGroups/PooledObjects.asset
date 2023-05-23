@@ -10,28 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Player
+  m_Name: PooledObjects
   m_EditorClassIdentifier: 
-  m_GroupName: Player
+  m_GroupName: PooledObjects
   m_Data:
     m_SerializedData: []
-  m_GUID: b6bdb445ed285436d8761f6854bf7fec
+  m_GUID: 72e78da819b2a43729bb4f83f8e53a21
   m_SerializeEntries:
-  - m_GUID: 8157e5a9624844dd4b40127c5b5567f0
-    m_Address: PlayerSharedData
+  - m_GUID: b6ab33585f42241aca3e70b52a92973a
+    m_Address: PlatformWithoutSteps
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: cca316a663fff82478e68ebc3aebfcb9
-    m_Address: StaticPlayerData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f3af984b2a1334408a8056589719a2b0
-    m_Address: StaticPlayerData.asset
+  - m_GUID: 75629682cab1a4bae8096c9b456fd7dd
+    m_Address: New PoolData.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4e685cad4f2584fc5ba897fddc3c7841, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: b428569a6dbf844b982c557c7c15dcb6, type: 2}
-    - {fileID: 11400000, guid: 0fcfd975a104840afb423fbf70540450, type: 2}
+    - {fileID: 11400000, guid: d3b60d297cdd64270b8806aa76b66b40, type: 2}
+    - {fileID: 11400000, guid: f654b311f117e45ada0d0febb6d47b36, type: 2}
