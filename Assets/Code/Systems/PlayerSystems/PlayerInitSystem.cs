@@ -45,10 +45,7 @@ namespace MSuhininTestovoe.B2B
 
                     ref SpeedVectorComponent speedVectorComponent = ref _speedVectorComponentPool.Add(entity);
                     speedVectorComponent.Value = new Vector2(dataInit.MoveSpeed,dataInit.JumpSpeed);
-
-                    ref DestinationComponent destinationComponent = ref _destinationComponentPool.Add(entity);
-                    destinationComponent.Value = new Vector2(dataInit.MoveDistance, dataInit.JumpHeigth);
-
+                    
                     ref PlatformSideComponent platformSideComponent = ref _platformSideComponentPool.Add(entity);
                     platformSideComponent.PlatformSide = PlatformSide.Center;
 

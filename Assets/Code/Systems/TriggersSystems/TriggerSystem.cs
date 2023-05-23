@@ -3,6 +3,8 @@ using Leopotam.EcsLite.Unity.Ugui;
 using TMPro;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class TriggerSystem : IEcsInitSystem, IEcsRunSystem
@@ -13,9 +15,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter hitWrenchFilter;
 
         [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
-
         [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
-        
         [EcsUguiNamed(UIConstants.KEY_LBL)] readonly TextMeshProUGUI _keyslabel = default;
 
 
@@ -32,7 +32,6 @@ namespace MSuhininTestovoe.B2B
         
         private void SetInitValues()
         {
-            _coinslabel.text = _sharedData.GetPlayerCharacteristic.GetCurrentCoins.ToString();
             _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
         }
 
@@ -48,17 +47,6 @@ namespace MSuhininTestovoe.B2B
         
         private void GetTriggers(IEcsSystems systems, EcsFilter hitCoinsFilter, EcsFilter hitPillarsFilter,EcsFilter hitWrenchFilter)
         {
-            foreach (var hitEntity in hitCoinsFilter)
-            {
-                // Add HitSound
-                AddHitSoundComponent(systems, SoundsEnumType.Coin);
-                //
-
-                _sharedData.GetPlayerCharacteristic.AddCoins(1);
-                _coinslabel.text = _sharedData.GetPlayerCharacteristic.GetCurrentCoins.ToString();
-                systems.GetWorld().DelEntity(hitEntity);
-            }
-
             foreach (var hitEntity in hitPillarsFilter)
             {
                 // Add HitSound
@@ -75,24 +63,9 @@ namespace MSuhininTestovoe.B2B
                 _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
                 systems.GetWorld().DelEntity(hitEntity);
             }
-
-            foreach (var hitEntity in hitWrenchFilter)
-            {
-                // Add HitSound
-                AddHitSoundComponent(systems, SoundsEnumType.Tool);
-                //
-
-                //TODO Wrench logic
-                _sharedData.GetPlayerCharacteristic.GetWrench.UpdateWrench(1,
-                     ref _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives,
-                    _sharedData.GetPlayerCharacteristic.GetLives.GetMaxLives);
-                
-                _keyslabel.text = _sharedData.GetPlayerCharacteristic.GetWrench.GetCurrentWrench.ToString();
-                _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
-                systems.GetWorld().DelEntity(hitEntity);
-            }
         }
 
+        
         private void AddHitSoundComponent(IEcsSystems systems, SoundsEnumType type)
         {
             ref var isHitSoundComponent = ref systems.GetWorld()

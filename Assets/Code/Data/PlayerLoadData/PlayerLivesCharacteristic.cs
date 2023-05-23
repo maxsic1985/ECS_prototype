@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     [Serializable]
