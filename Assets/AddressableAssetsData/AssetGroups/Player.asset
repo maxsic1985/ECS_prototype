@@ -26,7 +26,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f3af984b2a1334408a8056589719a2b0
-    m_Address: StaticPlayerData.asset
+    m_Address: StaticPlayerData
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

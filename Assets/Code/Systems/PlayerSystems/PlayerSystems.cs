@@ -7,11 +7,11 @@ namespace MSuhininTestovoe.B2B
         public PlayerSystems(EcsSystems systems)
         {
             systems
-                .Add(new PlayerSystem())
-                .Add(new PlayerInitSystem())
-                .Add(new PlayerBuildSystem())
-                .Add(new PlayerInputSystem())
-                .Add(new PlayerMoveSystem());
+                .Add(new PlayerSystem());
+            // .Add(new PlayerInitSystem())
+            //.Add(new PlayerBuildSystem())
+            //.Add(new PlayerInputSystem())
+            // .Add(new PlayerMoveSystem());
 
         }
     }
