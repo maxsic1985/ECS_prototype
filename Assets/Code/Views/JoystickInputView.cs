@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-
-    public class VariableJoystick : Joystick
+namespace MSuhininTestovoe.B2B
+{
+    public class JoystickInputView : Joystick
     {
-        public float MoveThreshold
+         public float MoveThreshold
         {
             get { return moveThreshold; }
             set { moveThreshold = Mathf.Abs(value); }
@@ -74,3 +72,4 @@ using UnityEngine.EventSystems;
         Floating,
         Dynamic
     }
+}

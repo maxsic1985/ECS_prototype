@@ -49,15 +49,7 @@ public class JoystickSetterExample : MonoBehaviour
         }
     }
 
-    public void SnapX(bool value)
-    {
-        variableJoystick.SnapX = value;
-    }
-
-    public void SnapY(bool value)
-    {
-        variableJoystick.SnapY = value;
-    }
+   
 
     private void Update()
     {

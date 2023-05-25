@@ -1,4 +1,5 @@
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
 
@@ -10,12 +11,13 @@ namespace MSuhininTestovoe.B2B
         private EcsSystems _systems;
         private bool _hasInitCompleted;
         [SerializeField] EcsUguiEmitter uguiEmitter;
+        [SerializeField] JoystickInputView _joystick;
 
         private async void Start()
         {
             SharedData shared = new();
             await shared.Init();
-
+            
             IPoolService poolService = new PoolService();
             await poolService.Initialize();
 
@@ -31,7 +33,9 @@ namespace MSuhininTestovoe.B2B
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(WorldsNamesConstants.EVENTS))
 #endif
                 .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
+                .Inject(_joystick, WorldsNamesConstants.WAREHOUSE)
                 .Init();
+
             _hasInitCompleted = true;
         }
 

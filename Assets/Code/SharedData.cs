@@ -9,8 +9,9 @@ namespace MSuhininTestovoe.B2B
     public sealed class SharedData
     {
         private PlayerSharedData _playerShared;
-        
         public PlayerSharedData GetPlayerSharedData => _playerShared;
+
+      
 
         public async Task Init()
         {

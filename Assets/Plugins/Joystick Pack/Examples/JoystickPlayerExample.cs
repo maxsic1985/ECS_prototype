@@ -6,11 +6,11 @@ public class JoystickPlayerExample : MonoBehaviour
 {
     public float speed;
     public VariableJoystick variableJoystick;
-    public Rigidbody rb;
+    public Rigidbody2D rb;
 
     public void FixedUpdate()
     {
         Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        rb.AddForce(direction * speed * Time.fixedDeltaTime);
     }
 }

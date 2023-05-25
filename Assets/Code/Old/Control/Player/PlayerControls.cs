@@ -18,8 +18,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
         _componentRigidbody =GetComponent<Rigidbody2D>();
         _noizeObserver = new NoizeObserver();
       //  mButton.OnClickAsObservable().Subscribe(_ => Debug.Log("On Button Clicked")).AddTo(this);
-        mButton.OnClickAsObservable().Subscribe(_ => 
-            { _componentRigidbody.velocity = Vector2.zero; _componentRigidbody.velocity += Vector2.left * Speed; }).AddTo(this);
+//        mButton.OnClickAsObservable().Subscribe(_ => 
+      //      { _componentRigidbody.velocity = Vector2.zero; _componentRigidbody.velocity += Vector2.left * Speed; }).AddTo(this);
 
         var inpusKeyKodeStream = Observable.EveryFixedUpdate().Where(_ => Input.anyKey);
         var leftClick = inpusKeyKodeStream.Where(_ => Input.GetButtonDown("Left")).Subscribe(_ => { _componentRigidbody.velocity = Vector2.zero; _componentRigidbody.velocity += Vector2.left * Speed; }).AddTo(this);

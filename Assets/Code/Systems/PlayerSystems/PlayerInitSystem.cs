@@ -11,7 +11,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
         private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
         private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
-        private EcsPool<DestinationComponent> _destinationComponentPool;
         private EcsPool<PlatformSideComponent> _platformSideComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
@@ -24,7 +23,6 @@ namespace MSuhininTestovoe.B2B
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _playerStartPositionComponentPool = _world.GetPool<PlayerStartPositionComponent>();
             _platformSideComponentPool = _world.GetPool<PlatformSideComponent>();
-            _destinationComponentPool = _world.GetPool<DestinationComponent>();
             _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();

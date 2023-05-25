@@ -41,7 +41,7 @@ namespace MSuhininTestovoe.B2B
                 gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
                 gameObject.GetComponent<IActor>().AddEntity(entity);
                 playerBoxColliderComponent.PlayerCollider = gameObject.GetComponent<BoxCollider>();
-                playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
+                playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody2D>();
                _prefabPool.Del(entity);
             }
         }

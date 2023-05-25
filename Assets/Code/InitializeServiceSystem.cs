@@ -20,12 +20,6 @@ namespace  MSuhininTestovoe.B2B
             Service<ITimeService>.Set(new UnityTimeService());
             Service<GameObjectAssetLoader>.Set(new GameObjectAssetLoader());
             Service<ScriptableObjectAssetLoader>.Set(new ScriptableObjectAssetLoader());
-
-            if (Application.isEditor)
-                Service<IInputService>.Set(new KeyboardInputService());
-            else
-                Service<IInputService>.Set(new SwipeService());
-            
             Service<IPoolService>.Set(_poolService);
           
         }
