@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: PlayerSharedData
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: cca316a663fff82478e68ebc3aebfcb9
-    m_Address: StaticPlayerData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: f3af984b2a1334408a8056589719a2b0
     m_Address: StaticPlayerData
     m_ReadOnly: 0

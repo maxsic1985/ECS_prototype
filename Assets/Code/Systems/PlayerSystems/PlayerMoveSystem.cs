@@ -9,7 +9,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _playerFilter;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<IsPlayerMoveComponent> _isPlayerMoveComponentPool;
+        private EcsPool<IsPlayerControlComponent> _isPlayerMoveComponentPool;
         private EcsPool<PlayerRigidBodyComponent> _playerRBPool;
         private PlatformSide _platformSide;
         private ITimeService _timeService;
@@ -23,10 +23,11 @@ namespace MSuhininTestovoe.B2B
             _playerFilter = world.Filter<IsPlayerComponent>()
                 .Inc<TransformComponent>()
                 .Inc<PlayerRigidBodyComponent>()
+                .Inc<IsPlayerControlComponent>()
                 .End();
             _playerInputComponentPool = world.GetPool<PlayerInputComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
-            _isPlayerMoveComponentPool = world.GetPool<IsPlayerMoveComponent>();
+            _isPlayerMoveComponentPool = world.GetPool<IsPlayerControlComponent>();
             _playerRBPool = world.GetPool<PlayerRigidBodyComponent>();
             _speedVectorComponentPool = world.GetPool<SpeedVectorComponent>();
             _timeService = Service<ITimeService>.Get();
@@ -63,7 +64,9 @@ namespace MSuhininTestovoe.B2B
         {
            
             Vector3 direction = Vector3.up * inputComponent.Vertical + Vector3.right * inputComponent.Horizontal;
-            rb.PlayerRigidbody.AddForce(direction * 100 * _timeService.DeltaTime);
+         //   rb.PlayerRigidbody.AddForce(direction * 10 * _timeService.DeltaTime,ForceMode2D.Force);
+         transformComponent.Value.position = Vector3.Lerp( transformComponent.Value.position, direction,
+             1 * _timeService.DeltaTime);
         }
 
        

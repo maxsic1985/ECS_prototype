@@ -5,14 +5,19 @@ namespace MSuhininTestovoe.B2B
 {
     public class JoystickInputView : Joystick
     {
-         public float MoveThreshold
+        public float MoveThreshold
         {
             get { return moveThreshold; }
             set { moveThreshold = Mathf.Abs(value); }
         }
 
+        public bool IsControl => isControl;
+
+
         [SerializeField] private float moveThreshold = 1;
         [SerializeField] private JoystickType joystickType = JoystickType.Fixed;
+        private bool isControl = false;
+
 
         private Vector2 fixedPosition = Vector2.zero;
 
@@ -43,6 +48,7 @@ namespace MSuhininTestovoe.B2B
                 background.gameObject.SetActive(true);
             }
 
+            isControl = true;
             base.OnPointerDown(eventData);
         }
 
@@ -51,6 +57,7 @@ namespace MSuhininTestovoe.B2B
             if (joystickType != JoystickType.Fixed)
                 background.gameObject.SetActive(false);
 
+            isControl = false;
             base.OnPointerUp(eventData);
         }
 

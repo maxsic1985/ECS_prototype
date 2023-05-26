@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StaticPlayerData
   m_EditorClassIdentifier: 
   Player:
-    m_AssetGUID: cca316a663fff82478e68ebc3aebfcb9
+    m_AssetGUID: d2b8f4e9d9ac9407183303e7a7593c91
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

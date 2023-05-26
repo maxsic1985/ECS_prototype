@@ -9,6 +9,7 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsWorld _world;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
+        private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
       //  private readonly JoystickService _joystick;
         readonly EcsCustomInject<JoystickInputView> _joystick = default;
         private int _entity;
@@ -17,20 +18,30 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsPlayerComponent>().Inc<TransformComponent>().End();
+            _filter = _world.Filter<IsPlayerComponent>()
+                .Inc<TransformComponent>()
+                .End();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
-         //   _inputService = Service<IInputService>.Get();
+            _isPlayerControlComponent = _world.GetPool<IsPlayerControlComponent>();
+     
         }
 
         public void Run(IEcsSystems systems)
         {
-           
-
             foreach (int entity in _filter)
             {
                 ref PlayerInputComponent playerInputComponent = ref _playerInputComponentPool.Get(entity);
                 playerInputComponent.Horizontal = _joystick.Value.Horizontal;
                 playerInputComponent.Vertical = _joystick.Value.Vertical;
+
+                if (_joystick.Value.IsControl && !_isPlayerControlComponent.Has(entity))
+                {
+                    ref IsPlayerControlComponent playerIsControllComponent = ref _isPlayerControlComponent.Add(entity);
+                }
+                else
+                {
+                    _isPlayerControlComponent.Del(entity);
+                }
             }
         }
     }
