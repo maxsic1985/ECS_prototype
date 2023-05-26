@@ -6,7 +6,7 @@ namespace MSuhininTestovoe.B2B
 
 
     [CreateAssetMenu(fileName = nameof(SoundLoadData),
-        menuName = EditorMenuConstants.CREATE_TRANSPORT_SHIP_MENU_NAME + nameof(SoundLoadData))]
+        menuName = EditorMenuConstants.CREATE_DATA_MENU_NAME + nameof(SoundLoadData))]
     public class SoundLoadData : ScriptableObject
     {
         [Header("Prefabs:")]

@@ -5,9 +5,7 @@ namespace MSuhininTestovoe.B2B
         public const string WINDOW_PREFAB_NAME= "SomeWindow";
         public const string STATIC_PLAYER_DATA = "StaticPlayerData";
         public const string CAMERA_PREFAB_NAME = "CameraLoadData";
-        public const string POST_PROCESSING_VOLUME_PREFAB_NAME = "PostProcessingData";
         public const string PLAYER_SHARED_DATA = "PlayerSharedData";
-        public const string COIN_SHARED_DATA = "CoinLoadData";
         public const string MUSIC_LOAD_DATA = "MusicLoadData";
         public const string SOUNDEFFECTS_LOAD_DATA = "SoundEffectsLoadData";
 

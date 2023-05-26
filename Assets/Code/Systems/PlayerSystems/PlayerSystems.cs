@@ -9,9 +9,9 @@ namespace MSuhininTestovoe.B2B
             systems
                 .Add(new PlayerSystem())
                 .Add(new PlayerInitSystem())
-            .Add(new PlayerBuildSystem())
-            .Add(new PlayerInputSystem())
-            .Add(new PlayerMoveSystem());
+                .Add(new PlayerBuildSystem())
+                .Add(new PlayerInputSystem())
+                .Add(new PlayerMoveSystem());
 
         }
     }

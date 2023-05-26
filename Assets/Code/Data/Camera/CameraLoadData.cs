@@ -6,7 +6,7 @@ namespace MSuhininTestovoe.B2B
 
 
     [CreateAssetMenu(fileName = nameof(CameraLoadData),
-        menuName = EditorMenuConstants.CREATE_TRANSPORT_SHIP_MENU_NAME + nameof(CameraLoadData))]
+        menuName = EditorMenuConstants.CREATE_DATA_MENU_NAME + nameof(CameraLoadData))]
     public class CameraLoadData : ScriptableObject
     {
         [Header("Prefabs:")]
