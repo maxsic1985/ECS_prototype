@@ -11,7 +11,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
         private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
         private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
-        private EcsPool<PlatformSideComponent> _platformSideComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
 
@@ -22,7 +21,6 @@ namespace MSuhininTestovoe.B2B
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _playerStartPositionComponentPool = _world.GetPool<PlayerStartPositionComponent>();
-            _platformSideComponentPool = _world.GetPool<PlatformSideComponent>();
             _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
@@ -43,9 +41,6 @@ namespace MSuhininTestovoe.B2B
 
                     ref SpeedVectorComponent speedVectorComponent = ref _speedVectorComponentPool.Add(entity);
                     speedVectorComponent.Value = new Vector2(dataInit.MoveSpeed,dataInit.JumpSpeed);
-                    
-                    ref PlatformSideComponent platformSideComponent = ref _platformSideComponentPool.Add(entity);
-                    platformSideComponent.PlatformSide = PlatformSide.Center;
 
                     _transformComponentPool.Add(entity);
                     _playerInputComponentPool.Add(entity);

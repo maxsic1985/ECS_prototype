@@ -38,7 +38,7 @@ namespace MSuhininTestovoe.B2B
                 {
                     ref IsPlayerControlComponent playerIsControllComponent = ref _isPlayerControlComponent.Add(entity);
                 }
-                else
+                else if(!_joystick.Value.IsControl)
                 {
                     _isPlayerControlComponent.Del(entity);
                 }

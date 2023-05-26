@@ -20,6 +20,7 @@ namespace MSuhininTestovoe.B2B
 
         public PlayerLivesCharacteristic GetLives => _playerLivesCharacteristic;
 
+        public float Speed => _baseSpeed;
 
         public PlayerCharacteristic(PlayerCharacteristic playerCharacteristic)
         {
