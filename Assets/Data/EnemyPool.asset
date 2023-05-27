@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae8e827ce4984c6486169a617c4eea77, type: 3}
-  m_Name: Enemy
+  m_Name: EnemyPool
   m_EditorClassIdentifier: 
   _gameObjectsTypeId: 3
   PooledObject:
@@ -18,4 +18,4 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  Capacity: 3
+  Capacity: 10

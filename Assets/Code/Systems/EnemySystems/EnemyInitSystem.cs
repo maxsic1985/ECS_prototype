@@ -1,4 +1,6 @@
-﻿using Leopotam.EcsLite;
+﻿using System;
+using System.Collections.Generic;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
@@ -9,8 +11,8 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
-        private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool; 
-        private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool; 
+        private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
+        private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<EnemySecutityZoneComponent> _enemySecutityZoneComponentPool;
 
@@ -35,22 +37,64 @@ namespace MSuhininTestovoe.B2B
                     ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
                     loadPrefabFromPool.Value = dataInit.EnemyPrefab;
 
-                    ref EnemyStartPositionComponent enemyStartPositionComponent =
-                        ref _enemyStartPositionComponentPool.Add(entity);
-                    enemyStartPositionComponent.Value = dataInit.StartPositions[0]; 
-                    
-                    ref EnemyStartRotationComponent enemyStartRotationComponent =
-                        ref _enemyStartRotationComponentPool.Add(entity);
-                    enemyStartRotationComponent.Value = dataInit.StartRotation[0];
-
-                    ref EnemySecutityZoneComponent securityZoneComponent = ref _enemySecutityZoneComponentPool.Add(entity);
+                    ref EnemySecutityZoneComponent securityZoneComponent =
+                        ref _enemySecutityZoneComponentPool.Add(entity);
                     securityZoneComponent.distanceValue = dataInit.SecurityZoneDistance;
+
+                    
+                    SpawnEnemy(entity, dataInit);
+
 
                     _transformComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);
             }
+        }
+
+        private void SpawnEnemy(int entity, EnemyData dataInit)
+        {
+            ref EnemyStartPositionComponent enemyStartPositionComponent =
+                ref _enemyStartPositionComponentPool.Add(entity);
+
+            ref EnemyStartRotationComponent enemyStartRotationComponent =
+                ref _enemyStartRotationComponentPool.Add(entity);
+
+            enemyStartPositionComponent.Value = new List<Vector3>();
+            enemyStartRotationComponent.Value = new List<Vector3>();
+
+           var positionIndex= GetUniqeRandomArray(dataInit.CountForInstantiate,0,dataInit.StartPositions.Length);
+
+            for (int i = 0; i < positionIndex.Length; i++)
+            {
+                enemyStartPositionComponent.Value.Add(dataInit.StartPositions[positionIndex[i]]);
+                enemyStartRotationComponent.Value.Add(dataInit.StartRotation[positionIndex[i]]);
+            }
+        }
+        
+        public int[] GetUniqeRandomArray(int size , int Min , int Max ) {
+
+            int [] UniqueArray = new int[size];
+            var rnd = new System.Random();
+            int Random;
+
+            for (int i = 0 ; i < size ; i++) {
+
+                Random = rnd.Next(Min, Max);
+
+                for (int j = i; j >= 0 ; j--) {
+
+                    if (UniqueArray[j] == Random)
+                    { Random = rnd.Next(Min, Max); j = i; }
+
+                }
+
+                UniqueArray[i] = Random;
+
+            }
+
+            return UniqueArray;
+
         }
     }
 }

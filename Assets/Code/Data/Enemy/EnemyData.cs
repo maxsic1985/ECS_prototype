@@ -11,6 +11,9 @@ namespace MSuhininTestovoe.B2B
     {
         [Header("Prefabs:")]
         public AssetReferenceGameObject EnemyPrefab;
+
+        public int CountForInstantiate;
+        
         [Header("Positions:")]
         public Vector3 [] StartPositions;
         [Header("Rotations:")]

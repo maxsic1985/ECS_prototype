@@ -1,11 +1,10 @@
 ﻿using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemyBuildSystem: IEcsInitSystem, IEcsRunSystem
+    public class EnemyBuildSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
@@ -39,15 +38,18 @@ namespace MSuhininTestovoe.B2B
                 ref EnemyStartRotationComponent enemyRotation = ref _enemyStartRotationComponentPool.Get(entity);
                 ref BoxColliderComponent enemyBoxColliderComponent = ref _enemyBoxColliderComponentPool.Add(entity);
 
-                //GameObject gameObject = Object.Instantiate(prefabComponent.Value);
-                GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
-                transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
-                pooled.gameObject.transform.position = enemyPosition.Value;
-                pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value); 
-                pooled.gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
-                pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
-                enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
-               _prefabPool.Del(entity);
+                for (int j = 0; j < enemyPosition.Value.Count; j++)
+                {
+                    GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+                    transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
+                    pooled.gameObject.transform.position = enemyPosition.Value[j];
+                    pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value[j]);
+                    pooled.gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
+                    pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
+                    enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
+                }
+
+                _prefabPool.Del(entity);
             }
         }
     }
