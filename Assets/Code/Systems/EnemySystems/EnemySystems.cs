@@ -9,9 +9,9 @@ namespace MSuhininTestovoe.B2B
             systems
                 .Add(new EnemySystem())
                 .Add(new EnemyInitSystem())
-                .Add(new EnemyBuildSystem())
-                .Add(new EnemyLookingSystem())
-                .Add(new EnemyAtackSystem());
+                .Add(new EnemyBuildSystem());
+            //.Add(new EnemySecurityZoneSystem())
+            //  .Add(new EnemyAtackSystem());
 
         }
     }

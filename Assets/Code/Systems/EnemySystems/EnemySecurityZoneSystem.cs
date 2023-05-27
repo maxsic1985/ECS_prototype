@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemyLookingSystem : IEcsInitSystem, IEcsRunSystem
+    public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _world;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;

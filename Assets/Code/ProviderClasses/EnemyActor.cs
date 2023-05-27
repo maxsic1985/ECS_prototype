@@ -2,11 +2,11 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public class WrenchActor : Actor
+    public class EnemyActor : Actor
     {
         private readonly IPoolService _poolService;
 
-        public WrenchActor()
+        public EnemyActor()
         {
             _poolService = Service<IPoolService>.Get();
         }

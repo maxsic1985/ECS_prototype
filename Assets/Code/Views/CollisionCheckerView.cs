@@ -53,7 +53,7 @@ namespace MSuhininTestovoe.B2B
                     hitPillarsPool.Add(hit);
                     break;
 
-                case WrenchActor:
+                case EnemyActor:
                     Debug.Log("Is Wrench Actor");
                     EcsPool<IsHitWrenchComponent> hitWrenchPool = EcsWorld.GetPool<IsHitWrenchComponent>();
                     hitWrenchPool.Add(hit);

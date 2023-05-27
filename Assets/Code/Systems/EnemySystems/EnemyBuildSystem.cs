@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -8,20 +9,20 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
-        private EcsPool<PlayerBoxColliderComponent> _playerBoxColliderComponentPool;
-        private EcsPool<PlayerRigidBodyComponent> _playerRigidBodyComponentPool;
+        private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
+        private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
+        private EcsPool<BoxColliderComponent> _enemyBoxColliderComponentPool;
 
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _filter = world.Filter<IsPlayerComponent>().Inc<PrefabComponent>().End();
+            _filter = world.Filter<IsEnemyComponent>().Inc<PrefabComponent>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
-            _playerStartPositionComponentPool = world.GetPool<PlayerStartPositionComponent>();
-            _playerBoxColliderComponentPool = world.GetPool<PlayerBoxColliderComponent>();
-            _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
+            _enemyStartPositionComponentPool = world.GetPool<EnemyStartPositionComponent>();
+            _enemyStartRotationComponentPool = world.GetPool<EnemyStartRotationComponent>();
+            _enemyBoxColliderComponentPool = world.GetPool<BoxColliderComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -31,17 +32,17 @@ namespace MSuhininTestovoe.B2B
             {
                 ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
-                ref PlayerStartPositionComponent playerPosition = ref _playerStartPositionComponentPool.Get(entity);
-                ref PlayerRigidBodyComponent playerRigidBodyComponent = ref _playerRigidBodyComponentPool.Add(entity);
-                ref PlayerBoxColliderComponent playerBoxColliderComponent = ref _playerBoxColliderComponentPool.Add(entity);
+                ref EnemyStartPositionComponent enemyPosition = ref _enemyStartPositionComponentPool.Get(entity);
+                ref EnemyStartRotationComponent enemyRotation = ref _enemyStartRotationComponentPool.Get(entity);
+                ref BoxColliderComponent enemyBoxColliderComponent = ref _enemyBoxColliderComponentPool.Add(entity);
 
                 GameObject gameObject = Object.Instantiate(prefabComponent.Value);
                 transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
-                gameObject.transform.position = playerPosition.Value;
+                gameObject.transform.position = enemyPosition.Value;
+                gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value); 
                 gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
                 gameObject.GetComponent<IActor>().AddEntity(entity);
-                playerBoxColliderComponent.PlayerCollider = gameObject.GetComponent<BoxCollider>();
-                playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody2D>();
+                enemyBoxColliderComponent.ColliderValue = gameObject.GetComponent<BoxCollider>();
                _prefabPool.Del(entity);
             }
         }

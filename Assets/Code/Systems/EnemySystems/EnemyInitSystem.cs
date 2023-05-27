@@ -9,41 +9,44 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
-        private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
-        private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
+        private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool; 
+        private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool; 
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<PlayerInputComponent> _playerInputComponentPool;
+        private EcsPool<EnemySecutityZoneComponent> _enemySecutityZoneComponentPool;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsPlayerComponent>().Inc<ScriptableObjectComponent>().End();
+            _filter = _world.Filter<IsEnemyComponent>().Inc<ScriptableObjectComponent>().End();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
-            _playerStartPositionComponentPool = _world.GetPool<PlayerStartPositionComponent>();
-            _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
+            _enemyStartPositionComponentPool = _world.GetPool<EnemyStartPositionComponent>();
+            _enemyStartRotationComponentPool = _world.GetPool<EnemyStartRotationComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
-            _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
+            _enemySecutityZoneComponentPool = _world.GetPool<EnemySecutityZoneComponent>();
         }
 
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
             {
-                if (_scriptableObjectPool.Get(entity).Value is StaticPlayerData dataInit)
+                if (_scriptableObjectPool.Get(entity).Value is EnemyData dataInit)
                 {
                     ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                    loadPrefabFromPool.Value = dataInit.Player;
+                    loadPrefabFromPool.Value = dataInit.EnemyPrefab;
 
-                    ref PlayerStartPositionComponent playerStartPositionComponent =
-                        ref _playerStartPositionComponentPool.Add(entity);
-                    playerStartPositionComponent.Value = dataInit.StartPosition;
+                    ref EnemyStartPositionComponent enemyStartPositionComponent =
+                        ref _enemyStartPositionComponentPool.Add(entity);
+                    enemyStartPositionComponent.Value = dataInit.StartPositions[0]; 
+                    
+                    ref EnemyStartRotationComponent enemyStartRotationComponent =
+                        ref _enemyStartRotationComponentPool.Add(entity);
+                    enemyStartRotationComponent.Value = dataInit.StartRotation[0];
 
-                    ref SpeedVectorComponent speedVectorComponent = ref _speedVectorComponentPool.Add(entity);
-                    speedVectorComponent.Value = new Vector2(dataInit.MoveSpeed,dataInit.JumpSpeed);
+                    ref EnemySecutityZoneComponent securityZoneComponent = ref _enemySecutityZoneComponentPool.Add(entity);
+                    securityZoneComponent.distanceValue = dataInit.SecurityZoneDistance;
 
                     _transformComponentPool.Add(entity);
-                    _playerInputComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);
