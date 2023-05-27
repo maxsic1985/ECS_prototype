@@ -1,4 +1,5 @@
 ﻿using Leopotam.EcsLite;
+using LeopotamGroup.Globals;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,11 +13,13 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
         private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
         private EcsPool<BoxColliderComponent> _enemyBoxColliderComponentPool;
+        private IPoolService _poolService;
 
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
+            _poolService = Service<IPoolService>.Get();
             _filter = world.Filter<IsEnemyComponent>().Inc<PrefabComponent>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
@@ -36,13 +39,14 @@ namespace MSuhininTestovoe.B2B
                 ref EnemyStartRotationComponent enemyRotation = ref _enemyStartRotationComponentPool.Get(entity);
                 ref BoxColliderComponent enemyBoxColliderComponent = ref _enemyBoxColliderComponentPool.Add(entity);
 
-                GameObject gameObject = Object.Instantiate(prefabComponent.Value);
-                transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
-                gameObject.transform.position = enemyPosition.Value;
-                gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value); 
-                gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
-                gameObject.GetComponent<IActor>().AddEntity(entity);
-                enemyBoxColliderComponent.ColliderValue = gameObject.GetComponent<BoxCollider>();
+                //GameObject gameObject = Object.Instantiate(prefabComponent.Value);
+                GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+                transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
+                pooled.gameObject.transform.position = enemyPosition.Value;
+                pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value); 
+                pooled.gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
+                pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
+                enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
                _prefabPool.Del(entity);
             }
         }

@@ -2,6 +2,6 @@
 {
     public enum GameObjectsTypeId
     {
-        PlatformWithSteps = 101,
+        Enemy = 3,
     } 
 }
