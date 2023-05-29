@@ -1,4 +1,5 @@
 ﻿using LeopotamGroup.Globals;
+using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -17,7 +18,8 @@ namespace MSuhininTestovoe.B2B
 
         private void ReturnToPool()
         {
-            _poolService.Return(gameObject);
+           Debug.Log("enemy handlers");
+            //_poolService.Return(gameObject);
         }
     }
 }

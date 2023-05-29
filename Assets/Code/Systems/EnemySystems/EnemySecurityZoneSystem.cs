@@ -8,9 +8,11 @@ namespace MSuhininTestovoe.B2B
     public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _world;
-        private EcsPool<PlayerInputComponent> _playerInputComponentPool;
+        private EcsPool<TransformComponent> _playerTransformComponentPool;
         private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
-      //  private readonly JoystickService _joystick;
+        private EcsPool<EnemyPathfindingComponent> _enemyPathfindingComponenPool;
+        private PlayerSharedData _sharedData;
+
         readonly EcsCustomInject<JoystickInputView> _joystick = default;
         private int _entity;
         private EcsFilter _filter;
@@ -18,30 +20,37 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsPlayerComponent>()
-                .Inc<TransformComponent>()
+            _filter = systems.GetWorld().Filter<HitComponent>()
+                .Inc<IsHitPlayerComponent>()
+               // .Inc<IsPlayerComponent>()
+             //   .Inc<TransformComponent>()
+             //   .Inc<EnemyPathfindingComponent>()
+
                 .End();
-            _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
+
+            _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
+
+            _playerTransformComponentPool = _world.GetPool<TransformComponent>();
             _isPlayerControlComponent = _world.GetPool<IsPlayerControlComponent>();
-     
+            _enemyPathfindingComponenPool = _world.GetPool<EnemyPathfindingComponent>();
+
         }
 
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
             {
-                ref PlayerInputComponent playerInputComponent = ref _playerInputComponentPool.Get(entity);
-                playerInputComponent.Horizontal = _joystick.Value.Horizontal;
-                playerInputComponent.Vertical = _joystick.Value.Vertical;
+           //     ref TransformComponent playerInputComponent = ref _playerTransformComponentPool.Get(entity);
+                ref EnemyPathfindingComponent enemyPathfindingComponent = ref _enemyPathfindingComponenPool.Add(entity);
+                if (_enemyPathfindingComponenPool.Has(entity))
+                {
+                ref EnemyPathfindingComponent enemyPathfindingComponent2 = ref _enemyPathfindingComponenPool.Get(entity);
+                enemyPathfindingComponent2.AIDestinationSetter.target = _sharedData.GetPlayerCharacteristic.Transform;
+                    
+                }
+                systems.GetWorld().DelEntity(entity);
 
-                if (_joystick.Value.IsControl && !_isPlayerControlComponent.Has(entity))
-                {
-                    ref IsPlayerControlComponent playerIsControllComponent = ref _isPlayerControlComponent.Add(entity);
-                }
-                else if(!_joystick.Value.IsControl)
-                {
-                    _isPlayerControlComponent.Del(entity);
-                }
+
             }
         }
     }

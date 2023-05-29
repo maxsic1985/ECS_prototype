@@ -17,12 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 72e78da819b2a43729bb4f83f8e53a21
   m_SerializeEntries:
-  - m_GUID: b6ab33585f42241aca3e70b52a92973a
-    m_Address: PlatformWithoutSteps
+  - m_GUID: 75629682cab1a4bae8096c9b456fd7dd
+    m_Address: Enemy
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 75629682cab1a4bae8096c9b456fd7dd
-    m_Address: New PoolData.asset
+  - m_GUID: 23e1be9ffa7d640419787bc2871db47d
+    m_Address: EnemyData
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

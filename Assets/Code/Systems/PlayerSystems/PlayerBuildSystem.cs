@@ -38,7 +38,7 @@ namespace MSuhininTestovoe.B2B
                 GameObject gameObject = Object.Instantiate(prefabComponent.Value);
                 transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
                 gameObject.transform.position = playerPosition.Value;
-                gameObject.GetComponentInChildren<CollisionCheckerView>().EcsWorld = ecsWorld;
+                gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
                 gameObject.GetComponent<IActor>().AddEntity(entity);
                 boxColliderComponent.ColliderValue = gameObject.GetComponent<BoxCollider>();
                 playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody2D>();

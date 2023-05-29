@@ -11,7 +11,7 @@ namespace MSuhininTestovoe.B2B
         public EcsWorld EcsWorld { get; set; }
 
         
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out IActor otherActor))
             {
@@ -20,7 +20,7 @@ namespace MSuhininTestovoe.B2B
         }
 
         
-        private void OnTriggerEnter(Collider otherCollider)
+        private void OnTriggerEnter2D(Collider2D otherCollider)
         {
             if (otherCollider.gameObject.TryGetComponent(out IActor otherActor))
             {
@@ -31,12 +31,13 @@ namespace MSuhininTestovoe.B2B
 
         private void CollisionHandle(IActor otherActor)
         {
+            
             int hit = EcsWorld.NewEntity();
             EcsPool<HitComponent> hitPool = EcsWorld.GetPool<HitComponent>();
             hitPool.Add(hit);
             ref HitComponent hitComponent = ref hitPool.Get(hit);
 
-            hitComponent.FirstEntity = Actor.Entity;
+          //  hitComponent.FirstEntity = Actor.Entity;
             hitComponent.OtherEntity = otherActor.Entity;
 
             switch (otherActor)
@@ -54,9 +55,14 @@ namespace MSuhininTestovoe.B2B
                     break;
 
                 case EnemyActor:
-                    Debug.Log("Is Wrench Actor");
+                    Debug.Log("Is Enemy Actor");
                     EcsPool<IsHitWrenchComponent> hitWrenchPool = EcsWorld.GetPool<IsHitWrenchComponent>();
                     hitWrenchPool.Add(hit);
+                    break;
+                case PlayerActor:
+                    Debug.Log("Is Player Actor");
+                    EcsPool<IsHitPlayerComponent> hitPlayerPool = EcsWorld.GetPool<IsHitPlayerComponent>();
+                    hitPlayerPool.Add(hit);
                     break;
 
                 default: break;

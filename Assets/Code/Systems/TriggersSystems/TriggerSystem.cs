@@ -10,20 +10,20 @@ namespace MSuhininTestovoe.B2B
     public class TriggerSystem : IEcsInitSystem, IEcsRunSystem
     {
         private PlayerSharedData _sharedData;
-        private EcsFilter hitCoinsFilter;
-        private EcsFilter hitPillarsFilter;
-        private EcsFilter hitWrenchFilter;
+       // private EcsFilter hitCoinsFilter;
+      ///  private EcsFilter hitPillarsFilter;
+        private EcsFilter hitPlayerFilter;
 
-        [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
-        [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
-        [EcsUguiNamed(UIConstants.KEY_LBL)] readonly TextMeshProUGUI _keyslabel = default;
+      //  [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
+      //  [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
+       // [EcsUguiNamed(UIConstants.KEY_LBL)] readonly TextMeshProUGUI _keyslabel = default;
 
 
         public void Init(IEcsSystems systems)
         {
-            hitCoinsFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitCoinsComponent>().End();
-            hitPillarsFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitPillarComponent>().End();
-            hitWrenchFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitWrenchComponent>().End();
+          //  hitCoinsFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitCoinsComponent>().End();
+         //   hitPillarsFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitPillarComponent>().End();
+            hitPlayerFilter = systems.GetWorld().Filter<HitComponent>().Inc<IsHitPlayerComponent>().End();
 
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             SetInitValues();
@@ -32,35 +32,25 @@ namespace MSuhininTestovoe.B2B
         
         private void SetInitValues()
         {
-            _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
+         //   _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
         }
 
 
         public void Run(IEcsSystems systems)
         {
             GetTriggers(systems,
-                hitCoinsFilter,
-                hitPillarsFilter, 
-                hitWrenchFilter);
+             //   hitCoinsFilter,
+             //   hitPillarsFilter, 
+                hitPlayerFilter);
         }
 
         
-        private void GetTriggers(IEcsSystems systems, EcsFilter hitCoinsFilter, EcsFilter hitPillarsFilter,EcsFilter hitWrenchFilter)
+        private void GetTriggers(IEcsSystems systems,EcsFilter hitWrenchFilter)
         {
-            foreach (var hitEntity in hitPillarsFilter)
+            foreach (var hitEntity in hitPlayerFilter)
             {
-                // Add HitSound
-                AddHitSoundComponent(systems, SoundsEnumType.Lamp);
-                //
-
-                // Change Music
-                systems.GetWorld()
-                .GetPool<IsSwitchMusicComponent>()
-                .Add(SoundMusicSwitchSystem.musicSourceEntity);
-                //
-
+              Debug.Log("set ai path");
                 _sharedData.GetPlayerCharacteristic.GetLives.AddLives(-1);
-                _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
                 systems.GetWorld().DelEntity(hitEntity);
             }
         }

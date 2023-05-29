@@ -17,10 +17,17 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  CountForInstantiate: 3
   StartPositions:
   - {x: 0, y: 0, z: 0}
-  - {x: 5, y: 1.5, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -3, y: 2, z: 0}
+  - {x: 3, y: -1, z: 0}
   StartRotation:
+  - {x: 0, y: 180, z: 0}
+  - {x: 0, y: 180, z: 0}
+  - {x: 0, y: 180, z: 0}
   - {x: 0, y: 180, z: 0}
   - {x: 0, y: 180, z: 0}
   SecurityZoneDistance: 10

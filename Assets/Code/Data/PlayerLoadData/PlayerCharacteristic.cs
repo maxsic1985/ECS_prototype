@@ -15,6 +15,8 @@ namespace MSuhininTestovoe.B2B
         [SerializeField] private float _baseSpeed;
         [SerializeField] private int _baseScore;
         [SerializeField] private int _currentScore;
+        [SerializeField] private Transform _transform;
+        
 
         [SerializeField] private PlayerLivesCharacteristic _playerLivesCharacteristic;
 
@@ -22,6 +24,8 @@ namespace MSuhininTestovoe.B2B
 
         public float Speed => _baseSpeed;
 
+        public Transform Transform=>_transform;
+        
         public PlayerCharacteristic(PlayerCharacteristic playerCharacteristic)
         {
             _id = playerCharacteristic._id;
