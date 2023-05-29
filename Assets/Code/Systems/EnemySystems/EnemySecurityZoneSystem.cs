@@ -1,4 +1,5 @@
-﻿using Leopotam.EcsLite;
+﻿using LeoEcsPhysics;
+using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using LeopotamGroup.Globals;
 using UnityEngine;
@@ -35,23 +36,35 @@ namespace MSuhininTestovoe.B2B
             _enemyPathfindingComponenPool = _world.GetPool<EnemyPathfindingComponent>();
 
         }
-
-        public void Run(IEcsSystems systems)
+        public void Run(IEcsSystems ecsSystems)
         {
-            foreach (int entity in _filter)
+            var filter = ecsSystems.GetWorld().Filter<OnTriggerEnter2DEvent>().End();
+            var pool = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
+        
+            foreach (var entity in filter)
             {
-           //     ref TransformComponent playerInputComponent = ref _playerTransformComponentPool.Get(entity);
-                ref EnemyPathfindingComponent enemyPathfindingComponent = ref _enemyPathfindingComponenPool.Add(entity);
-                if (_enemyPathfindingComponenPool.Has(entity))
-                {
-                ref EnemyPathfindingComponent enemyPathfindingComponent2 = ref _enemyPathfindingComponenPool.Get(entity);
-                enemyPathfindingComponent2.AIDestinationSetter.target = _sharedData.GetPlayerCharacteristic.Transform;
-                    
-                }
-                systems.GetWorld().DelEntity(entity);
+                ref var eventData = ref pool.Get(entity);
 
-
+              Debug.Log(eventData.collider2D.gameObject);
             }
         }
+
+        // public void Run(IEcsSystems systems)
+        // {
+        //     foreach (int entity in _filter)
+        //     {
+        //    //     ref TransformComponent playerInputComponent = ref _playerTransformComponentPool.Get(entity);
+        //         ref EnemyPathfindingComponent enemyPathfindingComponent = ref _enemyPathfindingComponenPool.Add(entity);
+        //         if (_enemyPathfindingComponenPool.Has(entity))
+        //         {
+        //         ref EnemyPathfindingComponent enemyPathfindingComponent2 = ref _enemyPathfindingComponenPool.Get(entity);
+        //         enemyPathfindingComponent2.AIDestinationSetter.target = _sharedData.GetPlayerCharacteristic.Transform;
+        //             
+        //         }
+        //         systems.GetWorld().DelEntity(entity);
+        //
+        //
+        //     }
+        // }
     }
 }

@@ -1,6 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Unity.Ugui;
+using LeoEcsPhysics;
 using UnityEngine;
 
 
@@ -23,6 +24,7 @@ namespace MSuhininTestovoe.B2B
 
             var world = new EcsWorld();
             _systems = new EcsSystems(world, shared);
+            EcsPhysicsEvents.ecsWorld = world;
 
             new InitializeAllSystem(_systems, poolService);
 
