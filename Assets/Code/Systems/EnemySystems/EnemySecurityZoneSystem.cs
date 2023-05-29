@@ -22,13 +22,6 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = systems.GetWorld().Filter<HitComponent>()
-                .Inc<IsHitPlayerComponent>()
-                // .Inc<IsPlayerComponent>()
-                //   .Inc<TransformComponent>()
-                //   .Inc<EnemyPathfindingComponent>()
-                .End();
-
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
             _playerTransformComponentPool = _world.GetPool<TransformComponent>();
@@ -48,43 +41,16 @@ namespace MSuhininTestovoe.B2B
                 ref var eventData = ref pool.Get(entity);
 
                 Debug.Log(eventData.senderGameObject.gameObject);
-                if (eventData.senderGameObject.GetComponent<PlayerActor>() ==null) return;
-                if (eventData.collider2D.GetComponent<EnemyActor>() ==null) return;
+                if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+                if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
                 var pf = eventData.collider2D.GetComponent<AIDestinationSetter>();
-               var ent= eventData.collider2D.GetComponent<EnemyActor>().Entity; 
-               ref EnemyPathfindingComponent enemyPathfindingComponent =
-                           ref _enemyPathfindingComponenPool.Add(entity);
+                var ent = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                ref EnemyPathfindingComponent enemyPathfindingComponent =
+                    ref _enemyPathfindingComponenPool.Add(entity);
                 var target = eventData.senderGameObject.transform;
 
                 pf.target = target;
-                //  systems.GetWorld().DelEntity(entity);
-                // ref TransformComponent playerInputComponent = ref _playerTransformComponentPool.Get(entity);
-                // if (_enemyPathfindingComponenPool.Has(entity))
-                // {
-                //     ref EnemyPathfindingComponent enemyPathfindingComponent =
-                //         ref _enemyPathfindingComponenPool.Get(entity);
-                //     enemyPathfindingComponent.AIDestinationSetter.target =
-                //         _sharedData.GetPlayerCharacteristic.Transform;
-                // }
             }
         }
-
-        // public void Run(IEcsSystems systems)
-        // {
-        //     foreach (int entity in _filter)
-        //     {
-        //    //     ref TransformComponent playerInputComponent = ref _playerTransformComponentPool.Get(entity);
-        //         ref EnemyPathfindingComponent enemyPathfindingComponent = ref _enemyPathfindingComponenPool.Add(entity);
-        //         if (_enemyPathfindingComponenPool.Has(entity))
-        //         {
-        //         ref EnemyPathfindingComponent enemyPathfindingComponent2 = ref _enemyPathfindingComponenPool.Get(entity);
-        //         enemyPathfindingComponent2.AIDestinationSetter.target = _sharedData.GetPlayerCharacteristic.Transform;
-        //             
-        //         }
-        //         systems.GetWorld().DelEntity(entity);
-        //
-        //
-        //     }
-        // }
     }
 }
