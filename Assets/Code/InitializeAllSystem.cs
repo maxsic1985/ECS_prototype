@@ -10,7 +10,6 @@ namespace MSuhininTestovoe.B2B
                 .Add(new InitializeServiceSystem(poolService))
                 .Add(new LoadPrefabSystem())
                 .Add(new LoadDataByNameSystem());
-             //   .Add(new TriggerSystem());
 
             new CommonSystems(systems);
             new PlayerSystems(systems);

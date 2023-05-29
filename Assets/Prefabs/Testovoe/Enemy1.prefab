@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 5437013067858359902}
   - component: {fileID: 6461667825126839884}
   - component: {fileID: 5200033990266884483}
-  - component: {fileID: 1003072649061337254}
   - component: {fileID: -6556014578854262673}
   m_Layer: 0
   m_Name: Enemy1
@@ -434,13 +433,13 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 1
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
-    sensitivity: 10
+    sensitivity: 20
     maximumInterval: 2
-    visualizeSensitivity: 0
+    visualizeSensitivity: 1
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
@@ -451,18 +450,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &1003072649061337254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087527289324509467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3de3a9213565c554ebb49c957cd37779, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6556014578854262673
 MonoBehaviour:
   m_ObjectHideFlags: 0

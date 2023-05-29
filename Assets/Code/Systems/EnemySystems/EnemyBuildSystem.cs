@@ -51,7 +51,7 @@ namespace MSuhininTestovoe.B2B
                         pooled.gameObject.GetComponent<AIDestinationSetter>();
                     pooled.gameObject.transform.position = enemyPosition.Value[j];
                     pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value[j]);
-                    pooled.gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
+                 //   pooled.gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
                     pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
                     enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
                 }
