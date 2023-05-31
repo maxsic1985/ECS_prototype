@@ -1,5 +1,6 @@
 ﻿using LeoEcsPhysics;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.ExtendedSystems;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -12,9 +13,9 @@ namespace MSuhininTestovoe.B2B
                 .Add(new EnemyInitSystem())
                 .Add(new EnemyBuildSystem())
                 .Add(new EnemySecurityZoneSystem())
-                .DelHerePhysics();
-            //  .Add(new EnemyAtackSystem());
-
+                .DelHere<OnTriggerEnter2DEvent>()
+                .Add(new EnemyAtackSystem())
+                .DelHere<OnTriggerStay2DEvent>();
         }
     }
 }

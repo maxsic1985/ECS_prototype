@@ -29,7 +29,7 @@ namespace MSuhininTestovoe.B2B
 
         public int UpdateLives(int value)
         {
-            return _currentLives = value;
+            return _currentLives =_currentLives + value;
         }
 
         public int AddLives(int value)

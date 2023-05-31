@@ -55,7 +55,7 @@ namespace MSuhininTestovoe.B2B
                 {
                     worlds.Value.Destroy();
                 }
-
+                EcsPhysicsEvents.ecsWorld = null;
                 _systems.GetWorld().Destroy();
                 _systems = null;
             }

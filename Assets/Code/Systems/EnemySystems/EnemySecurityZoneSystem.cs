@@ -1,6 +1,7 @@
 ﻿using LeoEcsPhysics;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Leopotam.EcsLite.ExtendedSystems;
 using LeopotamGroup.Globals;
 using Pathfinding;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsWorld _world;
         private EcsPool<TransformComponent> _playerTransformComponentPool;
-        private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
+        private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
         private EcsPool<EnemyPathfindingComponent> _enemyPathfindingComponenPool;
         private PlayerSharedData _sharedData;
 
@@ -22,34 +23,40 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
+            _filter = _world.Filter<OnTriggerEnter2DEvent>()
+                .Exc<EnemyPathfindingComponent>()
+                .Exc<EnemyIsFollowingComponent>()
+                .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
             _playerTransformComponentPool = _world.GetPool<TransformComponent>();
-            _isPlayerControlComponent = _world.GetPool<IsPlayerControlComponent>();
+            _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _enemyPathfindingComponenPool = _world.GetPool<EnemyPathfindingComponent>();
         }
 
         public void Run(IEcsSystems ecsSystems)
         {
-            var filter = ecsSystems.GetWorld().Filter<OnTriggerEnter2DEvent>()
-                .Exc<EnemyPathfindingComponent>()
-                .End();
             var pool = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
 
-            foreach (var entity in filter)
+            foreach (var entity in _filter)
             {
                 ref var eventData = ref pool.Get(entity);
 
-                Debug.Log(eventData.senderGameObject.gameObject);
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
                 if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
-                var pf = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                var ent = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                ref EnemyPathfindingComponent enemyPathfindingComponent =
-                    ref _enemyPathfindingComponenPool.Add(entity);
+                var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
+                var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                if (!_isEnemyAtackingComponentPool.Has(enemyEntity))
+                {
+                    ref EnemyIsFollowingComponent enemyIsFollowingComponent =
+                        ref _isEnemyAtackingComponentPool.Add(enemyEntity);
+                }
+
+                //  ref EnemyPathfindingComponent enemyPathfindingComponent =
+                //     ref _enemyPathfindingComponenPool.Add(entity);
                 var target = eventData.senderGameObject.transform;
 
-                pf.target = target;
+                aiDestinationSetter.target = target;
             }
         }
     }

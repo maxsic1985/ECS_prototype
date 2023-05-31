@@ -1,3 +1,4 @@
+using LeoEcsPhysics;
 using Leopotam.EcsLite;
 
 namespace MSuhininTestovoe.B2B
@@ -14,6 +15,8 @@ namespace MSuhininTestovoe.B2B
             new CommonSystems(systems);
             new PlayerSystems(systems);
             new EnemySystems(systems);
+            
+          
             
          //   new CameraSystems(systems);
         //    new MenuSystems(systems);
