@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using LeoEcsPhysics;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.ExtendedSystems;
+using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
+using TMPro;
 using UniRx;
 using UnityEngine;
 
@@ -10,18 +13,21 @@ namespace MSuhininTestovoe.B2B
 {
     public class EnemyAtackSystem : IEcsInitSystem, IEcsRunSystem
     {
+        private List<IDisposable> _disposables = new List<IDisposable>();
         private EcsFilter _playerFilter;
         private EcsFilter filterTrigger;
         private EcsFilter filterExitTrigger;
 
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
+        private EcsPool<IsEnemyAtackComponent> _isEnemyAtackingComponentPool;
         private EcsPool<OnTriggerStay2DEvent> _onTriggerStay2DEventPool;
         private EcsPool<OnTriggerExit2DEvent> _onTriggerExit2DEventPool;
         private ITimeService _timeService;
         private PlayerSharedData _sharedData;
         private Vector3 playerPosition;
         private bool fix = false;
+        
+        [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
 
         public void Init(IEcsSystems systems)
         {
@@ -34,9 +40,11 @@ namespace MSuhininTestovoe.B2B
                 .Inc<EnemyIsFollowingComponent>()
                 .End();
             filterTrigger = systems.GetWorld().Filter<OnTriggerStay2DEvent>().End();
-            filterExitTrigger = systems.GetWorld().Filter<OnTriggerExit2DEvent>().End();
+            filterExitTrigger = systems.GetWorld().Filter<OnTriggerExit2DEvent>()
+                .Inc<IsEnemyComponent>()
+                .End();
 
-            _isEnemyAtackingComponentPool = world.GetPool<EnemyIsFollowingComponent>();
+            _isEnemyAtackingComponentPool = world.GetPool<IsEnemyAtackComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
             _timeService = Service<ITimeService>.Get();
         }
@@ -48,18 +56,36 @@ namespace MSuhininTestovoe.B2B
                 ref var eventData = ref _onTriggerStay2DEventPool.Get(entity);
                 if (eventData.collider2D.GetComponent<PlayerActor>() && !fix)
                 {
+                    ref IsEnemyAtackComponent atavk = ref _isEnemyAtackingComponentPool.Add(entity);
                     Debug.Log("here");
-                    Observable.Timer(TimeSpan.FromMilliseconds(3000)).Where(_ => fix).Subscribe(x => { Attack(); });
-                    fix = true;
+                  //  Observable.Timer(TimeSpan.FromMilliseconds(3000)).Where(_ => fix).Subscribe(x => { Attack(); }).AddTo(_disposables);
+                  //  fix = true;
                 }
             }
 
-            foreach (int entity in filterExitTrigger)
-            {
-              //  ref var eventData = ref _onTriggerExit2DEventPool.Get(entity);
-              systems.DelHere<OnTriggerStay2DEvent>();
+            // foreach (int entity in filterExitTrigger)
+            // {
+            //     ref var eventData = ref _onTriggerExit2DEventPool.Get(entity);
+            //   
+            //     if (eventData.collider2D.GetComponent<PlayerActor>())
+            //     {
+            //         _onTriggerStay2DEventPool.Del(entity);
+            //         foreach (var disposable in _disposables)
+            //         
+            //         {
+            //             disposable.Dispose();
+            //         }
+            //         
+            //         _disposables.Clear();
+            //     }
+            //
+            //     //  ref var eventData = ref _onTriggerExit2DEventPool.Get(entity);
+            //     //   systems.DelHere<OnTriggerStay2DEvent>();
+            //     // systems.DelHere<OnTriggerExit2DEvent>();
+            //
+            // }
 
-            }
+            _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
 
 //             foreach (int entity in _playerFilter)
 //             {

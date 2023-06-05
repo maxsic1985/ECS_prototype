@@ -13,9 +13,8 @@ namespace MSuhininTestovoe.B2B
                 .Add(new EnemyInitSystem())
                 .Add(new EnemyBuildSystem())
                 .Add(new EnemySecurityZoneSystem())
-                .DelHere<OnTriggerEnter2DEvent>()
                 .Add(new EnemyAtackSystem())
-                .DelHere<OnTriggerStay2DEvent>();
+                .DelHerePhysics();
         }
     }
 }
