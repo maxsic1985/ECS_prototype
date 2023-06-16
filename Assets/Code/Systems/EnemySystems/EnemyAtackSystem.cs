@@ -57,33 +57,34 @@ namespace MSuhininTestovoe.B2B
                 if (eventData.collider2D.GetComponent<PlayerActor>() && !fix)
                 {
                     ref IsEnemyAtackComponent atavk = ref _isEnemyAtackingComponentPool.Add(entity);
-                    Debug.Log("here");
-                  //  Observable.Timer(TimeSpan.FromMilliseconds(3000)).Where(_ => fix).Subscribe(x => { Attack(); }).AddTo(_disposables);
-                  //  fix = true;
+                    Observable.Timer(TimeSpan.FromMilliseconds(3000)).Where(_ => fix).Subscribe(x => { Attack(); }).AddTo(_disposables);
+                    fix = true;
+                    _onTriggerStay2DEventPool.Del(entity);
                 }
             }
 
-            // foreach (int entity in filterExitTrigger)
-            // {
-            //     ref var eventData = ref _onTriggerExit2DEventPool.Get(entity);
-            //   
-            //     if (eventData.collider2D.GetComponent<PlayerActor>())
-            //     {
-            //         _onTriggerStay2DEventPool.Del(entity);
-            //         foreach (var disposable in _disposables)
-            //         
-            //         {
-            //             disposable.Dispose();
-            //         }
-            //         
-            //         _disposables.Clear();
-            //     }
-            //
-            //     //  ref var eventData = ref _onTriggerExit2DEventPool.Get(entity);
-            //     //   systems.DelHere<OnTriggerStay2DEvent>();
-            //     // systems.DelHere<OnTriggerExit2DEvent>();
-            //
-            // }
+            foreach (int entity in filterExitTrigger)
+            {
+                ref var eventData2 = ref _onTriggerExit2DEventPool.Get(entity);
+                
+                if (eventData2.collider2D.GetComponent<PlayerActor>())
+                {
+                    _onTriggerStay2DEventPool.Del(entity);
+                    foreach (var disposable in _disposables)
+                    {
+                        disposable.Dispose();
+                    }
+                    
+                    Debug.Log("here");
+                    systems.DelHere<OnTriggerStay2DEvent>();
+                    systems.DelHere<OnTriggerExit2DEvent>();
+            
+                    systems.DelHerePhysics();
+                    _disposables.Clear();
+                }
+            
+            
+            }
 
             _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
 
