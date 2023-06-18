@@ -1,4 +1,5 @@
-﻿using LeoEcsPhysics;
+﻿using System;
+using LeoEcsPhysics;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
@@ -18,35 +19,35 @@ namespace MSuhininTestovoe.B2B
 
         readonly EcsCustomInject<JoystickInputView> _joystick = default;
         private int _entity;
-        private EcsFilter _filterEnter;
-        private EcsFilter _filterExit;
+        private EcsFilter _filterEnterToTrigger;
+        private EcsFilter _filterExitFromTrigger;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filterEnter = _world.Filter<OnTriggerEnter2DEvent>()
+            _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
                 .Exc<EnemyPathfindingComponent>()
                 .Exc<EnemyIsFollowingComponent>()
                 .End();
 
-            _filterExit = _world.Filter<OnTriggerExit2DEvent>()
-                .Inc<EnemyPathfindingComponent>()
+            _filterExitFromTrigger = _world.Filter<OnTriggerExit2DEvent>()
+                //  .Inc<EnemyPathfindingComponent>()
                 .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
             _playerTransformComponentPool = _world.GetPool<TransformComponent>();
-            _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _isReachedComponenPool = _world.GetPool<IsReachedDestanationComponent>();
         }
 
         public void Run(IEcsSystems ecsSystems)
         {
-            var pool = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
+            var poolEnter = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
+            var poolExit = ecsSystems.GetWorld().GetPool<OnTriggerExit2DEvent>();
 
-            foreach (var entity in _filterEnter)
+            foreach (var entity in _filterEnterToTrigger)
             {
-                ref var eventData = ref pool.Get(entity);
+                ref var eventData = ref poolEnter.Get(entity);
 
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
                 if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
@@ -64,14 +65,37 @@ namespace MSuhininTestovoe.B2B
                 var target = eventData.senderGameObject.transform;
                 aiDestinationSetter.target = target;
                 isReacheded.IsRecheded = reached;
+                reached.endReachedDistance = 0.5f;
             }
-            
-            foreach (var entity in _filterExit)
-            {
-               Debug.Log("dell is reach");
 
-                 _isReachedComponenPool.Del(entity);
-              
+            ExitFromTRigger(poolExit);
+        }
+
+        private void ExitFromTRigger(EcsPool<OnTriggerExit2DEvent> poolExit)
+        {
+            foreach (var entity in _filterExitFromTrigger)
+            {
+                Debug.Log("exit");
+                ref var eventData = ref poolExit.Get(entity);
+
+                if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+                if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
+                var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
+                var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                if (_isEnemyAtackingComponentPool.Has(enemyEntity))
+                {
+                    _isEnemyAtackingComponentPool.Del(enemyEntity);
+                    _isReachedComponenPool.Del(entity);
+                }
+
+                var reached = eventData.collider2D.GetComponent<AIPath>();
+
+                aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
+                reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
+                reached.endReachedDistance = Single.PositiveInfinity;
+                reached.reachedEndOfPath = false;
+                reached.endReachedDistance = 0;
+                _isReachedComponenPool.Del(entity);
             }
         }
     }

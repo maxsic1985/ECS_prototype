@@ -16,7 +16,7 @@ namespace MSuhininTestovoe.B2B
         private List<IDisposable> _disposables = new List<IDisposable>();
 
         private EcsFilter filterTrigger;
-        private bool reached;
+        private bool _reachedToPlayer;
 
         private EcsPool<IsReachedDestanationComponent> _isReachedComponentPool;
 
@@ -29,11 +29,13 @@ namespace MSuhininTestovoe.B2B
         {
             EcsWorld world = systems.GetWorld();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
-            filterTrigger = systems.GetWorld().Filter<IsReachedDestanationComponent>().End();
+            filterTrigger = systems.GetWorld().Filter<IsReachedDestanationComponent>()
+             //   .Inc<EnemyIsFollowingComponent>()
+                .End();
             _isReachedComponentPool = world.GetPool<IsReachedDestanationComponent>();
             _timeService = Service<ITimeService>.Get();
 
-                Observable.Interval(TimeSpan.FromMilliseconds(3000)).Where(_=>reached).Subscribe(x => { Debug.Log("Atttack"); })
+                Observable.Interval(TimeSpan.FromMilliseconds(3000)).Where(_=>_reachedToPlayer).Subscribe(x => { Debug.Log("Atttack"); })
                     .AddTo(_disposables);
            
         }
@@ -43,29 +45,11 @@ namespace MSuhininTestovoe.B2B
             foreach (var entity in filterTrigger)
             {
                
-             reached = _isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath;
+             _reachedToPlayer = _isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath;
                 Debug.Log(_isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath);
             }
             _disposables.Clear();
-            //
-            //     foreach (int entity in filterExitTrigger)
-            //     {
-            //         ref var eventData2 = ref _onTriggerExit2DEventPool.Get(entity);
-            //
-            //         if (eventData2.collider2D.GetComponent<PlayerActor>())
-            //         {
-            //            
-            //             _disposables.Clear();
-            //         }
-            //     }
-            //
-            //     _liveslabel.text = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives.ToString();
-            // }
-            //
-            // private void Attack()
-            // {
-            //     _sharedData.GetPlayerCharacteristic.GetLives.UpdateLives(-1);
-            // }
+        
         }
     }
 }
