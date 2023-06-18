@@ -15,6 +15,8 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<TransformComponent> _playerTransformComponentPool;
         private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
         private EcsPool<IsReachedDestanationComponent> _isReachedComponenPool;
+        private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
+
         private PlayerSharedData _sharedData;
 
         readonly EcsCustomInject<JoystickInputView> _joystick = default;
@@ -26,6 +28,7 @@ namespace MSuhininTestovoe.B2B
         {
             _world = systems.GetWorld();
             _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
+                //.Inc<PlayerHealthViewComponent>()
                 .Exc<EnemyPathfindingComponent>()
                 .Exc<EnemyIsFollowingComponent>()
                 .End();
@@ -38,6 +41,8 @@ namespace MSuhininTestovoe.B2B
             _playerTransformComponentPool = _world.GetPool<TransformComponent>();
             _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _isReachedComponenPool = _world.GetPool<IsReachedDestanationComponent>();
+            _playerHealthViewComponentPool = _world.GetPool<PlayerHealthViewComponent>();
+
         }
 
         public void Run(IEcsSystems ecsSystems)
@@ -66,6 +71,12 @@ namespace MSuhininTestovoe.B2B
                 aiDestinationSetter.target = target;
                 isReacheded.IsRecheded = reached;
                 reached.endReachedDistance = 0.5f;
+                
+                
+                ref PlayerHealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Add(entity);
+                playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>().GetComponent<PlayerHealthView>().Value;
+
+                
             }
 
             ExitFromTRigger(poolExit);

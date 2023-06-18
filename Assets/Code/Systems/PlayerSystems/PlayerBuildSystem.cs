@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class PlayerBuildSystem: IEcsInitSystem, IEcsRunSystem
+    public class PlayerBuildSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
@@ -11,6 +11,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
         private EcsPool<BoxColliderComponent> _playerBoxColliderComponentPool;
         private EcsPool<PlayerRigidBodyComponent> _playerRigidBodyComponentPool;
+        private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
 
 
         public void Init(IEcsSystems systems)
@@ -21,6 +22,7 @@ namespace MSuhininTestovoe.B2B
             _transformComponentPool = world.GetPool<TransformComponent>();
             _playerStartPositionComponentPool = world.GetPool<PlayerStartPositionComponent>();
             _playerBoxColliderComponentPool = world.GetPool<BoxColliderComponent>();
+            _playerHealthViewComponentPool = world.GetPool<PlayerHealthViewComponent>();
             _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
         }
 
@@ -34,15 +36,16 @@ namespace MSuhininTestovoe.B2B
                 ref PlayerStartPositionComponent playerPosition = ref _playerStartPositionComponentPool.Get(entity);
                 ref PlayerRigidBodyComponent playerRigidBodyComponent = ref _playerRigidBodyComponentPool.Add(entity);
                 ref BoxColliderComponent boxColliderComponent = ref _playerBoxColliderComponentPool.Add(entity);
+                ref PlayerHealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Get(entity);
 
                 GameObject gameObject = Object.Instantiate(prefabComponent.Value);
                 transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
                 gameObject.transform.position = playerPosition.Value;
-             //   gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
+                playerHealthView.Value = gameObject.GetComponent<PlayerHealthView>().Value;
                 gameObject.GetComponent<IActor>().AddEntity(entity);
                 boxColliderComponent.ColliderValue = gameObject.GetComponent<BoxCollider>();
                 playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody2D>();
-               _prefabPool.Del(entity);
+                _prefabPool.Del(entity);
             }
         }
     }
