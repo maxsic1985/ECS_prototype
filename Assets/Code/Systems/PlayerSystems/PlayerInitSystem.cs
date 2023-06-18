@@ -30,7 +30,7 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (int entity in _filter)
             {
-                if (_scriptableObjectPool.Get(entity).Value is StaticPlayerData dataInit)
+                if (_scriptableObjectPool.Get(entity).Value is PlayerControlData dataInit)
                 {
                     ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
                     loadPrefabFromPool.Value = dataInit.Player;

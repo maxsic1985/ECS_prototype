@@ -2,8 +2,6 @@
 using LeoEcsPhysics;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Leopotam.EcsLite.ExtendedSystems;
-using LeopotamGroup.Globals;
 using Pathfinding;
 using UnityEngine;
 
@@ -12,14 +10,14 @@ namespace MSuhininTestovoe.B2B
     public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _world;
-        private EcsPool<TransformComponent> _playerTransformComponentPool;
         private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
-        private EcsPool<IsReachedDestanationComponent> _isReachedComponenPool;
+        private EcsPool<IsEnemyCanAttackComponent> _isEnemyCanAtackComponenPool;
+        private EcsPool<IsPlayerCanAttackComponent> _isPlayerCanAtackComponenPool;
         private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
 
         private PlayerSharedData _sharedData;
 
-        readonly EcsCustomInject<JoystickInputView> _joystick = default;
+        readonly EcsCustomInject<AttackInputView> _attackInput = default;
         private int _entity;
         private EcsFilter _filterEnterToTrigger;
         private EcsFilter _filterExitFromTrigger;
@@ -38,9 +36,9 @@ namespace MSuhininTestovoe.B2B
                 .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
-            _playerTransformComponentPool = _world.GetPool<TransformComponent>();
             _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
-            _isReachedComponenPool = _world.GetPool<IsReachedDestanationComponent>();
+            _isEnemyCanAtackComponenPool = _world.GetPool<IsEnemyCanAttackComponent>();
+            _isPlayerCanAtackComponenPool = _world.GetPool<IsPlayerCanAttackComponent>();
             _playerHealthViewComponentPool = _world.GetPool<PlayerHealthViewComponent>();
 
         }
@@ -65,8 +63,8 @@ namespace MSuhininTestovoe.B2B
                         ref _isEnemyAtackingComponentPool.Add(enemyEntity);
                 }
 
-                ref IsReachedDestanationComponent isReacheded =
-                    ref _isReachedComponenPool.Add(entity);
+                ref IsEnemyCanAttackComponent isReacheded =
+                    ref _isEnemyCanAtackComponenPool.Add(entity);
                 var target = eventData.senderGameObject.transform;
                 aiDestinationSetter.target = target;
                 isReacheded.IsRecheded = reached;
@@ -77,6 +75,12 @@ namespace MSuhininTestovoe.B2B
                 playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>().GetComponent<PlayerHealthView>().Value;
 
                 
+                ref IsPlayerCanAttackComponent canAtack =
+                    ref _isPlayerCanAtackComponenPool.Add(entity);
+                canAtack.AttackInputView = _attackInput.Value;
+                canAtack.AttackInputView.ShowBtn(true);
+
+
             }
 
             ExitFromTRigger(poolExit);
@@ -96,7 +100,7 @@ namespace MSuhininTestovoe.B2B
                 if (_isEnemyAtackingComponentPool.Has(enemyEntity))
                 {
                     _isEnemyAtackingComponentPool.Del(enemyEntity);
-                    _isReachedComponenPool.Del(entity);
+                    _isEnemyCanAtackComponenPool.Del(entity);
                 }
 
                 var reached = eventData.collider2D.GetComponent<AIPath>();
@@ -106,7 +110,11 @@ namespace MSuhininTestovoe.B2B
                 reached.endReachedDistance = Single.PositiveInfinity;
                 reached.reachedEndOfPath = false;
                 reached.endReachedDistance = 0;
-                _isReachedComponenPool.Del(entity);
+                _isEnemyCanAtackComponenPool.Del(entity);
+                
+                
+                _isPlayerCanAtackComponenPool.Del(entity);
+                _attackInput.Value.ShowBtn(false);
             }
         }
     }

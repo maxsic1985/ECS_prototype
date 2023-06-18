@@ -3,9 +3,9 @@ using UnityEngine.AddressableAssets;
 
 namespace MSuhininTestovoe.B2B
 {
-    [CreateAssetMenu(fileName = nameof(StaticPlayerData),
-        menuName = EditorMenuConstants.CREATE_PLAYER + nameof(StaticPlayerData))]
-    public class StaticPlayerData : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(PlayerControlData),
+        menuName = EditorMenuConstants.CREATE_PLAYER + nameof(PlayerControlData))]
+    public class PlayerControlData : ScriptableObject
     {
         [Header("Prefabs:")]
         public AssetReferenceGameObject Player;

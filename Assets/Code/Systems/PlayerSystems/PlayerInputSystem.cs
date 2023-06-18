@@ -10,7 +10,7 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
         private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
-      //  private readonly JoystickService _joystick;
+  
         readonly EcsCustomInject<JoystickInputView> _joystick = default;
         private int _entity;
         private EcsFilter _filter;

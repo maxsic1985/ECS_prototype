@@ -13,6 +13,7 @@ namespace MSuhininTestovoe.B2B
         private bool _hasInitCompleted;
         [SerializeField] EcsUguiEmitter uguiEmitter;
         [SerializeField] JoystickInputView _joystick;
+        [SerializeField] AttackInputView _attackView;
 
         private async void Start()
         {
@@ -36,6 +37,7 @@ namespace MSuhininTestovoe.B2B
 #endif
                 .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
                 .Inject(_joystick, WorldsNamesConstants.WAREHOUSE)
+                .Inject(_attackView, WorldsNamesConstants.WAREHOUSE)
                 .Init();
 
             _hasInitCompleted = true;

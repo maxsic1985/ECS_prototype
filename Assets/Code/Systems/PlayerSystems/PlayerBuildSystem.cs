@@ -26,7 +26,6 @@ namespace MSuhininTestovoe.B2B
 
         public void Run(IEcsSystems systems)
         {
-            var ecsWorld = systems.GetWorld();
             foreach (int entity in _filter)
             {
                 ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);

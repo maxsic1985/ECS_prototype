@@ -15,7 +15,7 @@ namespace MSuhininTestovoe.B2B
 
         private EcsFilter filterTrigger;
         private bool _reachedToPlayer;
-        private EcsPool<IsReachedDestanationComponent> _isReachedComponentPool;
+        private EcsPool<IsEnemyCanAttackComponent> _isReachedComponentPool;
         private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
         private PlayerSharedData _sharedData;
 
@@ -25,10 +25,10 @@ namespace MSuhininTestovoe.B2B
         {
             EcsWorld world = systems.GetWorld();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
-            filterTrigger = systems.GetWorld().Filter<IsReachedDestanationComponent>()
+            filterTrigger = systems.GetWorld().Filter<IsEnemyCanAttackComponent>()
                 .End();
             _playerHealthViewComponentPool = world.GetPool<PlayerHealthViewComponent>();
-            _isReachedComponentPool = world.GetPool<IsReachedDestanationComponent>();
+            _isReachedComponentPool = world.GetPool<IsEnemyCanAttackComponent>();
 
                 Observable.Interval(TimeSpan.FromMilliseconds(3000)).Where(_=>_reachedToPlayer).Subscribe(x => { Attack(); })
                     .AddTo(_disposables);

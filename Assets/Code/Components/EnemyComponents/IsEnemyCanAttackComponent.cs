@@ -2,7 +2,7 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public struct IsReachedDestanationComponent
+    public struct IsEnemyCanAttackComponent
     {
         public AIPath IsRecheded;
     }
