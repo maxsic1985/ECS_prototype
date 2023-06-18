@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using LeoEcsPhysics;
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
@@ -17,11 +15,8 @@ namespace MSuhininTestovoe.B2B
 
         private EcsFilter filterTrigger;
         private bool _reachedToPlayer;
-
         private EcsPool<IsReachedDestanationComponent> _isReachedComponentPool;
         private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
-
-        private ITimeService _timeService;
         private PlayerSharedData _sharedData;
 
         [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
@@ -31,12 +26,9 @@ namespace MSuhininTestovoe.B2B
             EcsWorld world = systems.GetWorld();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             filterTrigger = systems.GetWorld().Filter<IsReachedDestanationComponent>()
-             //  .Inc<PlayerHealthViewComponent>()
                 .End();
             _playerHealthViewComponentPool = world.GetPool<PlayerHealthViewComponent>();
-
             _isReachedComponentPool = world.GetPool<IsReachedDestanationComponent>();
-            _timeService = Service<ITimeService>.Get();
 
                 Observable.Interval(TimeSpan.FromMilliseconds(3000)).Where(_=>_reachedToPlayer).Subscribe(x => { Attack(); })
                     .AddTo(_disposables);

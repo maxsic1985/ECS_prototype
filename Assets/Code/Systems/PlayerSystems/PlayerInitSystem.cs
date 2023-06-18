@@ -12,7 +12,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
         private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
 
         public void Init(IEcsSystems systems)
@@ -25,7 +24,6 @@ namespace MSuhininTestovoe.B2B
             _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
-            _playerHealthViewComponentPool = _world.GetPool<PlayerHealthViewComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -46,7 +44,6 @@ namespace MSuhininTestovoe.B2B
 
                     _transformComponentPool.Add(entity);
                     _playerInputComponentPool.Add(entity);
-                  _playerHealthViewComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);

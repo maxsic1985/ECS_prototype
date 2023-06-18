@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 
-
 namespace MSuhininTestovoe.B2B
 {
     [Serializable]
@@ -29,12 +28,10 @@ namespace MSuhininTestovoe.B2B
 
         public int UpdateLives(int value)
         {
-            return _currentLives =_currentLives + value;
-        }
-
-        public int AddLives(int value)
-        {
-            return UpdateLives(_currentLives + value);
+            _currentLives = _currentLives + value;
+            if (_currentLives <= 0) return _currentLives = 0;
+            if (_currentLives >= _maxLives) return _currentLives = _maxLives;
+            return _currentLives;
         }
     }
 }
