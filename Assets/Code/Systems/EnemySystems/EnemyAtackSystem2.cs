@@ -16,7 +16,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter filterTrigger;
         private bool _reachedToPlayer;
         private EcsPool<IsEnemyCanAttackComponent> _isReachedComponentPool;
-        private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
+        private EcsPool<HealthViewComponent> _playerHealthViewComponentPool;
         private PlayerSharedData _sharedData;
 
         [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
@@ -27,7 +27,7 @@ namespace MSuhininTestovoe.B2B
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             filterTrigger = systems.GetWorld().Filter<IsEnemyCanAttackComponent>()
                 .End();
-            _playerHealthViewComponentPool = world.GetPool<PlayerHealthViewComponent>();
+            _playerHealthViewComponentPool = world.GetPool<HealthViewComponent>();
             _isReachedComponentPool = world.GetPool<IsEnemyCanAttackComponent>();
 
                 Observable.Interval(TimeSpan.FromMilliseconds(3000)).Where(_=>_reachedToPlayer).Subscribe(x => { Attack(); })
@@ -44,9 +44,9 @@ namespace MSuhininTestovoe.B2B
                 Debug.Log(_isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath);
             
 
-                ref PlayerHealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Get(entity);
+                ref HealthViewComponent healthView = ref _playerHealthViewComponentPool.Get(entity);
                 var currentHealh = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives;
-                playerHealthView.Value.size = new Vector2(currentHealh, 1);
+                healthView.Value.size = new Vector2(currentHealh, 1);
 
             }
             _disposables.Clear();

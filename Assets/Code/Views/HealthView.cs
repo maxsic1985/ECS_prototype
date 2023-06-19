@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public sealed class PlayerHealthView : BaseView
+    public sealed class HealthView : BaseView
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
      

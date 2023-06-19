@@ -2,7 +2,7 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public struct PlayerHealthViewComponent
+    public struct HealthViewComponent
     {
         public SpriteRenderer Value;
       

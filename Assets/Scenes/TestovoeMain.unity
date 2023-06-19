@@ -16737,6 +16737,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2138388756434770362, guid: dcf704e33f000445fb24ac771bc3f47b, type: 3}
   m_PrefabInstance: {fileID: 51407291}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &736044716 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4018605319502677314, guid: dcf704e33f000445fb24ac771bc3f47b, type: 3}
+  m_PrefabInstance: {fileID: 51407291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1de38cafae4cacb15324f1ab186e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &872940328
 GameObject:
   m_ObjectHideFlags: 0
@@ -21642,6 +21653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uguiEmitter: {fileID: 523349845}
   _joystick: {fileID: 218954872}
+  _attackView: {fileID: 736044716}
 --- !u!4 &1519246091
 Transform:
   m_ObjectHideFlags: 0

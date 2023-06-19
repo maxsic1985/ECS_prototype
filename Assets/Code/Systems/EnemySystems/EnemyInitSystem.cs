@@ -15,6 +15,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<EnemySecutityZoneComponent> _enemySecutityZoneComponentPool;
+        private EcsPool<EnemyHealthComponent> _enemyHealthComponentPool;
 
         public void Init(IEcsSystems systems)
         {
@@ -26,6 +27,7 @@ namespace MSuhininTestovoe.B2B
             _enemyStartRotationComponentPool = _world.GetPool<EnemyStartRotationComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _enemySecutityZoneComponentPool = _world.GetPool<EnemySecutityZoneComponent>();
+            _enemyHealthComponentPool = _world.GetPool<EnemyHealthComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -40,6 +42,10 @@ namespace MSuhininTestovoe.B2B
                     ref EnemySecutityZoneComponent securityZoneComponent =
                         ref _enemySecutityZoneComponentPool.Add(entity);
                     securityZoneComponent.distanceValue = dataInit.SecurityZoneDistance;
+                    
+                    ref EnemyHealthComponent enemyHealth =
+                        ref _enemyHealthComponentPool.Add(entity);
+                    enemyHealth.HealthValue = dataInit.Lives;
 
                     
                     SpawnEnemy(entity, dataInit);

@@ -13,20 +13,26 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
         private EcsPool<IsEnemyCanAttackComponent> _isEnemyCanAtackComponenPool;
         private EcsPool<IsPlayerCanAttackComponent> _isPlayerCanAtackComponenPool;
-        private EcsPool<PlayerHealthViewComponent> _playerHealthViewComponentPool;
+        private EcsPool<HealthViewComponent> _playerHealthViewComponentPool;
+        private EcsPool<EnemyHealthComponent> _enemyHealthComponentPool;
+
 
         private PlayerSharedData _sharedData;
 
         readonly EcsCustomInject<AttackInputView> _attackInput = default;
         private int _entity;
+        private EcsFilter _enemyFilter;
         private EcsFilter _filterEnterToTrigger;
         private EcsFilter _filterExitFromTrigger;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
+            
+            _enemyFilter = _world.Filter<IsEnemyComponent>().End();
+            
             _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
-                //.Inc<PlayerHealthViewComponent>()
+               // .Inc<IsPlayerComponent>()
                 .Exc<EnemyPathfindingComponent>()
                 .Exc<EnemyIsFollowingComponent>()
                 .End();
@@ -39,7 +45,8 @@ namespace MSuhininTestovoe.B2B
             _isEnemyAtackingComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _isEnemyCanAtackComponenPool = _world.GetPool<IsEnemyCanAttackComponent>();
             _isPlayerCanAtackComponenPool = _world.GetPool<IsPlayerCanAttackComponent>();
-            _playerHealthViewComponentPool = _world.GetPool<PlayerHealthViewComponent>();
+            _playerHealthViewComponentPool = _world.GetPool<HealthViewComponent>();
+            _enemyHealthComponentPool = _world.GetPool<EnemyHealthComponent>();
 
         }
 
@@ -71,15 +78,24 @@ namespace MSuhininTestovoe.B2B
                 reached.endReachedDistance = 0.5f;
                 
                 
-                ref PlayerHealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Add(entity);
-                playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>().GetComponent<PlayerHealthView>().Value;
+                ref HealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Add(entity);
+                playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>().GetComponent<HealthView>().Value;
 
                 
+                ref HealthViewComponent enemyHealthView = ref _playerHealthViewComponentPool.Add(enemyEntity);
+                enemyHealthView.Value = eventData.collider2D.GetComponent<EnemyActor>().GetComponent<HealthView>().Value;
                 ref IsPlayerCanAttackComponent canAtack =
                     ref _isPlayerCanAtackComponenPool.Add(entity);
                 canAtack.AttackInputView = _attackInput.Value;
                 canAtack.AttackInputView.ShowBtn(true);
 
+                foreach (var enemynativeEntity in _enemyFilter)
+                {
+                    ref EnemyHealthComponent enemyHealth =
+                        ref _enemyHealthComponentPool.Get(enemynativeEntity);
+                  _enemyHealthComponentPool.Copy(enemynativeEntity,entity);
+                }
+                
 
             }
 
@@ -97,11 +113,13 @@ namespace MSuhininTestovoe.B2B
                 if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
                 var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
                 var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                if (_isEnemyAtackingComponentPool.Has(enemyEntity))
-                {
+            //    if (_isEnemyAtackingComponentPool.Has(enemyEntity))
+             //   {
                     _isEnemyAtackingComponentPool.Del(enemyEntity);
                     _isEnemyCanAtackComponenPool.Del(entity);
-                }
+                    _playerHealthViewComponentPool.Del(entity);
+                    _playerHealthViewComponentPool.Del(enemyEntity);
+             //   }
 
                 var reached = eventData.collider2D.GetComponent<AIPath>();
 
@@ -111,7 +129,7 @@ namespace MSuhininTestovoe.B2B
                 reached.reachedEndOfPath = false;
                 reached.endReachedDistance = 0;
                 _isEnemyCanAtackComponenPool.Del(entity);
-                
+               
                 
                 _isPlayerCanAtackComponenPool.Del(entity);
                 _attackInput.Value.ShowBtn(false);
