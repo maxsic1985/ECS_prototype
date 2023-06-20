@@ -15,11 +15,11 @@ namespace MSuhininTestovoe.B2B
             new CommonSystems(systems);
             new PlayerSystems(systems);
             new EnemySystems(systems);
-            
+            new MenuSystems(systems);
+            new DeathSystems(systems);
           
             
          //   new CameraSystems(systems);
-        //    new MenuSystems(systems);
          //   new SoundSystems(systems);
         }
     }

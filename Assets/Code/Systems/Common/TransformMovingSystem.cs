@@ -1,11 +1,13 @@
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
-
+using UnityEngine;
+using UnityEngine.Scripting;
 
 
 namespace MSuhininTestovoe.B2B
 {
-    public sealed class TransformMovingSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class TransformMovingSystem :EcsUguiCallbackSystem, IEcsInitSystem, IEcsRunSystem
         {
             private EcsFilter _filter;
             private EcsPool<PositionComponent> _poolPosition;
@@ -19,6 +21,7 @@ namespace MSuhininTestovoe.B2B
                 _poolPosition = world.GetPool<PositionComponent>();
                 _poolSpeedVector = world.GetPool<SpeedVectorComponent>();
             }
+            
 
             public void Run(IEcsSystems systems)
             {

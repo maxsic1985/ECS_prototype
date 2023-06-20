@@ -27,9 +27,10 @@ namespace MSuhininTestovoe.B2B
             {
                 var timeServise = Service<ITimeService>.Get();
                 timeServise.Resume();
-                _isRestartPool.Del(entity);
                 _sharedData.GetPlayerCharacteristic.LoadInitValue();
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene((int)SceeneType.MAIN);
+                _isRestartPool.Del(entity);
+                Debug.Log("rest");
             }
         }
     }

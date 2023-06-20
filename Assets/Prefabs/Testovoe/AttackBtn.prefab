@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2138388756434770362}
   - component: {fileID: 4183656527005281977}
   - component: {fileID: 5075199109373199519}
-  - component: {fileID: -1775513157239592169}
   - component: {fileID: 3151706012070842284}
   - component: {fileID: 4018605319502677314}
+  - component: {fileID: -1775513157239592169}
   m_Layer: 5
   m_Name: AttackBtn
   m_TagString: Untagged
@@ -79,22 +79,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-1775513157239592169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8880894145165385727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b6b406923f44eb196499bd257618bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _widgetName: Attack
-  _emitter: {fileID: 0}
-  _nameRegistrationType: 0
-  _selectable: {fileID: 3151706012070842284}
 --- !u!114 &3151706012070842284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +136,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackBtn: {fileID: 8880894145165385727}
+--- !u!114 &-1775513157239592169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880894145165385727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b6b406923f44eb196499bd257618bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _widgetName: AttackWidget
+  _emitter: {fileID: 0}
+  _nameRegistrationType: 2
+  _selectable: {fileID: 3151706012070842284}

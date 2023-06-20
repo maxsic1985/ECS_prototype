@@ -19,7 +19,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<HealthViewComponent> _playerHealthViewComponentPool;
         private PlayerSharedData _sharedData;
 
-        [EcsUguiNamed(UIConstants.LIVES_LBL)] readonly TextMeshProUGUI _liveslabel = default;
 
         public void Init(IEcsSystems systems)
         {
@@ -48,6 +47,7 @@ namespace MSuhininTestovoe.B2B
                 var currentHealh = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives;
                 healthView.Value.size = new Vector2(currentHealh, 1);
 
+          //  _isReachedComponentPool.Del(entity);
             }
             _disposables.Clear();
         
