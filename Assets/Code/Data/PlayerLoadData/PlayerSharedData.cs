@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 
 namespace MSuhininTestovoe.B2B
@@ -9,7 +10,9 @@ namespace MSuhininTestovoe.B2B
     public sealed class PlayerSharedData : ScriptableObject
     {
         [SerializeField] private PlayerCharacteristic _player;
+       
 
         public PlayerCharacteristic GetPlayerCharacteristic => _player;
+     
     }
 }

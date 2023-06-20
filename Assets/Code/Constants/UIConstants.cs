@@ -16,5 +16,9 @@ namespace MSuhininTestovoe.B2B
         public  const string MENU_SETTING_VOLUME="SliderVolumeWidget";
         public  const string MENU_SETTING_DROP="GraphicSelectWidget";
        
+        
+        public  const string BTN_ATACK="AttackWidget";
+
+       
     }
 }

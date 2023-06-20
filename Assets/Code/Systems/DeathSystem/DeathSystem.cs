@@ -8,7 +8,7 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsFilter _filter;
         private EcsPool<IsPlayerDeathComponent> _isPlayerDeathPool;
-        private EcsPool<ShowDeathMenu> _isBtnShowMenu;
+        private EcsPool<IsDeathMenu> _isDeathMenuActive;
         private PlayerSharedData _sharedData;
 
 
@@ -19,7 +19,7 @@ namespace MSuhininTestovoe.B2B
 
             _filter = world.Filter<IsPlayerComponent>().Exc<IsPlayerDeathComponent>().End();
             _isPlayerDeathPool = world.GetPool<IsPlayerDeathComponent>();
-            _isBtnShowMenu = world.GetPool<ShowDeathMenu>();
+            _isDeathMenuActive = world.GetPool<IsDeathMenu>();
         }
 
         public void Run(IEcsSystems systems)
@@ -28,8 +28,9 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives <= 0)
                 {
-                    ref var deathComponent = ref _isPlayerDeathPool.Add(entity);
-                    ref var showMenu = ref _isBtnShowMenu.Add(entity);
+                   ref var deathComponent = ref _isPlayerDeathPool.Add(entity);
+                   if(!_isDeathMenuActive.Has(entity)) return;
+                    ref var showMenu = ref _isDeathMenuActive.Get(entity);
                     var timeServise = Service<ITimeService>.Get();
                     timeServise.Pause();
                 }

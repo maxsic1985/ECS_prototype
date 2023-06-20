@@ -14,7 +14,7 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            _filter = world.Filter<IsDeathMenu>().Inc<PrefabComponent>().End();
+            _filter = world.Filter<PrefabComponent>().Inc<IsDeathMenu>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _isMenuPool = world.GetPool<IsDeathMenu>();
         }
@@ -27,6 +27,8 @@ namespace MSuhininTestovoe.B2B
                 ref var prefabComponent = ref _prefabPool.Get(entity);
                 var gameObject = Object.Instantiate(prefabComponent.Value);
                 var canvas = GameObject.FindObjectOfType<Canvas>();
+                //if (canvas == null) return;
+
                 gameObject.transform.parent = canvas.transform;
                 ref var menu = ref _isMenuPool.Get(entity);
                 menu.MenuValue = gameObject.GetComponent<TransformView>().gameObject;

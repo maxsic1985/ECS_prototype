@@ -28,6 +28,10 @@ namespace MSuhininTestovoe.B2B
 
         public void Run(IEcsSystems systems)
         {
+            if (_joystick.Value==null)
+            {
+                return;
+            }
             foreach (int entity in _filter)
             {
                 ref PlayerInputComponent playerInputComponent = ref _playerInputComponentPool.Get(entity);

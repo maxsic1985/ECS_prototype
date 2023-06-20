@@ -63,7 +63,7 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (var entity in _filterRestartPool)
             {
-                var menuPool = _world.GetPool<IsPauseMenu>();
+                var menuPool = _world.GetPool<IsDeathMenu>();
                 ref var menu = ref menuPool.Get(entity);
                 if (_quitMenuPool.Has(entity))
                 {

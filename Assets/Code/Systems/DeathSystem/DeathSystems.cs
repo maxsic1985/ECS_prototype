@@ -8,7 +8,7 @@ namespace MSuhininTestovoe.B2B
         public DeathSystems(EcsSystems systems)
         {
             systems
-                .Add(new DEBUG_DeathSystem())
+               // .Add(new DEBUG_DeathSystem())
                 .Add(new DeathSystem());
         }
     }
