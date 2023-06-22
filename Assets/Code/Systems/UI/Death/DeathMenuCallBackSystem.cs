@@ -51,9 +51,9 @@ namespace MSuhininTestovoe
         [EcsUguiClickEvent(UIConstants.MENU_RESTART, WorldsNamesConstants.EVENTS)]
         void OnClickRestart(in EcsUguiClickEvent e)
         {
-                Debug.Log("dds");
             foreach (var entity in _filter)
             {
+                Debug.Log("dds");
                 _restartBtnCommandPool.Add(entity);
             }
         }

@@ -17,7 +17,9 @@ namespace MSuhininTestovoe.B2B
             var world = systems.GetWorld();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
-            _filter = world.Filter<IsPlayerComponent>().Exc<IsPlayerDeathComponent>().End();
+            _filter = world.Filter<IsPlayerComponent>()
+                // .Exc<IsPlayerDeathComponent>()
+                .End();
             _isPlayerDeathPool = world.GetPool<IsPlayerDeathComponent>();
             _isDeathMenuActive = world.GetPool<IsDeathMenu>();
         }
@@ -28,8 +30,12 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives <= 0)
                 {
-                   ref var deathComponent = ref _isPlayerDeathPool.Add(entity);
-                   if(!_isDeathMenuActive.Has(entity)) return;
+                    if (!_isPlayerDeathPool.Has(entity))
+                    {
+                        ref var deathComponent = ref _isPlayerDeathPool.Add(entity);
+                    }
+
+                    if (!_isDeathMenuActive.Has(entity)) return;
                     ref var showMenu = ref _isDeathMenuActive.Get(entity);
                     var timeServise = Service<ITimeService>.Get();
                     timeServise.Pause();

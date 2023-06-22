@@ -18,6 +18,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<BtnQuit> _quitMenuPool;
         private EcsPool<BtnRestart> _menuRestartpool;
         private EcsPool<IsDeathMenu> _isDeathMenuPool;
+        private EcsPool<IsRestartComponent> _isRestartPool;
 
 
         public void Init(IEcsSystems systems)
@@ -33,6 +34,7 @@ namespace MSuhininTestovoe.B2B
             _quitMenuPool = _world.GetPool<BtnQuit>();
             _menuRestartpool = _world.GetPool<BtnRestart>();
             _isDeathMenuPool = _world.GetPool<IsDeathMenu>();
+            _isRestartPool = _world.GetPool<IsRestartComponent>();
         }
 
 
@@ -48,7 +50,7 @@ namespace MSuhininTestovoe.B2B
                         menu.MenuValue.SetActive(true);
                     }
 
-                    _isDeathMenuPool.Del(entity);
+                 //   _isDeathMenuPool.Del(entity);
                 }
             }
 
@@ -70,6 +72,7 @@ namespace MSuhininTestovoe.B2B
                     menu.MenuValue.SetActive(false);
                 }
 
+                _isRestartPool.Add(entity);
                 var timeServise = Service<ITimeService>.Get();
                 timeServise.Resume();
                 _quitMenuPool.Del(entity);
