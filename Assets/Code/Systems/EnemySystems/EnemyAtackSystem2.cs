@@ -47,10 +47,19 @@ namespace MSuhininTestovoe.B2B
                 var currentHealh = _sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives;
                 healthView.Value.size = new Vector2(currentHealh, 1);
 
+
+                if (_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives == 0)
+                {
+                    _reachedToPlayer = false;
+                    _isReachedComponentPool.Del(entity);
+                  // _isReachedComponentPool.Get(entity).IsRecheded = false;
+                }
           //  _isReachedComponentPool.Del(entity);
             }
+
             _disposables.Clear();
-        
+          // _reachedToPlayer = false;
+
         }
 
         private void Attack()

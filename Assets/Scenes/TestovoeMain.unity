@@ -463,6 +463,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Emmiter
       objectReference: {fileID: 0}
+    - target: {fileID: 2345964766635020072, guid: 607ab78d923b249e09c95de216107a51, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345964766635020072, guid: 607ab78d923b249e09c95de216107a51, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 8218772990703403058, guid: 607ab78d923b249e09c95de216107a51, type: 3}
       propertyPath: _emitter
       value: 

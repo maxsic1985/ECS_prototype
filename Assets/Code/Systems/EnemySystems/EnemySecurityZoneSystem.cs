@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
+    public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
         private EcsWorld _world;
         private EcsPool<EnemyIsFollowingComponent> _isEnemyAtackingComponentPool;
@@ -57,43 +57,47 @@ namespace MSuhininTestovoe.B2B
             {
                 ref var eventData = ref poolEnter.Get(entity);
 
-                if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-                if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
-                var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                var reached = eventData.collider2D.GetComponent<AIPath>();
-                var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                if (!_isEnemyAtackingComponentPool.Has(enemyEntity))
+                // if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+                // if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
+                if (eventData.senderGameObject.GetComponent<PlayerActor>() != null)
                 {
-                    ref EnemyIsFollowingComponent enemyIsFollowingComponent =
-                        ref _isEnemyAtackingComponentPool.Add(enemyEntity);
-                }
+                    var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
+                    var reached = eventData.collider2D.GetComponent<AIPath>();
+                    var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                    if (!_isEnemyAtackingComponentPool.Has(enemyEntity))
+                    {
+                        ref EnemyIsFollowingComponent enemyIsFollowingComponent =
+                            ref _isEnemyAtackingComponentPool.Add(enemyEntity);
+                    }
 
-                ref IsEnemyCanAttackComponent isReacheded =
-                    ref _isEnemyCanAtackComponenPool.Add(entity);
-                var target = eventData.senderGameObject.transform;
-                aiDestinationSetter.target = target;
-                isReacheded.IsRecheded = reached;
-                reached.endReachedDistance = 0.5f;
+                    ref IsEnemyCanAttackComponent isReacheded =
+                        ref _isEnemyCanAtackComponenPool.Add(entity);
+                    var target = eventData.senderGameObject.transform;
+                    aiDestinationSetter.target = target;
+                    isReacheded.IsRecheded = reached;
+                    reached.endReachedDistance = 0.5f;
 
 
-                ref HealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Add(entity);
-                playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>()
-                    .GetComponent<HealthView>().Value;
+                    ref HealthViewComponent playerHealthView = ref _playerHealthViewComponentPool.Add(entity);
+                    playerHealthView.Value = eventData.senderGameObject.GetComponent<PlayerActor>()
+                        .GetComponent<HealthView>().Value;
 
-                Extensions.AddPool<HealthViewComponent>(ecsSystems, enemyEntity);
-                ref HealthViewComponent enemyHealthView = ref _playerHealthViewComponentPool.Get(enemyEntity);
-                enemyHealthView.Value =
-                    eventData.collider2D.GetComponent<EnemyActor>().GetComponent<HealthView>().Value;
-                ref IsPlayerCanAttackComponent canAtack =
-                    ref _isPlayerCanAtackComponenPool.Add(entity);
-                canAtack.AttackInputView = _attackInput.Value;
-                canAtack.AttackInputView.ShowBtn(true);
+                    Extensions.AddPool<HealthViewComponent>(ecsSystems, enemyEntity);
+                    ref HealthViewComponent enemyHealthView = ref _playerHealthViewComponentPool.Get(enemyEntity);
+                    enemyHealthView.Value =
+                        eventData.collider2D.GetComponent<EnemyActor>().GetComponent<HealthView>().Value;
+                    ref IsPlayerCanAttackComponent canAtack =
+                        ref _isPlayerCanAtackComponenPool.Add(entity);
+                    canAtack.AttackInputView = _attackInput.Value;
+                    canAtack.AttackInputView.ShowBtn(true);
 
-                foreach (var enemynativeEntity in _enemyFilter)
-                {
-                    ref EnemyHealthComponent enemyHealth =
-                        ref _enemyHealthComponentPool.Get(enemynativeEntity);
-                    _enemyHealthComponentPool.Copy(enemynativeEntity, entity);
+                    foreach (var enemynativeEntity in _enemyFilter)
+                    {
+                        ref EnemyHealthComponent enemyHealth =
+                            ref _enemyHealthComponentPool.Get(enemynativeEntity);
+                        _enemyHealthComponentPool.Copy(enemynativeEntity, entity);
+                    }
+                    poolEnter.Del(entity);
                 }
             }
 
@@ -107,31 +111,42 @@ namespace MSuhininTestovoe.B2B
                 Debug.Log("exit");
                 ref var eventData = ref poolExit.Get(entity);
 
-                if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-                if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
-                var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                //    if (_isEnemyAtackingComponentPool.Has(enemyEntity))
-                //   {
-                _isEnemyAtackingComponentPool.Del(enemyEntity);
-                _isEnemyCanAtackComponenPool.Del(entity);
-                _playerHealthViewComponentPool.Del(entity);
-                _playerHealthViewComponentPool.Del(enemyEntity);
-                //   }
-
-                var reached = eventData.collider2D.GetComponent<AIPath>();
-
-                aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
-                reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
-                reached.endReachedDistance = Single.PositiveInfinity;
-                reached.reachedEndOfPath = false;
-                reached.endReachedDistance = 0;
-                _isEnemyCanAtackComponenPool.Del(entity);
+                // if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+                // if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
+                if (eventData.senderGameObject.GetComponent<PlayerActor>() != null)
+                {
 
 
-                _isPlayerCanAtackComponenPool.Del(entity);
-                _attackInput.Value.ShowBtn(false);
+                    var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
+                    var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                    //    if (_isEnemyAtackingComponentPool.Has(enemyEntity))
+                    //   {
+                    _isEnemyAtackingComponentPool.Del(enemyEntity);
+                    _isEnemyCanAtackComponenPool.Del(enemyEntity);
+                    _playerHealthViewComponentPool.Del(entity);
+                    _playerHealthViewComponentPool.Del(enemyEntity);
+                    //   }
+
+                    var reached = eventData.collider2D.GetComponent<AIPath>();
+
+                    aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
+                    reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
+                    reached.endReachedDistance = Single.PositiveInfinity;
+                    reached.reachedEndOfPath = false;
+                    reached.endReachedDistance = 0;
+                    _isEnemyCanAtackComponenPool.Del(entity);
+
+
+                    _isPlayerCanAtackComponenPool.Del(entity);
+                    _attackInput.Value.ShowBtn(false);
+                }
+                poolExit.Del(entity);
             }
+        }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            throw new NotImplementedException();
         }
     }
 }
