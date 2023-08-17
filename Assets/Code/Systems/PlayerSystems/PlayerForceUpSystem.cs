@@ -1,5 +1,4 @@
 ﻿using Leopotam.EcsLite;
-using LeopotamGroup.Globals;
 using UnityEngine;
 
 
@@ -10,15 +9,11 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _playerFilter;
         private EcsPool<ForceComponent> _forceComponentPool;
         private EcsPool<PlayerRigidBodyComponent> _playerRigidBodyComponentPool;
-
-        private ITimeService _timeService;
-        private PlayerSharedData _sharedData;
         private Vector3 playerPosition;
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _playerFilter = world.Filter<IsPlayerComponent>()
                 .Inc<TransformComponent>()
                 .Inc<IsPlayerControlComponent>()
@@ -27,7 +22,6 @@ namespace MSuhininTestovoe.B2B
                 .End();
             _forceComponentPool = world.GetPool<ForceComponent>();
             _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
-            _timeService = Service<ITimeService>.Get();
         }
 
         public void Run(IEcsSystems systems)

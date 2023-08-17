@@ -8,7 +8,6 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsFilter _playerFilter;
         private EcsPool<SpeedComponent> _speedComponentPool;
-        private EcsPool<IsPlayerControlComponent> _isPlayerMoveComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<IsPlayerComponent> _isPlayerComponent;
         private ITimeService _timeService;
@@ -25,7 +24,6 @@ namespace MSuhininTestovoe.B2B
             _isPlayerComponent = world.GetPool<IsPlayerComponent>();
             _speedComponentPool = world.GetPool<SpeedComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
-            _isPlayerMoveComponentPool = world.GetPool<IsPlayerControlComponent>();
             _timeService = Service<ITimeService>.Get();
         }
 
@@ -48,7 +46,7 @@ namespace MSuhininTestovoe.B2B
         private void PlayerMoving(ref TransformComponent transformComponent,ref SpeedComponent speedComponent) 
         {
             Vector2 position = transformComponent.Value.position;
-            position += new Vector2(Vector2.right.x*speedComponent.SpeedValue * _timeService.DeltaTime, 0);
+            position += new Vector2(Vector2.right.x*speedComponent.SpeedValue * _timeService.FixedDeltaTime, 0);
 
             transformComponent.Value.position = position;
         }

@@ -12,7 +12,7 @@ namespace MSuhininTestovoe.B2B
         private EcsSystems _systems;
         private bool _hasInitCompleted;
         [SerializeField] EcsUguiEmitter uguiEmitter;
-        [SerializeField] JoystickInputView _joystick; 
+        [SerializeField] JoystickInputView _joystick;
         [SerializeField] AttackInputView _attackView;
 
         private async void Start()
@@ -20,7 +20,7 @@ namespace MSuhininTestovoe.B2B
             //
             SharedData shared = new();
             await shared.Init();
-            
+
             IPoolService poolService = new PoolService();
             await poolService.Initialize();
 
@@ -36,8 +36,8 @@ namespace MSuhininTestovoe.B2B
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(WorldsNamesConstants.EVENTS))
 #endif
-               .Inject(_joystick, WorldsNamesConstants.WAREHOUSE)
-               .Inject(_attackView, WorldsNamesConstants.WAREHOUSE)
+                .Inject(_joystick, WorldsNamesConstants.WAREHOUSE)
+                .Inject(_attackView, WorldsNamesConstants.WAREHOUSE)
                 .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
                 .Init();
 
@@ -58,6 +58,7 @@ namespace MSuhininTestovoe.B2B
                 {
                     worlds.Value.Destroy();
                 }
+
                 EcsPhysicsEvents.ecsWorld = null;
                 _systems.GetWorld().Destroy();
                 _systems = null;
