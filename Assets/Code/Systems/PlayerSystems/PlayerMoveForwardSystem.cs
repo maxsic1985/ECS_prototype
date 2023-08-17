@@ -12,17 +12,16 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<IsPlayerComponent> _isPlayerComponent;
         private ITimeService _timeService;
-        private PlayerSharedData _sharedData;
         private Vector3 playerPosition;
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _playerFilter = world.Filter<IsPlayerComponent>()
                 .Inc<TransformComponent>()
                  .Inc<SpeedComponent>()
                 .End();
+            
             _isPlayerComponent = world.GetPool<IsPlayerComponent>();
             _speedComponentPool = world.GetPool<SpeedComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
@@ -30,6 +29,7 @@ namespace MSuhininTestovoe.B2B
             _timeService = Service<ITimeService>.Get();
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _playerFilter)
@@ -51,13 +51,6 @@ namespace MSuhininTestovoe.B2B
             position += new Vector2(Vector2.right.x*speedComponent.SpeedValue * _timeService.DeltaTime, 0);
 
             transformComponent.Value.position = position;
-
-            
         }
-       
-        
-        
-        
-        
     }
 }

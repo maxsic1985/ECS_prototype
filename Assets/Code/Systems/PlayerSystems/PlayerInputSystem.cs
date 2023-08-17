@@ -7,7 +7,6 @@ namespace MSuhininTestovoe.B2B
     public class PlayerInputSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _world;
-        private EcsPool<PlayerInputComponent> _playerInputComponentPool;
         private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
 
         private int _entity;
@@ -16,7 +15,8 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsPlayerComponent>()
+            _filter = _world
+                .Filter<IsPlayerComponent>()
                 .Inc<TransformComponent>()
                 .End();
             _isPlayerControlComponent = _world.GetPool<IsPlayerControlComponent>();
