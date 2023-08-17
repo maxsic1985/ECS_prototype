@@ -2,7 +2,7 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public class CameraSystem: IEcsInitSystem
+    public class CameraLoadSystem: IEcsInitSystem
     {
         private EcsPool<IsCameraComponent> _isCameraPool;
 

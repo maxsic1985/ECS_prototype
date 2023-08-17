@@ -10,24 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Camera
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Packed Assets
   m_Data:
     m_SerializedData: []
-  m_GUID: d18cb71a5c2c941239f2a39a899f9808
-  m_SerializeEntries:
-  - m_GUID: d3a3fc46a57aa450691c82893d8e0836
-    m_Address: CameraLoadData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9baf9784a26d4419e91fb35d327bb025
-    m_Address: Camera
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_GUID: 6fa94aed24fc04cfbb2b17d2aba1a275
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4e685cad4f2584fc5ba897fddc3c7841, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 147cb288df8be4332b02bbf15e56dc8b, type: 2}
-    - {fileID: 11400000, guid: 0ca43024005a2447e996ee2c6123edd7, type: 2}
+    - {fileID: 11400000, guid: 5596b1377c3d7440eb7ea8834640c30f, type: 2}
+    - {fileID: 11400000, guid: 96192fbd4c4284cefb1e38e6731515ca, type: 2}

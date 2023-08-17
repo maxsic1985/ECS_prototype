@@ -9,9 +9,10 @@ namespace MSuhininTestovoe.B2B
         public CameraSystems(EcsSystems systems)
         {
             systems
-                .Add(new CameraSystem())
+                .Add(new CameraLoadSystem())
                 .Add(new CameraInitSystem())
-                .Add(new CameraBuildSystem());
+                .Add(new CameraBuildSystem())
+               .Add(new CameraFollowSystem());
         }
     }
 }

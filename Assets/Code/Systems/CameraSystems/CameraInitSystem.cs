@@ -1,4 +1,5 @@
 ﻿using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -12,6 +13,9 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
         private EcsPool<CameraStartPositionComponent> _cameraStartPositionComponentPool;
         private EcsPool<CameraStartRotationComponent> _cameraStartRotationComponentPool;
+        private EcsPool<IsCameraComponent> _isCameraComponentPool;
+
+        
         
         public void Init(IEcsSystems systems)
         {
@@ -21,6 +25,8 @@ namespace MSuhininTestovoe.B2B
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _cameraStartPositionComponentPool = _world.GetPool<CameraStartPositionComponent>();
             _cameraStartRotationComponentPool = _world.GetPool<CameraStartRotationComponent>();
+            _isCameraComponentPool = _world.GetPool<IsCameraComponent>();
+
         }
 
         public void Run(IEcsSystems systems)
@@ -37,6 +43,12 @@ namespace MSuhininTestovoe.B2B
 
                     ref var cameraStartRotationComponent = ref _cameraStartRotationComponentPool.Add(entity);
                     cameraStartRotationComponent.Value = dataInit.StartRotation;
+                    
+                    ref IsCameraComponent isCameraComponent = ref _isCameraComponentPool.Get(entity);
+                    isCameraComponent.Offset = dataInit.StartPosition;
+                    isCameraComponent.CurrentVelocity = Vector3.zero;
+                    isCameraComponent.CameraSmoothness = dataInit.CameraSmoothness;
+                    
                 }
                 _scriptableObjectPool.Del(entity);
             }

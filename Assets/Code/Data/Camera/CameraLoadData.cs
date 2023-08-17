@@ -15,6 +15,8 @@ namespace MSuhininTestovoe.B2B
         public Vector3 StartPosition;
         [Header("Rotations:")]
         public Vector3 StartRotation;
+        [Range(0f, 1f)]
+        public float CameraSmoothness;
     }
 }
 

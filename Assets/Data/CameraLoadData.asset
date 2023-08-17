@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8559442026524f45bd3939d41576a83, type: 3}
-  m_Name: StaticPlayerData
+  m_Script: {fileID: 11500000, guid: 426f23ea6b44c2344be158ea0c08881b, type: 3}
+  m_Name: CameraLoadData
   m_EditorClassIdentifier: 
-  Player:
-    m_AssetGUID: d2b8f4e9d9ac9407183303e7a7593c91
+  Camera:
+    m_AssetGUID: 9baf9784a26d4419e91fb35d327bb025
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  StartPosition: {x: -4, y: 0, z: 0}
-  MoveSpeed: 0.2
-  Force: 0.2
+  StartPosition: {x: 0, y: 0, z: -10}
+  StartRotation: {x: 0, y: 0, z: 0}
+  CameraSmoothness: 0.061
