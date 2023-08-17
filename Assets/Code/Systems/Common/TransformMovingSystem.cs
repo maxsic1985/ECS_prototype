@@ -11,15 +11,15 @@ namespace MSuhininTestovoe.B2B
         {
             private EcsFilter _filter;
             private EcsPool<PositionComponent> _poolPosition;
-            private EcsPool<SpeedVectorComponent> _poolSpeedVector;
+            private EcsPool<SpeedComponent> _poolSpeedVector;
 
 
             public void Init(IEcsSystems systems)
             {
                 var world = systems.GetWorld();
-                _filter = world.Filter<SpeedVectorComponent>().Inc<PositionComponent>().End();
+                _filter = world.Filter<SpeedComponent>().Inc<PositionComponent>().End();
                 _poolPosition = world.GetPool<PositionComponent>();
-                _poolSpeedVector = world.GetPool<SpeedVectorComponent>();
+                _poolSpeedVector = world.GetPool<SpeedComponent>();
             }
             
 
@@ -30,7 +30,7 @@ namespace MSuhininTestovoe.B2B
                     ref var position = ref _poolPosition.Get(entity);
                     ref var speed = ref _poolSpeedVector.Get(entity);
 
-                    position.Value += speed.Value * Service<ITimeService>.Get().DeltaTime;
+                    position.Value +=new Vector2(speed.SpeedValue * Service<ITimeService>.Get().DeltaTime,0);
                 }
             }
         }

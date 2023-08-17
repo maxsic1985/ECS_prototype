@@ -10,7 +10,8 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
         private EcsPool<PlayerStartPositionComponent> _playerStartPositionComponentPool;
-        private EcsPool<SpeedVectorComponent> _speedVectorComponentPool;
+        private EcsPool<SpeedComponent> _speedComponentPool;
+        private EcsPool<ForceComponent> _forceComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PlayerInputComponent> _playerInputComponentPool;
 
@@ -21,7 +22,8 @@ namespace MSuhininTestovoe.B2B
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _playerStartPositionComponentPool = _world.GetPool<PlayerStartPositionComponent>();
-            _speedVectorComponentPool = _world.GetPool<SpeedVectorComponent>();
+            _speedComponentPool = _world.GetPool<SpeedComponent>();
+            _forceComponentPool = _world.GetPool<ForceComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _playerInputComponentPool = _world.GetPool<PlayerInputComponent>();
         }
@@ -39,8 +41,11 @@ namespace MSuhininTestovoe.B2B
                         ref _playerStartPositionComponentPool.Add(entity);
                     playerStartPositionComponent.Value = dataInit.StartPosition;
 
-                    ref SpeedVectorComponent speedVectorComponent = ref _speedVectorComponentPool.Add(entity);
-                    speedVectorComponent.Value = new Vector2(dataInit.MoveSpeed,dataInit.JumpSpeed);
+                    ref SpeedComponent speedComponent = ref _speedComponentPool.Add(entity);
+                    speedComponent.SpeedValue = dataInit.MoveSpeed;
+                    
+                    ref ForceComponent forceComponent = ref _forceComponentPool.Add(entity);
+                    forceComponent.ForceValue = dataInit.Force;
 
                     _transformComponentPool.Add(entity);
                     _playerInputComponentPool.Add(entity);

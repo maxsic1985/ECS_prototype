@@ -12,9 +12,8 @@ namespace MSuhininTestovoe.B2B
 
         [Header("Position:")] public Vector3 StartPosition;
         [Header("Player moving data:")] 
-        public float MoveDistance;
         public float MoveSpeed;
-        public float JumpSpeed;
+        public float Force;
         
     }
 }

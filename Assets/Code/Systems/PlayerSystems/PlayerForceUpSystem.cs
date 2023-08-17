@@ -5,12 +5,10 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class PlayerForceSystem : IEcsInitSystem, IEcsRunSystem
+    public class PlayerForceUpSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _playerFilter;
-        private EcsPool<IsPlayerControlComponent> _isPlayerControlComponentPool;
-        private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<IsPlayerComponent> _isPlayerComponent;
+        private EcsPool<ForceComponent> _forceComponentPool;
         private EcsPool<PlayerRigidBodyComponent> _playerRigidBodyComponentPool;
 
         private ITimeService _timeService;
@@ -24,11 +22,10 @@ namespace MSuhininTestovoe.B2B
             _playerFilter = world.Filter<IsPlayerComponent>()
                 .Inc<TransformComponent>()
                 .Inc<IsPlayerControlComponent>()
+                .Inc<ForceComponent>()
                 .Inc<PlayerRigidBodyComponent>()
                 .End();
-            _isPlayerComponent = world.GetPool<IsPlayerComponent>();
-            _transformComponentPool = world.GetPool<TransformComponent>();
-            _isPlayerControlComponentPool = world.GetPool<IsPlayerControlComponent>();
+            _forceComponentPool = world.GetPool<ForceComponent>();
             _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
             _timeService = Service<ITimeService>.Get();
         }
@@ -38,11 +35,12 @@ namespace MSuhininTestovoe.B2B
             foreach (int entity in _playerFilter)
             {
                 ref PlayerRigidBodyComponent rigitBodyComponent = ref _playerRigidBodyComponentPool.Get(entity);
-                ref IsPlayerControlComponent playerControlComponentPool = ref _isPlayerControlComponentPool.Get(entity);
+                ref ForceComponent forceComponent = ref _forceComponentPool.Get(entity);
                 if (rigitBodyComponent.PlayerRigidbody == null)
                     return;
 
-                rigitBodyComponent.PlayerRigidbody.AddForce(Vector2.up * 0.5f, ForceMode2D.Impulse);
+                rigitBodyComponent.PlayerRigidbody.AddForce(Vector2.up * forceComponent.ForceValue
+                    , ForceMode2D.Force);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace MSuhininTestovoe.B2B
                 .Add(new PlayerBuildSystem())
                 .Add(new PlayerInputSystem())
                 .Add(new PlayerMoveForwardSystem())
-                .Add(new PlayerForceSystem());
+                .Add(new PlayerForceUpSystem());
 
         }
     }
