@@ -2,7 +2,7 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public class PlayerSystem: IEcsInitSystem
+    public class PlayerLoadSystem: IEcsInitSystem
     {
         private EcsPool<IsPlayerComponent> _isPlayerPool;
 

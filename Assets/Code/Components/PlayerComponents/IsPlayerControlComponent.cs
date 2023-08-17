@@ -2,6 +2,6 @@
 {
     public struct IsPlayerControlComponent
     {
-        
+        public bool Presset;
     }
 }
