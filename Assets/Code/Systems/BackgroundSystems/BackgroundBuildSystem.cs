@@ -38,11 +38,10 @@ namespace MSuhininTestovoe.B2B
                     var gameObject = Object.Instantiate(prefabComponent.Value);
                     transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
                     gameObject.transform.position = backgroundComponent.SpawnPlatformPoint[j];
-                    if (GameObject.FindObjectOfType<PathfinderScan>().gameObject.TryGetComponent(out PathfinderScan scan))
+                    if (GameObject.FindObjectOfType<PathfinderScan>().gameObject
+                        .TryGetComponent(out PathfinderScan scan))
                         gameObject.transform.SetParent(scan.gameObject.transform);
-                    else throw new NullReferenceException("PathfinderScan is null");
-                    
-                        gameObject.GetComponent<IActor>().AddEntity(entity);
+                    gameObject.GetComponent<IActor>().AddEntity(entity);
                 }
 
                 _prefabPool.Del(entity);

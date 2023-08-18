@@ -7,7 +7,6 @@ namespace MSuhininTestovoe.B2B
     {
         [SerializeField] private Transform _startPoint;
         [SerializeField] private Transform _endPoint;
-        [SerializeField] private PatternGroups _patternGroup;
         public event Action Activated;
 
         public Vector3 Position
