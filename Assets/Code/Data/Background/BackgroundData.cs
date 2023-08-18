@@ -11,11 +11,11 @@ namespace MSuhininTestovoe.B2B
     {
        // [Header("Prefabs:")]
         public AssetReferenceGameObject Value;
+        public AssetReferenceGameObject Grid;
         public float Speed;
-        public float AccelerationInterval;
-        public float AccelerationValue;
-        public int StartPlatformCount;
-        public GameObjectsTypeId UsingPlatform;
+       [HideInInspector]
+        public int StartPlatformCount=>StartPlatformPosition.Length;
+        public Vector2[] StartPlatformPosition;
         public int PlatformsBeforePlayer => StartPlatformCount - 1;
     }
 }

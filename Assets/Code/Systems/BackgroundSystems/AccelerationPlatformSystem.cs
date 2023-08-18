@@ -23,15 +23,7 @@ namespace MSuhininTestovoe.B2B
             ref BackgroundComponent treadmillComponent =
                 ref _backgroundComponentPool.Get(_treadmillFilter.GetRawEntities()[0]);
 
-            if (_duration < treadmillComponent.AccelerationInterval)
-            {
-                _duration += _timeService.DeltaTime;
-            }
-            else
-            {
-                treadmillComponent.Speed += treadmillComponent.AccelerationValue;
-                _duration = 0;
-            }
+           
         }
     }
 }

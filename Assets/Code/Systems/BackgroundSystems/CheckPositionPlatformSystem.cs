@@ -39,14 +39,14 @@ namespace MSuhininTestovoe.B2B
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(platformEntity);
                 ref IsPlatformComponent isPlatformComponent = ref _isPlatformComponentPool.Get(platformEntity);
                 
-                if (transformComponent.Value.position.z < treadmillComponent.ReturnToPoolPoint.z)
+                if (transformComponent.Value.position.x < treadmillComponent.ReturnToPoolPoint.x)
                 {
                     _isMoveComponentPool.Del(platformEntity);
                     
                     ReturnToPoolAllObjects(ref isPlatformComponent);
                     
                     _poolService.Return(transformComponent.Value.gameObject);
-                    treadmillComponent.Platforms.Dequeue();
+                 //   treadmillComponent.Platforms.Dequeue();
                 }
             }
         }

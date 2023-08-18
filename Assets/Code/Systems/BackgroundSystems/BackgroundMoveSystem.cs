@@ -36,8 +36,8 @@ namespace MSuhininTestovoe.B2B
 
                 if (transformComponent.Value.gameObject.TryGetComponent(out BackgroundView platform))
                 {
-                    Vector3 position = transformComponent.Value.position;
-                    position -= new Vector3(0, 0, backgroundComponent.Speed * Time.deltaTime);
+                    Vector2 position = transformComponent.Value.position;
+                    position -= new Vector2(backgroundComponent.Speed * Time.deltaTime, 0 );
                     transformComponent.Value.localPosition = position;
                     platform.Position = position;
                 }
@@ -50,7 +50,7 @@ namespace MSuhininTestovoe.B2B
 
             if (lastTransform.Value is null) return;
 
-            backgroundComponent.SpawnPlatformPoint = lastTransform.Value.position;
+          //  backgroundComponent.SpawnPlatformPoint = lastTransform.Value.position;
         }
     }
 }

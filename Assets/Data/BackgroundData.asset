@@ -17,8 +17,13 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  ParentTransform:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   Speed: 1
-  AccelerationInterval: 1
-  AccelerationValue: 1
-  StartPlatformCount: 2
-  UsingPlatform: 2
+  StartPlatformPosition:
+  - {x: 0, y: 0}
+  - {x: -15, y: 0}
+  - {x: 15, y: 0}

@@ -35,10 +35,9 @@ namespace MSuhininTestovoe.B2B
                     ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
                     loadPrefabFromPool.Value = dataInit.Value;
 
-                    
                     ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Add(entity);
                     backgroundComponent.StartPlatformCount = dataInit.StartPlatformCount;
-                    backgroundComponent.SpawnPlatformPoint = Vector3.zero;
+                    backgroundComponent.SpawnPlatformPoint = dataInit.StartPlatformPosition;
                     
 
 

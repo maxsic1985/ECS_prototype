@@ -1,7 +1,7 @@
-﻿using Leopotam.EcsLite;
-using LeopotamGroup.Globals;
-using Pathfinding;
+﻿using System;
+using Leopotam.EcsLite;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -12,13 +12,11 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<BackgroundComponent> _backGroundComponentPool;
         private EcsPool<BoxColliderComponent> _enemyBoxColliderComponentPool;
-        private IPoolService _poolService;
 
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _poolService = Service<IPoolService>.Get();
             _filter = world.Filter<IsBackgroundComponent>().Inc<PrefabComponent>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
@@ -34,17 +32,17 @@ namespace MSuhininTestovoe.B2B
                 ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
                 ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Get(entity);
-//                ref BoxColliderComponent enemyBoxColliderComponent = ref _enemyBoxColliderComponentPool.Add(entity);
 
                 for (int j = 0; j < backgroundComponent.StartPlatformCount; j++)
                 {
-                    GameObject pooled = _poolService.Get(GameObjectsTypeId.BackGround);
-                    transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
-                    pooled.gameObject.transform.position = backgroundComponent.SpawnPlatformPoint;
-                //    pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value[j]);
-                 //   pooled.gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
-                    pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
-                 //   enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
+                    var gameObject = Object.Instantiate(prefabComponent.Value);
+                    transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
+                    gameObject.transform.position = backgroundComponent.SpawnPlatformPoint[j];
+                    if (GameObject.FindObjectOfType<PathfinderScan>().gameObject.TryGetComponent(out PathfinderScan scan))
+                        gameObject.transform.SetParent(scan.gameObject.transform);
+                    else throw new NullReferenceException("PathfinderScan is null");
+                    
+                        gameObject.GetComponent<IActor>().AddEntity(entity);
                 }
 
                 _prefabPool.Del(entity);

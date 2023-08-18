@@ -25,10 +25,6 @@ MonoBehaviour:
     m_Address: EnemyData
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ad214ced049ac4441a701e73f5b588ba
-    m_Address: BackGround
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: e266089242f5d4f23b36039c743d2f84
     m_Address: BackGround
     m_ReadOnly: 0
