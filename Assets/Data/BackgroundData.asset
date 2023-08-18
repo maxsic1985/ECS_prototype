@@ -12,13 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b2b24899a04c51b836e54561fbec07, type: 3}
   m_Name: BackgroundData
   m_EditorClassIdentifier: 
-  Prefab:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   Speed: 0
   AccelerationInterval: 0
   AccelerationValue: 0
   StartPlatformCount: 0
-  UsingPlatform: 0
+  UsingPlatform: 2
