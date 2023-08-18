@@ -10,7 +10,7 @@ namespace MSuhininTestovoe.B2B
     public class BackgroundData : ScriptableObject
     {
        // [Header("Prefabs:")]
-      //  public AssetReferenceGameObject Prefab;
+        public AssetReferenceGameObject Value;
         public float Speed;
         public float AccelerationInterval;
         public float AccelerationValue;

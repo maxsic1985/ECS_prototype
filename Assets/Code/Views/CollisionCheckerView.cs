@@ -42,7 +42,7 @@ namespace MSuhininTestovoe.B2B
 
             switch (otherActor)
             {
-                case CoinActor:
+                case BorderActor:
                     Debug.Log("Is Coin Actor");
                     EcsPool<IsHitCoinsComponent> hitCoinsPool = EcsWorld.GetPool<IsHitCoinsComponent>();
                     hitCoinsPool.Add(hit);

@@ -2,11 +2,11 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public class CoinActor : Actor
+    public class BorderActor : Actor
     {
         private readonly IPoolService _poolService;
 
-        public CoinActor()
+        public BorderActor()
         {
             _poolService = Service<IPoolService>.Get();
         }

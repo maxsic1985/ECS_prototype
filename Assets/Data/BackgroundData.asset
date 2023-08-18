@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b2b24899a04c51b836e54561fbec07, type: 3}
   m_Name: BackgroundData
   m_EditorClassIdentifier: 
-  Speed: 0
-  AccelerationInterval: 0
-  AccelerationValue: 0
-  StartPlatformCount: 0
+  Value:
+    m_AssetGUID: e266089242f5d4f23b36039c743d2f84
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Speed: 1
+  AccelerationInterval: 1
+  AccelerationValue: 1
+  StartPlatformCount: 2
   UsingPlatform: 2

@@ -11,23 +11,19 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
-        private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
-        private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
+        private EcsPool<BackgroundComponent> _backGroundComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<EnemySecutityZoneComponent> _enemySecutityZoneComponentPool;
-        private EcsPool<EnemyHealthComponent> _enemyHealthComponentPool;
 
+        
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsEnemyComponent>().Inc<ScriptableObjectComponent>().End();
+            _filter = _world.Filter<IsBackgroundComponent>()
+                .Inc<ScriptableObjectComponent>().End();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
-            _enemyStartPositionComponentPool = _world.GetPool<EnemyStartPositionComponent>();
-            _enemyStartRotationComponentPool = _world.GetPool<EnemyStartRotationComponent>();
+            _backGroundComponentPool = _world.GetPool<BackgroundComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
-            _enemySecutityZoneComponentPool = _world.GetPool<EnemySecutityZoneComponent>();
-            _enemyHealthComponentPool = _world.GetPool<EnemyHealthComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -36,8 +32,13 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_scriptableObjectPool.Get(entity).Value is BackgroundData dataInit)
                 {
-                  //  ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                  //  loadPrefabFromPool.Value = dataInit.Prefab;
+                    ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
+                    loadPrefabFromPool.Value = dataInit.Value;
+
+                    
+                    ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Add(entity);
+                    backgroundComponent.StartPlatformCount = dataInit.StartPlatformCount;
+                    backgroundComponent.SpawnPlatformPoint = Vector3.zero;
                     
 
 

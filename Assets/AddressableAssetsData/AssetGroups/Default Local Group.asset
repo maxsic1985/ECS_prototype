@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d18cb71a5c2c941239f2a39a899f9808
-  m_SerializeEntries:
-  - m_GUID: d3a3fc46a57aa450691c82893d8e0836
-    m_Address: CameraLoadData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9baf9784a26d4419e91fb35d327bb025
-    m_Address: Camera
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4e685cad4f2584fc5ba897fddc3c7841, type: 2}
   m_SchemaSet:
