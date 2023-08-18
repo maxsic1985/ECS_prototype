@@ -9,11 +9,9 @@ namespace MSuhininTestovoe.B2B
         public const string ENEMY_DATA = "EnemyData";
         public const string MUSIC_LOAD_DATA = "MusicLoadData";
         public const string SOUNDEFFECTS_LOAD_DATA = "SoundEffectsLoadData";
-
-        //UI
-        public const string MENU_PAUSE = "Menu_Pause";
+        public const string BACKGROUND_DATA = "BackGroundLoadData";
+        
         public const string MENU_DEATH = "Menu_Death";
-        public const string MENU_SETTING = "Menu_Setting";
-        public const string BTN_SHOW_MENU = "ShowMenuBtn";
+     
     }
 }

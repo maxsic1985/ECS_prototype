@@ -2,6 +2,7 @@
 {
     public enum GameObjectsTypeId
     {
+        BackGround = 2,
         Enemy = 3,
     } 
 }

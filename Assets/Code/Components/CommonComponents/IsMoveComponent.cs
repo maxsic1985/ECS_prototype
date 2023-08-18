@@ -1,6 +1,6 @@
 ﻿namespace MSuhininTestovoe.B2B
 {
-    public class EnemyAnimationSystem
+    public struct IsMoveComponent
     {
         
     }
