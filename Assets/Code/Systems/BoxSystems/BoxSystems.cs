@@ -9,11 +9,11 @@ namespace MSuhininTestovoe.B2B
         public BoxSystems(EcsSystems systems)
         {
             systems
-                .Add(new BackgroundLoadSystem())
-                .Add(new BackGroundInitSystem())
-                .Add(new BackgroundBuildSystem())
-                .Add(new BackgroundMoveSystem())
-                .Add(new BackgroundCheckPositionSystem());
+                .Add(new BoxLoadSystem())
+                .Add(new BoxInitSystem())
+                .Add(new BoxBuildSystem());
+            // .Add(new BackgroundMoveSystem())
+            // .Add(new BackgroundCheckPositionSystem());
         }
     }
 }

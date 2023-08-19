@@ -3,5 +3,6 @@
     public enum GameObjectsTypeId
     {
         Enemy = 3,
+        Box=4,
     } 
 }

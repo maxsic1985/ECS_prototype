@@ -1,5 +1,6 @@
 ﻿using System;
 using Leopotam.EcsLite;
+using LeopotamGroup.Globals;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,58 +11,49 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<BackgroundComponent> _backGroundComponentPool;
+        private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
+        private IPoolService _poolService;
 
 
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _filter = world.Filter<IsBackgroundComponent>().Inc<PrefabComponent>().End();
+            _poolService = Service<IPoolService>.Get();
+
+            _filter = world.Filter<IsBoxComponent>()
+                .Inc<BoxComponent>()
+                // .Inc<PrefabComponent>()
+                .End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
-            _backGroundComponentPool = world.GetPool<BackgroundComponent>();
+            _boxComponentPool = world.GetPool<BoxComponent>();
             _speedComponentPool = world.GetPool<SpeedComponent>();
             _isMoveComponentPool = world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = world.GetPool<LenghtComponent>();
+
+
+           
+           
         }
+
+    
 
         public void Run(IEcsSystems systems)
         {
-            var ecsWorld = systems.GetWorld();
-            foreach (int entity in _filter)
+            foreach (var entity in _filter)
             {
-                ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);
-                ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Get(entity);
-
-                for (int j = 0; j < backgroundComponent.StartPlatformCount; j++)
+                ref BoxComponent boxComponent = ref _boxComponentPool.Get(entity);
+                for (int i = 0; i <= boxComponent.StartBoxCount; i++)
                 {
-                    var gameObject = Object.Instantiate(prefabComponent.Value);
-
-
-                    var moveEntity = ecsWorld.NewEntity();
-                    ref IsMoveComponent isMoveComponent = ref _isMoveComponentPool.Add(moveEntity);
-                    ref TransformComponent transformComponent = ref _transformComponentPool.Add(moveEntity);
-                    ref SpeedComponent speedComponent = ref _speedComponentPool.Add(moveEntity);
-                    ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(moveEntity);
-                  
-                    speedComponent.SpeedValue = backgroundComponent.Speed;
-                    transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
-                   
-                    var backgroundLenght = gameObject.GetComponent<BackgroundView>().GetPlatformLenght();
-                     lenghtComponent.Value = backgroundLenght;
-                  
-                     gameObject.transform.position = backgroundComponent.SpawnPlatformPoint[j];
-                    if (GameObject.FindObjectOfType<PathfinderScan>().gameObject
-                        .TryGetComponent(out PathfinderScan scan))
-                        gameObject.transform.SetParent(scan.gameObject.transform);
-                    gameObject.GetComponent<IActor>().AddEntity(moveEntity);
+                    GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
                 }
 
-                _prefabPool.Del(entity);
+                return;
             }
+            
         }
     }
 }

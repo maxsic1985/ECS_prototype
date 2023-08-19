@@ -10,6 +10,7 @@ namespace MSuhininTestovoe.B2B
         public const string MUSIC_LOAD_DATA = "MusicLoadData";
         public const string SOUNDEFFECTS_LOAD_DATA = "SoundEffectsLoadData";
         public const string BACKGROUND_DATA = "BackGroundLoadData";
+        public const string BOX_DATA = "BoxLoadData";
         
         public const string MENU_DEATH = "Menu_Death";
      

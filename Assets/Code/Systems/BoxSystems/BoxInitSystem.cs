@@ -11,18 +11,19 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
-        private EcsPool<BackgroundComponent> _backGroundComponentPool;
+        private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
 
         
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsBackgroundComponent>()
-                .Inc<ScriptableObjectComponent>().End();
-            _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
-            _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
-            _backGroundComponentPool = _world.GetPool<BackgroundComponent>();
+            _filter = _world.Filter<IsBoxComponent>()
+               .Inc<ScriptableObjectComponent>()
+                .End();
+           _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
+         //  _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
+            _boxComponentPool = _world.GetPool<BoxComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
         }
 
@@ -30,15 +31,15 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (int entity in _filter)
             {
-                if (_scriptableObjectPool.Get(entity).Value is BackgroundData dataInit)
+                if (_scriptableObjectPool.Get(entity).Value is BoxData dataInit)
                 {
-                    ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                    loadPrefabFromPool.Value = dataInit.Value;
+                 //  ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
+                  //  loadPrefabFromPool.Value = dataInit.Value;
 
-                    ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Add(entity);
-                    backgroundComponent.StartPlatformCount = dataInit.StartPlatformCount;
-                    backgroundComponent.Speed = dataInit.Speed;
-                    backgroundComponent.SpawnPlatformPoint = dataInit.StartPlatformPosition;
+                    ref BoxComponent boxComponent = ref _boxComponentPool.Add(entity);
+                    boxComponent.StartBoxCount = dataInit.StartBoxCount;
+                    boxComponent.Speed = dataInit.Speed;
+                    boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
                     
 
 

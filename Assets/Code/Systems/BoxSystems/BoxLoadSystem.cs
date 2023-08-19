@@ -4,19 +4,19 @@ namespace MSuhininTestovoe.B2B
 {
     public class BoxLoadSystem: IEcsInitSystem
     {
-        private EcsPool<IsBackgroundComponent> _isEnemyPool;
+        private EcsPool<IsBoxComponent> _boxPool;
 
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             var entity = world.NewEntity();
             
-            _isEnemyPool = world.GetPool<IsBackgroundComponent>();
-            _isEnemyPool.Add(entity);
+            _boxPool = world.GetPool<IsBoxComponent>();
+            _boxPool.Add(entity);
 
-            var loadDataByNameComponent = world.GetPool<LoadDataByNameComponent>();
+          var loadDataByNameComponent = world.GetPool<LoadDataByNameComponent>();
             ref var loadFactoryDataComponent = ref loadDataByNameComponent.Add(entity);
-            loadFactoryDataComponent.AddressableName = AssetsNamesConstants.BACKGROUND_DATA;
+            loadFactoryDataComponent.AddressableName = AssetsNamesConstants.BOX_DATA;
         }
     }
 }

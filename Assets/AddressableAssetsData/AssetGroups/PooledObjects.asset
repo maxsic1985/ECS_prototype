@@ -29,6 +29,14 @@ MonoBehaviour:
     m_Address: BackGround
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5877891e728eb4cfc84095d8e3a043da
+    m_Address: Box
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de9b12eccc8d544b68e9b9fd9ca2ba87
+    m_Address: Box
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4e685cad4f2584fc5ba897fddc3c7841, type: 2}
   m_SchemaSet:
