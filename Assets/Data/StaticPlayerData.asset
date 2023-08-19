@@ -17,6 +17,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  StartPosition: {x: -4, y: 0, z: 0}
+  StartPosition: {x: -16, y: 0, z: 0}
   MoveSpeed: 0
   Force: 0.2

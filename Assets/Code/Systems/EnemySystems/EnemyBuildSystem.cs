@@ -61,7 +61,7 @@ namespace MSuhininTestovoe.B2B
                     pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
                     enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
                     
-                    
+                   
                     
                 
 
