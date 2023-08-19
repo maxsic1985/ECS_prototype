@@ -6,6 +6,7 @@ using LeopotamGroup.Globals;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using Random = System.Random;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -42,7 +43,7 @@ namespace MSuhininTestovoe.B2B
                 if (transformComponent.Value.gameObject.transform.position.x < -20)
                 {
                     _poolService.Return(transformComponent.Value.gameObject);
-                    transformComponent.Value.position = Vector3.zero;
+                    transformComponent.Value.position = new Vector2(0, new System.Random().Next(-3, 3));
                    _isMovingComponent.Del(entity);
                 }
                 // _reachedToPlayer = _isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath;
