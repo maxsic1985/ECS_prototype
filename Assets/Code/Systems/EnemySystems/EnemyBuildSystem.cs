@@ -40,7 +40,6 @@ namespace MSuhininTestovoe.B2B
             var ecsWorld = systems.GetWorld();
             foreach (int entity in _filter)
             {
-                ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
                 ref EnemyStartPositionComponent enemyPosition = ref _enemyStartPositionComponentPool.Get(entity);
                 ref EnemyStartRotationComponent enemyRotation = ref _enemyStartRotationComponentPool.Get(entity);
@@ -56,8 +55,6 @@ namespace MSuhininTestovoe.B2B
                         pooled.gameObject.GetComponent<AIDestinationSetter>();
                     pooled.gameObject.transform.position = enemyPosition.Value;
                     pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value);
-                //    pooled.gameObject.transform.SetParent(GameObject.FindObjectOfType<BackgroundView>().gameObject.transform);
-                 //   pooled.gameObject.GetComponent<CollisionCheckerView>().EcsWorld = ecsWorld;
                     pooled.gameObject.GetComponent<IActor>().AddEntity(entity);
                     enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
                     
