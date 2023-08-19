@@ -12,7 +12,7 @@ namespace MSuhininTestovoe.B2B
                 .Add(new CameraLoadSystem())
                 .Add(new CameraInitSystem())
                 .Add(new CameraBuildSystem())
-               .Add(new CameraFollowSystem());
+              .Add(new CameraFollowSystem());
         }
     }
 }

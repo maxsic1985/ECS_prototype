@@ -12,9 +12,11 @@ namespace MSuhininTestovoe.B2B
         [Header("Prefabs:")]
         public AssetReferenceGameObject Camera;
         [Header("Positions:")]
-        public Vector3 StartPosition;
-        [Header("Rotations:")]
+        public Vector3 StartPosition; 
+        [Header("Roation:")]
         public Vector3 StartRotation;
+        [Header("OffSet:")]
+        public Vector3 OffSetPosition;
         [Range(0f, 1f)]
         public float CameraSmoothness;
     }

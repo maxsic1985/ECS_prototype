@@ -28,7 +28,7 @@ namespace MSuhininTestovoe.B2B
                 ref TransformComponent playerTransformComponent =
                     ref _transformComponentPool.Get(_playerFilter.GetRawEntities()[0]);
                 Vector3 currentPosition = cameraTransformComponent.Value.position;
-                Vector3 targetPoint = new Vector3(playerTransformComponent.Value.position.x, 0,-10);// + isCameraComponent.Offset;
+                Vector3 targetPoint = new Vector3(playerTransformComponent.Value.position.x, 0,-10) + isCameraComponent.Offset;
 
                 cameraTransformComponent.Value.position =
                     Vector3.SmoothDamp(

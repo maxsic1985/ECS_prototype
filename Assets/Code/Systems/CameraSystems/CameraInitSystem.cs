@@ -45,7 +45,7 @@ namespace MSuhininTestovoe.B2B
                     cameraStartRotationComponent.Value = dataInit.StartRotation;
                     
                     ref IsCameraComponent isCameraComponent = ref _isCameraComponentPool.Get(entity);
-                    isCameraComponent.Offset = dataInit.StartPosition;
+                    isCameraComponent.Offset = dataInit.OffSetPosition;
                     isCameraComponent.CurrentVelocity = Vector3.zero;
                     isCameraComponent.CameraSmoothness = dataInit.CameraSmoothness;
                     
