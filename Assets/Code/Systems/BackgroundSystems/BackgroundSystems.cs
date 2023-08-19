@@ -12,7 +12,9 @@ namespace MSuhininTestovoe.B2B
                 .Add(new BackgroundLoadSystem())
                 .Add(new BackGroundInitSystem())
                 .Add(new BackgroundBuildSystem())
-                .Add(new BackgroundMoveSystem());
+                .Add(new BackgroundMoveSystem())
+                .Add(new BackgroundCheckPositionSystem());
+            
         }
     }
 }

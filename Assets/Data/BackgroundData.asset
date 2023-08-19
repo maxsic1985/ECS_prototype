@@ -17,13 +17,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  Grid:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   Speed: 1
   StartPlatformPosition:
   - {x: 0, y: 0}
-  - {x: -15, y: 0}
-  - {x: 15, y: 0}
+  - {x: -20, y: 0}
+  - {x: 20, y: 0}

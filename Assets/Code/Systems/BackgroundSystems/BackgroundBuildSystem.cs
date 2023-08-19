@@ -13,6 +13,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<BackgroundComponent> _backGroundComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
+        private EcsPool<LenghtComponent> _lenghtComponentPool;
 
 
         public void Init(IEcsSystems systems)
@@ -24,6 +25,7 @@ namespace MSuhininTestovoe.B2B
             _speedComponentPool = world.GetPool<SpeedComponent>();
             _backGroundComponentPool = world.GetPool<BackgroundComponent>();
             _isMoveComponentPool = world.GetPool<IsMoveComponent>();
+            _lenghtComponentPool = world.GetPool<LenghtComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -36,17 +38,22 @@ namespace MSuhininTestovoe.B2B
 
                 for (int j = 0; j < backgroundComponent.StartPlatformCount; j++)
                 {
+                    var gameObject = Object.Instantiate(prefabComponent.Value);
+
+
                     var moveEntity = ecsWorld.NewEntity();
                     ref IsMoveComponent isMoveComponent = ref _isMoveComponentPool.Add(moveEntity);
                     ref TransformComponent transformComponent = ref _transformComponentPool.Add(moveEntity);
                     ref SpeedComponent speedComponent = ref _speedComponentPool.Add(moveEntity);
+                    ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(moveEntity);
+                  
                     speedComponent.SpeedValue = backgroundComponent.Speed;
-
-
-                    var gameObject = Object.Instantiate(prefabComponent.Value);
                     transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;
-                    //  var backgroundLenght = gameObject.GetComponent<BackgroundView>().GetPlatformLenght();
-                    gameObject.transform.position = backgroundComponent.SpawnPlatformPoint[j];
+                   
+                    var backgroundLenght = gameObject.GetComponent<BackgroundView>().GetPlatformLenght();
+                     lenghtComponent.Value = backgroundLenght;
+                  
+                     gameObject.transform.position = backgroundComponent.SpawnPlatformPoint[j];
                     if (GameObject.FindObjectOfType<PathfinderScan>().gameObject
                         .TryGetComponent(out PathfinderScan scan))
                         gameObject.transform.SetParent(scan.gameObject.transform);
