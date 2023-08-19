@@ -37,6 +37,7 @@ namespace MSuhininTestovoe.B2B
 
                     ref BackgroundComponent backgroundComponent = ref _backGroundComponentPool.Add(entity);
                     backgroundComponent.StartPlatformCount = dataInit.StartPlatformCount;
+                    backgroundComponent.Speed = dataInit.Speed;
                     backgroundComponent.SpawnPlatformPoint = dataInit.StartPlatformPosition;
                     
 

@@ -11,7 +11,6 @@ namespace MSuhininTestovoe.B2B
     {
        // [Header("Prefabs:")]
         public AssetReferenceGameObject Value;
-        public AssetReferenceGameObject Grid;
         public float Speed;
        [HideInInspector]
         public int StartPlatformCount=>StartPlatformPosition.Length;

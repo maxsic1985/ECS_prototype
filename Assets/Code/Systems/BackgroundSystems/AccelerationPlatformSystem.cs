@@ -22,8 +22,6 @@ namespace MSuhininTestovoe.B2B
         {
             ref BackgroundComponent treadmillComponent =
                 ref _backgroundComponentPool.Get(_treadmillFilter.GetRawEntities()[0]);
-
-           
         }
     }
 }
