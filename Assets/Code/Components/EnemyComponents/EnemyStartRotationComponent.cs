@@ -5,7 +5,7 @@ namespace MSuhininTestovoe.B2B
 {
     public struct EnemyStartRotationComponent
     {
-        public List<Vector3> Value;
+        public Vector3 Value;
       
     }
 }

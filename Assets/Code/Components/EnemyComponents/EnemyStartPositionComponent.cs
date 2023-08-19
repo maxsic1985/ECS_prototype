@@ -5,6 +5,6 @@ namespace MSuhininTestovoe.B2B
 {
     public struct EnemyStartPositionComponent
     {
-        public List<Vector3> Value;
+        public Vector3 Value;
     }
 }

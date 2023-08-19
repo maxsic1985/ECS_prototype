@@ -10,8 +10,8 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
         private EcsPool<TransformComponent> _transformComponentPool;
-        private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<BackgroundComponent> _backGroundComponentPool;
+        private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
 
@@ -22,8 +22,8 @@ namespace MSuhininTestovoe.B2B
             _filter = world.Filter<IsBackgroundComponent>().Inc<PrefabComponent>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
-            _speedComponentPool = world.GetPool<SpeedComponent>();
             _backGroundComponentPool = world.GetPool<BackgroundComponent>();
+            _speedComponentPool = world.GetPool<SpeedComponent>();
             _isMoveComponentPool = world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = world.GetPool<LenghtComponent>();
         }

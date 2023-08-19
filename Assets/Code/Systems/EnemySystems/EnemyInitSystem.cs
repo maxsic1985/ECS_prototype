@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Leopotam.EcsLite;
-using UnityEngine;
+﻿using Leopotam.EcsLite;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -65,16 +62,14 @@ namespace MSuhininTestovoe.B2B
 
             ref EnemyStartRotationComponent enemyStartRotationComponent =
                 ref _enemyStartRotationComponentPool.Add(entity);
-
-            enemyStartPositionComponent.Value = new List<Vector3>();
-            enemyStartRotationComponent.Value = new List<Vector3>();
+            
 
            var positionIndex= GetUniqeRandomArray(dataInit.CountForInstantiate,0,dataInit.StartPositions.Length);
 
             for (int i = 0; i < positionIndex.Length; i++)
             {
-                enemyStartPositionComponent.Value.Add(dataInit.StartPositions[positionIndex[i]]);
-                enemyStartRotationComponent.Value.Add(dataInit.StartRotation[positionIndex[i]]);
+                enemyStartPositionComponent.Value=dataInit.StartPositions[positionIndex[i]];
+                enemyStartRotationComponent.Value=dataInit.StartRotation[positionIndex[i]];
             }
         }
         

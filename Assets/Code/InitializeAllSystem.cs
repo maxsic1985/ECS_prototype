@@ -16,7 +16,7 @@ namespace MSuhininTestovoe.B2B
             new PlayerSystems(systems); 
            new CameraSystems(systems);
            new BackgroundSystems(systems);
-           //new EnemySystems(systems);
+           new EnemySystems(systems);
            //new MenuSystems(systems);
            // new DeathSystems(systems);
 
