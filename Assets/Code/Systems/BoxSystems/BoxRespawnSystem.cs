@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemyRespawnSystem : IEcsInitSystem
+    public class BoxRespawnSystem : IEcsInitSystem
     {
         private EcsFilter filterTrigger;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
@@ -22,21 +22,22 @@ namespace MSuhininTestovoe.B2B
             _poolService = Service<IPoolService>.Get();
             EcsWorld world = systems.GetWorld();
             filterTrigger = systems.GetWorld()
-                .Filter<IsEnemyComponent>()
+                .Filter<IsBoxComponent>()
                 .Inc<TransformComponent>()
                 .Exc<IsMoveComponent>()
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
-            Observable.Interval(TimeSpan.FromMilliseconds(20000)).Where(_ => true).Subscribe(x => { Respawn(); })
+            Observable.Interval(TimeSpan.FromMilliseconds(5000)).Where(_ => true).Subscribe(x => { Respawn(); })
                 .AddTo(_disposables);
         }
 
         private void Respawn()
         {
-            GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
-            var entity = pooled.GetComponent<EnemyActor>().Entity;
+            GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
+            var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
             if (_isMovingComponentPool.Has(entity)) return;
+         
             ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
         }
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b706b7149a274c228ab3e4878d19d630, type: 3}
   m_Name: BoxundData 1
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 2
   StartBoxCount: 0
   StartBoxPoints:
   - 0

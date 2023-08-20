@@ -19,6 +19,7 @@ namespace MSuhininTestovoe.B2B
                 .Filter<TransformComponent>()
                 .Inc<IsMoveComponent>()
                 .Inc<SpeedComponent>()
+            //    .Inc<IsBackgroundComponent>()
                 .End();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _speedComponentPool = _world.GetPool<SpeedComponent>();
@@ -35,9 +36,9 @@ namespace MSuhininTestovoe.B2B
                 if (transformComponent.Value.gameObject.TryGetComponent(out BackgroundView platform))
                 {
                     Vector2 position = transformComponent.Value.position;
-                    position -= new Vector2(speedComponent.SpeedValue * Time.deltaTime, 0);
+                    position -= new Vector2(speedComponent.SpeedValue * Time.deltaTime,0 );
                     transformComponent.Value.localPosition = position;
-                    platform.Position = position;
+                    platform.transform.position = position;
                 }
             }
         }

@@ -13,6 +13,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<BackgroundComponent> _backGroundComponentPool;
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
+        private EcsPool<IsBackgroundComponent> _isbackGroundComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
 
 
@@ -23,6 +24,7 @@ namespace MSuhininTestovoe.B2B
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
             _backGroundComponentPool = world.GetPool<BackgroundComponent>();
+            _isbackGroundComponentPool = world.GetPool<IsBackgroundComponent>();
             _speedComponentPool = world.GetPool<SpeedComponent>();
             _isMoveComponentPool = world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = world.GetPool<LenghtComponent>();
@@ -46,6 +48,7 @@ namespace MSuhininTestovoe.B2B
                     ref TransformComponent transformComponent = ref _transformComponentPool.Add(moveEntity);
                     ref SpeedComponent speedComponent = ref _speedComponentPool.Add(moveEntity);
                     ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(moveEntity);
+                    ref IsBackgroundComponent isBackgroundComponent = ref _isbackGroundComponentPool.Add(moveEntity);
                   
                     speedComponent.SpeedValue = backgroundComponent.Speed;
                     transformComponent.Value = gameObject.GetComponent<TransformView>().Transform;

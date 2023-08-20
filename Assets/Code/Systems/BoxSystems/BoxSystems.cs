@@ -1,6 +1,4 @@
-﻿using LeoEcsPhysics;
-using Leopotam.EcsLite;
-using Leopotam.EcsLite.ExtendedSystems;
+﻿using Leopotam.EcsLite;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -11,9 +9,9 @@ namespace MSuhininTestovoe.B2B
             systems
                 .Add(new BoxLoadSystem())
                 .Add(new BoxInitSystem())
-                .Add(new BoxBuildSystem());
-            // .Add(new BackgroundMoveSystem())
-            // .Add(new BackgroundCheckPositionSystem());
+                .Add(new BoxBuildSystem())
+                .Add(new BoxRespawnSystem())
+              .Add(new BoxCheckPositionSystem());
         }
     }
 }

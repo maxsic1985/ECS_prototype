@@ -1,4 +1,5 @@
 ﻿using Leopotam.EcsLite;
+using LeopotamGroup.Globals;
 using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
@@ -9,19 +10,25 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _treadmillFilter;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
+        private EcsPool<IsMoveComponent> _isMovingComponentPool;
         private EcsFilter _lastPlatformFilter;
         private EcsWorld _world;
+        private IPoolService _poolService;
 
+        
         public void Init(IEcsSystems systems)
         {
+            _poolService = Service<IPoolService>.Get();
             _world = systems.GetWorld();
             _platformFilter = _world
                 .Filter<TransformComponent>()
                 .Inc<IsMoveComponent>()
                 .Inc<LenghtComponent>()
+                .Inc<IsBoxComponent>()
                 .End();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();
+            _isMovingComponentPool = _world.GetPool<IsMoveComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -34,7 +41,9 @@ namespace MSuhininTestovoe.B2B
 
                 if (transformComponent.Value.position.x<=-lenghtComponent.Value*2)
                 {
-                    transformComponent.Value.position = new Vector2(lenghtComponent.Value, 0);
+                    _poolService.Return(transformComponent.Value.gameObject);
+                    transformComponent.Value.position = new Vector2(0, new System.Random().Next(-3, 3));
+                    _isMovingComponentPool.Del(platformEntity);
                 }
             }
         }

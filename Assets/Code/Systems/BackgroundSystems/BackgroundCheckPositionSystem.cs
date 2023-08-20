@@ -19,6 +19,7 @@ namespace MSuhininTestovoe.B2B
                 .Filter<TransformComponent>()
                 .Inc<IsMoveComponent>()
                 .Inc<LenghtComponent>()
+                .Inc<IsBackgroundComponent>()
                 .End();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();

@@ -10,7 +10,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
-        private EcsPool<LoadPrefabComponent> _loadPrefabPool;
+        private EcsPool<IsPoolLoadedComponent> _loadPrefabPool;
         private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
 
@@ -22,7 +22,7 @@ namespace MSuhininTestovoe.B2B
                .Inc<ScriptableObjectComponent>()
                 .End();
            _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
-         //  _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
+           _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
             _boxComponentPool = _world.GetPool<BoxComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
         }
@@ -33,8 +33,7 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_scriptableObjectPool.Get(entity).Value is BoxData dataInit)
                 {
-                 //  ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                  //  loadPrefabFromPool.Value = dataInit.Value;
+                   ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
 
                     ref BoxComponent boxComponent = ref _boxComponentPool.Add(entity);
                     boxComponent.StartBoxCount = dataInit.StartBoxCount;

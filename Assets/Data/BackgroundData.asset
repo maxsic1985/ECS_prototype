@@ -17,7 +17,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  Speed: 2
+  Speed: 5
   StartPlatformPosition:
   - {x: 0, y: 0}
   - {x: -20, y: 0}
