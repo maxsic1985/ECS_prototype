@@ -34,7 +34,7 @@ namespace MSuhininTestovoe.B2B
                     return;
 
                 rigitBodyComponent.PlayerRigidbody.AddForce(Vector2.up * forceComponent.ForceValue
-                    , ForceMode2D.Impulse);
+                    , ForceMode2D.Force);
             }
         }
     }
