@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using LeoEcsPhysics;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
@@ -26,38 +28,49 @@ namespace MSuhininTestovoe.B2B
             EcsWorld world = systems.GetWorld();
             filterTrigger = systems.GetWorld()
                 .Filter<IsBoxComponent>()
-                .Inc<TransformComponent>()
-                .Exc<IsMoveComponent>()
+               // .Inc<TransformComponent>()
+               // .Exc<IsMoveComponent>()
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
-            Observable.Interval(TimeSpan.FromMilliseconds(5000)).Where(_ => true).Subscribe(x => { Respawn(_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives); })
+            Observable.Interval(TimeSpan.FromMilliseconds(5000)).Where(_ => true).Subscribe(x =>
+                {
+                    Respawn(_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives);
+                })
                 .AddTo(_disposables);
         }
 
         private void Respawn(int cnt)
         {
-            var spawnCnt = new System.Random().Next(1, cnt);
-            for (int i = 0; i < spawnCnt; i++)
+            foreach (var VARIABLE in filterTrigger)
             {
-                if (_poolService==null)
+                var spawnCnt = new System.Random().Next(1, cnt);
+                for (int i = 0; i < spawnCnt; i++)
                 {
-                    _poolService = Service<IPoolService>.Get();
+                    if (_poolService == null)
+                    {
+                        _poolService = Service<IPoolService>.Get();
+                    }
 
-                }
-                GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
+                    var pooled = _poolService.Get(GameObjectsTypeId.Box);
 
-                var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
-                if (!_isMovingComponentPool.Has(entity))
-                {
-                    ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+                    var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
+                    if (!_isMovingComponentPool.Has(entity))
+                    {
+                        ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+                    }
                 }
             }
         }
 
         public void Destroy(IEcsSystems systems)
         {
-            throw new NotImplementedException();
+            Debug.Log("here");
+            systems.DelHere<OnTriggerStay2DEvent>();
+            systems.DelHere<OnTriggerExit2DEvent>();
+
+            systems.DelHerePhysics();
+            _disposables.Clear();
         }
     }
 }

@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class PoolService : IPoolService
+    public class PoolService : IPoolService,IDisposable
     {
         private readonly Dictionary<GameObjectsTypeId, Pool> _poolsRepository;
         private readonly List<Task> _tasks = new();
@@ -96,22 +96,28 @@ namespace MSuhininTestovoe.B2B
                 }
 
                 pooledObject = pool.GetFirst();
-
-                if (pooledObject.activeInHierarchy)
+                if (pooledObject != null)
                 {
-                    _index = pool.Count - 1;
-                    GameObject additional = Object.Instantiate(pool.PooledObject, PoolServiceTransform);
-                    additional.name = $"{gameObjectsTypeId.ToString()}({++_index})";
-                    pool.SetPooledObject(additional);
-                    return additional;
-                }
+                    if (pooledObject.activeInHierarchy)
+                    {
+                        _index = pool.Count - 1;
+                        GameObject additional = Object.Instantiate(pool.PooledObject, PoolServiceTransform);
+                        additional.name = $"{gameObjectsTypeId.ToString()}({++_index})";
+                        pool.SetPooledObject(additional);
+                        return additional;
+                    }
 
-                pooledObject = pool.GetPooledObject();
-                pooledObject.SetActive(true);
-                pool.SetPooledObject(pooledObject);
+                    pooledObject = pool.GetPooledObject();
+                    pooledObject.SetActive(true);
+                    pool.SetPooledObject(pooledObject);
+                }
             }
 
             return pooledObject;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
