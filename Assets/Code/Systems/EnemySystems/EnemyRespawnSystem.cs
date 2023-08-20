@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using LeoEcsPhysics;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
@@ -9,7 +11,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemyRespawnSystem : IEcsInitSystem
+    public class EnemyRespawnSystem : IEcsInitSystem,IEcsDestroySystem,IDisposable
     {
         private EcsFilter filterTrigger;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
@@ -23,12 +25,12 @@ namespace MSuhininTestovoe.B2B
             EcsWorld world = systems.GetWorld();
             filterTrigger = systems.GetWorld()
                 .Filter<IsEnemyComponent>()
-                .Inc<TransformComponent>()
-                .Exc<IsMoveComponent>()
+              //  .Inc<TransformComponent>()
+              //  .Exc<IsMoveComponent>()
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
-            Observable.Interval(TimeSpan.FromMilliseconds(20000)).Where(_ => true).Subscribe(x => { Respawn(); })
+            Observable.Interval(TimeSpan.FromMilliseconds(2000)).Where(_ => true).Subscribe(x => { Respawn(); })
                 .AddTo(_disposables);
         }
 
@@ -40,6 +42,7 @@ namespace MSuhininTestovoe.B2B
                 if(_poolService == null)
                     {
                         _poolService = Service<IPoolService>.Get();
+                        Dispose();
                     }
 
                     var pooled = _poolService.Get(GameObjectsTypeId.Enemy);
@@ -49,12 +52,28 @@ namespace MSuhininTestovoe.B2B
                     {
                         ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
                     }
-                
+                return;
             }
             // GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
             // var entity = pooled.GetComponent<EnemyActor>().Entity;
             // if (_isMovingComponentPool.Has(entity)) return;
             // ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+        }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            Dispose();
+            Debug.Log("here");
+            systems.DelHere<OnTriggerStay2DEvent>();
+            systems.DelHere<OnTriggerExit2DEvent>();
+
+            systems.DelHerePhysics();
+            _disposables.Clear();
+        }
+
+        public void Dispose()
+        {
+            _disposables.Clear();
         }
     }
 }

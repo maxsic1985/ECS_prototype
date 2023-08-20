@@ -40,7 +40,6 @@ namespace MSuhininTestovoe.B2B
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _isFollowComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
             _isRestartPool = _world.GetPool<IsRestartComponent>();
-
         }
 
         public void Run(IEcsSystems ecsSystems)
@@ -70,10 +69,6 @@ namespace MSuhininTestovoe.B2B
                     aiDestinationSetter.target = target;
                     reached.endReachedDistance = 0.5f;
                     Debug.Log("StartFollowing");
-                    
-
-
-                   
                 }
 
                 else if (eventData.senderGameObject.GetComponent<PlayerActor>() != null
@@ -82,11 +77,11 @@ namespace MSuhininTestovoe.B2B
                     Debug.Log("StartFollowing");
 
                     _isRestartPool.Add(entity);
-                  // SceneManager.LoadScene(0);
-               poolEnter.Del(entity);
-               return;
+                    _isFollowComponentPool.Del(entity);
+                    poolEnter.Del(entity);
+                    // SceneManager.LoadScene(0);
+                   // return;
                 }
-
             }
 
             ExitFromTRigger(poolExit);
@@ -112,8 +107,8 @@ namespace MSuhininTestovoe.B2B
                     reached.endReachedDistance = 0;
                 }
 
-               poolExit.Del(entity);
-             //   poolExit.Del(entity);
+                poolExit.Del(entity);
+                //   poolExit.Del(entity);
             }
         }
 

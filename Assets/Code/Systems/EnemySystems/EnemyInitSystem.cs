@@ -7,7 +7,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
-        private EcsPool<LoadPrefabComponent> _loadPrefabPool;
+        private EcsPool<IsPoolLoadedComponent> _loadPrefabPool;
         private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
         private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
@@ -19,7 +19,7 @@ namespace MSuhininTestovoe.B2B
             _world = systems.GetWorld();
             _filter = _world.Filter<IsEnemyComponent>().Inc<ScriptableObjectComponent>().End();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
-            _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
+            _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
             _enemyStartPositionComponentPool = _world.GetPool<EnemyStartPositionComponent>();
             _enemyStartRotationComponentPool = _world.GetPool<EnemyStartRotationComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
@@ -33,8 +33,8 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_scriptableObjectPool.Get(entity).Value is EnemyData dataInit)
                 {
-                    ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                    loadPrefabFromPool.Value = dataInit.EnemyPrefab;
+                    ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
+                //    loadPrefabFromPool.Value = dataInit.EnemyPrefab;
 
                     ref EnemySecutityZoneComponent securityZoneComponent =
                         ref _enemySecutityZoneComponentPool.Add(entity);

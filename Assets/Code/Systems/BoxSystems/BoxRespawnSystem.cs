@@ -35,7 +35,7 @@ namespace MSuhininTestovoe.B2B
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
             _isBoxComponentPool = world.GetPool<IsBoxComponent>();
            
-                Observable.Interval(TimeSpan.FromMilliseconds(5000)).Where(_ => true).Subscribe(x =>
+                Observable.Interval(TimeSpan.FromMilliseconds(10000)).Where(_ => true).Subscribe(x =>
                     {
                         Respawn(_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives);
                     })
