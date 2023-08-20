@@ -11,6 +11,7 @@ namespace MSuhininTestovoe.B2B
                 .Add(new BoxInitSystem())
                 .Add(new BoxBuildSystem())
                 .Add(new BoxRespawnSystem())
+                .Add(new BoxSecurityZoneSystem())
               .Add(new BoxCheckPositionSystem());
         }
     }
