@@ -42,7 +42,7 @@ namespace MSuhininTestovoe.B2B
                 if (transformComponent.Value.position.x<=-lenghtComponent.Value*2)
                 {
                     _poolService.Return(transformComponent.Value.gameObject);
-                    transformComponent.Value.position = new Vector2(0, new System.Random().Next(-3, 3));
+                  //  transformComponent.Value.position = new Vector2(0, new System.Random().Next(-3, 3));
                     _isMovingComponentPool.Del(platformEntity);
                 }
             }
