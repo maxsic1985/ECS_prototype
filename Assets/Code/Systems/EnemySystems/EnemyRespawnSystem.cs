@@ -30,7 +30,7 @@ namespace MSuhininTestovoe.B2B
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
-            Observable.Interval(TimeSpan.FromMilliseconds(2000)).Where(_ => true).Subscribe(x => { Respawn(); })
+            Observable.Interval(TimeSpan.FromMilliseconds(10000)).Where(_ => true).Subscribe(x => { Respawn(); })
                 .AddTo(_disposables);
         }
 
@@ -54,10 +54,7 @@ namespace MSuhininTestovoe.B2B
                     }
                 return;
             }
-            // GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
-            // var entity = pooled.GetComponent<EnemyActor>().Entity;
-            // if (_isMovingComponentPool.Has(entity)) return;
-            // ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+          
         }
 
         public void Destroy(IEcsSystems systems)
