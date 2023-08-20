@@ -34,10 +34,27 @@ namespace MSuhininTestovoe.B2B
 
         private void Respawn()
         {
-            GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
-            var entity = pooled.GetComponent<EnemyActor>().Entity;
-            if (_isMovingComponentPool.Has(entity)) return;
-            ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+            
+            foreach (var VARIABLE in filterTrigger)
+            {
+                if(_poolService == null)
+                    {
+                        _poolService = Service<IPoolService>.Get();
+                    }
+
+                    var pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+
+                    var entity = pooled.gameObject.GetComponent<EnemyActor>().Entity;
+                    if (!_isMovingComponentPool.Has(entity))
+                    {
+                        ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
+                    }
+                
+            }
+            // GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+            // var entity = pooled.GetComponent<EnemyActor>().Entity;
+            // if (_isMovingComponentPool.Has(entity)) return;
+            // ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
         }
     }
 }

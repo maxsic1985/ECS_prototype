@@ -1,5 +1,4 @@
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeoEcsPhysics;
 using UnityEngine;
@@ -58,7 +57,10 @@ namespace MSuhininTestovoe.B2B
                 EcsPhysicsEvents.ecsWorld = null;
                 _systems.GetWorld().Destroy();
                 _systems = null;
+               
             }
         }
+
+       
     }
 }
