@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class BoxRespawnSystem : IEcsInitSystem
+    public class BoxRespawnSystem : IEcsInitSystem, IEcsDestroySystem
     {
         private EcsFilter filterTrigger;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
@@ -40,6 +40,11 @@ namespace MSuhininTestovoe.B2B
             var spawnCnt = new System.Random().Next(1, cnt);
             for (int i = 0; i < spawnCnt; i++)
             {
+                if (_poolService==null)
+                {
+                    _poolService = Service<IPoolService>.Get();
+
+                }
                 GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
 
                 var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
@@ -48,6 +53,11 @@ namespace MSuhininTestovoe.B2B
                     ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
                 }
             }
+        }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            throw new NotImplementedException();
         }
     }
 }

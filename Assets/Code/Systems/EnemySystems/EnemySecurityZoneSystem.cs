@@ -19,6 +19,8 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _enemyFilter;
         private EcsFilter _filterEnterToTrigger;
         private EcsFilter _filterExitFromTrigger;
+        private EcsPool<IsRestartComponent> _isRestartPool;
+
 
         public void Init(IEcsSystems systems)
         {
@@ -27,16 +29,18 @@ namespace MSuhininTestovoe.B2B
             _enemyFilter = _world.Filter<IsEnemyComponent>().End();
 
             _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
-               //  .Inc<IsPlayerComponent>()
-              //  .Exc<EnemyPathfindingComponent>()
-              //  .Exc<EnemyIsFollowingComponent>()
+                //  .Inc<IsPlayerComponent>()
+                //  .Exc<EnemyPathfindingComponent>()
+                //  .Exc<EnemyIsFollowingComponent>()
                 .End();
 
             _filterExitFromTrigger = _world.Filter<OnTriggerExit2DEvent>()
-                 //.Inc<EnemyPathfindingComponent>()
+                //.Inc<EnemyPathfindingComponent>()
                 .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _isFollowComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
+            _isRestartPool = _world.GetPool<IsRestartComponent>();
+
         }
 
         public void Run(IEcsSystems ecsSystems)
@@ -66,56 +70,56 @@ namespace MSuhininTestovoe.B2B
                     aiDestinationSetter.target = target;
                     reached.endReachedDistance = 0.5f;
                     Debug.Log("StartFollowing");
-
-
-                    foreach (var enemynativeEntity in _enemyFilter)
-                    {
-                        Debug.Log("ReturnToPool");
-                        
-                    }
-
-                    if (eventData.senderGameObject.GetComponent<PlayerActor>() != null
-                        && eventData.collider2D.GetComponent<BorderActor>() != null)
-                    {
-                        SceneManager.LoadScene(0);
-                    }
                     
-                    
-                    poolEnter.Del(entity);
+
+
+                   
                 }
+
+                else if (eventData.senderGameObject.GetComponent<PlayerActor>() != null
+                         && eventData.collider2D.GetComponent<BorderActor>() != null)
+                {
+                    Debug.Log("StartFollowing");
+
+                    _isRestartPool.Add(entity);
+                  // SceneManager.LoadScene(0);
+               poolEnter.Del(entity);
+               return;
+                }
+
             }
 
             ExitFromTRigger(poolExit);
-            }
+        }
 
-            private void ExitFromTRigger(EcsPool<OnTriggerExit2DEvent> poolExit)
+        private void ExitFromTRigger(EcsPool<OnTriggerExit2DEvent> poolExit)
+        {
+            foreach (var entity in _filterExitFromTrigger)
             {
-                foreach (var entity in _filterExitFromTrigger)
+                ref var eventData = ref poolExit.Get(entity);
+
+                if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+                if (eventData.collider2D.GetComponent<EnemyActor>() != null)
                 {
-                    ref var eventData = ref poolExit.Get(entity);
-
-                    if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-                    if (eventData.collider2D.GetComponent<EnemyActor>() != null)
-                    {
-                        var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                        var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                        _isFollowComponentPool.Del(enemyEntity);
-                        var reached = eventData.collider2D.GetComponent<AIPath>();
-                        aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
-                        reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
-                        reached.endReachedDistance = Single.PositiveInfinity;
-                        reached.reachedEndOfPath = false;
-                        reached.endReachedDistance = 0;
-
-                    }
-                    
-                    poolExit.Del(entity);
+                    var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
+                    var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
+                    _isFollowComponentPool.Del(enemyEntity);
+                    var reached = eventData.collider2D.GetComponent<AIPath>();
+                    aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
+                    reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
+                    reached.endReachedDistance = Single.PositiveInfinity;
+                    reached.reachedEndOfPath = false;
+                    reached.endReachedDistance = 0;
                 }
-            }
 
-            public void Destroy(IEcsSystems systems)
-            {
-                throw new NotImplementedException();
+               poolExit.Del(entity);
+             //   poolExit.Del(entity);
             }
         }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            throw new NotImplementedException();
+        }
     }
+}
