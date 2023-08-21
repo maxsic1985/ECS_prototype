@@ -48,7 +48,7 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (var _ in filterTrigger)
             {
-                var spawnCnt = new System.Random().Next(1, cnt);
+                var spawnCnt = new System.Random().Next(1, cnt+1);
                 for (int i = 0; i < spawnCnt; i++)
                 {
                     if (_poolService == null)

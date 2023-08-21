@@ -69,7 +69,7 @@ namespace MSuhininTestovoe.B2B
                                 ref _isFollowComponentPool.Add(enemyEntity);
                         }
 
-                        var target = hit.collider.gameObject.transform;
+                        var target = hit.collider.gameObject.transform.GetChild(1).transform;
                         aiDestinationSetter.target = target;
                         reached.endReachedDistance = 0.5f;
                         Debug.Log("StartFollowing");
