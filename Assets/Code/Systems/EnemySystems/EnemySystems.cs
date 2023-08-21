@@ -14,9 +14,10 @@ namespace MSuhininTestovoe.B2B
                 .Add(new EnemyBuildSystem())
                 .Add(new EnemyMoveSystem())
                 .Add(new EnemySecurityZoneSystem())
-               .Add(new EnemyCheckPosiionSystem())
+                .Add(new EnemyCheckPosiionSystem())
+                .Add(new EnemyRayCastSystem())
                 .Add(new EnemyRespawnSystem())
-              .DelHerePhysics();
+                .DelHerePhysics();
         }
     }
 }
