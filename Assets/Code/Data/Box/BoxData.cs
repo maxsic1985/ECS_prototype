@@ -9,7 +9,7 @@ namespace MSuhininTestovoe.B2B
     {
         public float Speed;
         public int CoolDown;
-        [HideInInspector] public int StartBoxCount;
+         public int StartBoxCount;
         public float[] StartBoxPoints;
     }
 }

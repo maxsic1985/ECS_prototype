@@ -34,7 +34,6 @@ namespace MSuhininTestovoe.B2B
                 timeServise.Resume();
                 _sharedData.GetPlayerCharacteristic.LoadInitValue();
                Application.LoadLevelAsync(0);
-                // SceneManager.LoadScene((int)SceeneType.MAIN);
                 _isRestartPool.Del(entity);
                 Debug.Log("rest");
                 foreach (var VARIABLE in _filterTriggerEnter)
