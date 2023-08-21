@@ -38,7 +38,7 @@ namespace MSuhininTestovoe.B2B
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
              
                 RaycastHit2D hit = Physics2D.CircleCast(transformComponent.Value.position,
-                    3,
+                    4,
                     Vector2.left);
                 if (hit.collider == null) return;
                 if (hit.collider.gameObject.GetComponent<PlayerActor>() != null
@@ -55,7 +55,7 @@ namespace MSuhininTestovoe.B2B
                         hit.collider.gameObject.transform.position,
                         Color.red);
 
-                    if (distance < 3 &&
+                    if (distance < 4 &&
                         !reached.reachedEndOfPath &&
                         !_isFollowComponentPool.Has(entity) &&
                         Math.Abs(transformComponent.Value.position.x)
@@ -71,7 +71,7 @@ namespace MSuhininTestovoe.B2B
 
                         var target = hit.collider.gameObject.transform.GetChild(1).transform;
                         aiDestinationSetter.target = target;
-                        reached.endReachedDistance = 0.5f;
+                        reached.endReachedDistance = 1.5f;
                         Debug.Log("StartFollowing");
                     }
                     else if (reached.reachedEndOfPath)
