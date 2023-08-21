@@ -52,7 +52,6 @@ namespace MSuhininTestovoe.B2B
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
                 if (eventData.collider2D.GetComponent<BorderActor>() != null)
                 {
-                    Debug.Log("StartFollowing");
 
                     _isRestartPool.Add(entity);
                     _isFollowComponentPool.Del(entity);

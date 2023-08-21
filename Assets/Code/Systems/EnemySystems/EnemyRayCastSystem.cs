@@ -46,7 +46,6 @@ namespace MSuhininTestovoe.B2B
                 {
                     float distance = Vector2.Distance(hit.collider.gameObject.transform.position,
                         transformComponent.Value.position);
-                    Debug.Log($"distance+{distance}");
 
 
                     var reached = transformComponent.Value.GetComponent<AIPath>();
@@ -72,7 +71,6 @@ namespace MSuhininTestovoe.B2B
                         var target = hit.collider.gameObject.transform.GetChild(1).transform;
                         aiDestinationSetter.target = target;
                         reached.endReachedDistance = 1.5f;
-                        Debug.Log("StartFollowing");
                     }
                     else if (reached.reachedEndOfPath)
                     {
@@ -80,8 +78,8 @@ namespace MSuhininTestovoe.B2B
                             var enemyEntity = transformComponent.Value.GetComponent<EnemyActor>().Entity;
                             _isFollowComponentPool.Del(enemyEntity);
                             aiDestinationSetter.target = transformComponent.Value.transform;
-                            reached.Teleport(transformComponent.Value.gameObject.transform.position + Vector3.left,
-                                true);
+                         //   reached.Teleport(transformComponent.Value.gameObject.transform.position + Vector3.left,
+                       //         true);
                             //  reached.Teleport(transformComponent.Value.gameObject.transform.position, true);
                             reached.endReachedDistance = Single.PositiveInfinity;
                             reached.reachedEndOfPath = false;

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Leopotam.EcsLite;
+﻿using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UnityEngine;
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -10,15 +9,15 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsFilter _filter;
         private EcsWorld _world;
+        private IPoolService _poolService;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
-        private EcsPool<IsPoolLoadedComponent> _loadPrefabPool;
+        private EcsPool<IsPoolLoadedComponent> _isPoolLoadedPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<BoxComponent> _boxComponentPool;
+        private EcsPool<IsBoxComponent> _isBoxComponentPool;
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
-        private EcsPool<IsBoxComponent> _isBoxComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
-        private IPoolService _poolService;
 
 
         public void Init(IEcsSystems systems)
@@ -27,10 +26,10 @@ namespace MSuhininTestovoe.B2B
             _poolService = Service<IPoolService>.Get();
 
             _filter = _world.Filter<IsBoxComponent>()
-               .Inc<ScriptableObjectComponent>()
+                .Inc<ScriptableObjectComponent>()
                 .End();
-           _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
-           _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
+            _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
+            _isPoolLoadedPool = _world.GetPool<IsPoolLoadedComponent>();
             _boxComponentPool = _world.GetPool<BoxComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _isBoxComponentPool = _world.GetPool<IsBoxComponent>();
@@ -38,7 +37,7 @@ namespace MSuhininTestovoe.B2B
             _isMoveComponentPool = _world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();
         }
-        
+
 
         public void Run(IEcsSystems systems)
         {
@@ -46,14 +45,13 @@ namespace MSuhininTestovoe.B2B
             {
                 if (_scriptableObjectPool.Get(entity).Value is BoxData dataInit)
                 {
-                   ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
+                    ref IsPoolLoadedComponent loadPrefabFromPool = ref _isPoolLoadedPool.Add(entity);
 
                     ref BoxComponent boxComponent = ref _boxComponentPool.Add(entity);
                     boxComponent.StartBoxCount = dataInit.StartBoxCount;
                     boxComponent.Speed = dataInit.Speed;
                     boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
-                    
-                   // ref BoxComponent boxComponent = ref _boxComponentPool.Get(entity);
+
                     for (int i = 0; i <= 10; i++)
                     {
                         GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
@@ -71,7 +69,7 @@ namespace MSuhininTestovoe.B2B
                         transformComponent.Value = pooled.GetComponent<BoxView>().transform;
                         var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
                         lenghtComponent.Value = backgroundLenght;
-                  
+
                         _poolService.Return(pooled);
                     }
 
@@ -81,7 +79,5 @@ namespace MSuhininTestovoe.B2B
                 _scriptableObjectPool.Del(entity);
             }
         }
-
-       
     }
 }

@@ -8,7 +8,7 @@ using UniRx;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class BoxRespawnSystem : IEcsInitSystem, IEcsDestroySystem,IDisposable
+    public class BoxRespawnSystem : IEcsInitSystem, IEcsDestroySystem, IDisposable
     {
         private EcsFilter filter;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
@@ -17,7 +17,6 @@ namespace MSuhininTestovoe.B2B
         private PlayerSharedData _sharedData;
 
 
-      
         public void Init(IEcsSystems systems)
         {
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
@@ -30,23 +29,20 @@ namespace MSuhininTestovoe.B2B
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
 
-            
-                Observable.Interval(TimeSpan.FromMilliseconds(LimitsConstants.COOLDOWN_BOX)).Where(_ => true).Subscribe(x =>
-                    {
-                        Respawn(_sharedData.GetPlayerCharacteristic.CurrentScore);
-                    })
-                    .AddTo(_disposables);
-              
-            }
-         
-           
-        
+            Observable.Interval(TimeSpan.FromMilliseconds(LimitsConstants.COOLDOWN_BOX))
+                .Where(_ => true).Subscribe(x =>
+                {
+                    Respawn(_sharedData.GetPlayerCharacteristic.CurrentScore);
+                })
+                .AddTo(_disposables);
+        }
+
 
         private void Respawn(int cnt)
         {
             foreach (var _ in filter)
             {
-                var spawnCnt = new System.Random().Next(1, cnt+1);
+                var spawnCnt = new System.Random().Next(1, cnt + 1);
                 for (int i = 0; i < spawnCnt; i++)
                 {
                     if (_poolService == null)
@@ -61,9 +57,9 @@ namespace MSuhininTestovoe.B2B
                     {
                         ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
                     }
-              
                 }
-              return;
+
+                return;
             }
         }
 
@@ -76,6 +72,5 @@ namespace MSuhininTestovoe.B2B
         {
             _disposables.Clear();
         }
-
     }
 }
