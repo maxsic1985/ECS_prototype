@@ -42,8 +42,8 @@ namespace MSuhininTestovoe.B2B
                 ref IsMoveComponent isMoveComponent = ref _isMovingComponent.Get(entity);
                 if (transformComponent.Value.gameObject.transform.position.x < -20)
                 {
-                    _poolService.Return(transformComponent.Value.gameObject);
                     transformComponent.Value.position = new Vector2(10, new System.Random().Next(-3, 3));
+                    _poolService.Return(transformComponent.Value.gameObject);
                    _isMovingComponent.Del(entity);
                 }
                 // _reachedToPlayer = _isReachedComponentPool.Get(entity).IsRecheded.reachedEndOfPath;

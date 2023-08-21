@@ -30,7 +30,7 @@ namespace MSuhininTestovoe.B2B
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
 
-            Observable.Interval(TimeSpan.FromMilliseconds(10000)).Where(_ => true).Subscribe(x => { Respawn(); })
+            Observable.Interval(TimeSpan.FromMilliseconds(4000)).Where(_ => true).Subscribe(x => { Respawn(); })
                 .AddTo(_disposables);
         }
 

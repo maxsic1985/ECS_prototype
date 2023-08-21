@@ -34,10 +34,11 @@ namespace MSuhininTestovoe.B2B
             foreach (int platformEntity in _filter)
             {
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(platformEntity);
-                ref SpeedComponent speedComponent = ref _speedComponentPool.Get(platformEntity);
+                    ref SpeedComponent speedComponent = ref _speedComponentPool.Get(platformEntity);
 
 
-                if (transformComponent.Value.gameObject.TryGetComponent(out EnemyActor platform))
+                if (transformComponent.Value.gameObject.TryGetComponent(out EnemyActor platform)
+                &&    transformComponent.Value.gameObject.activeSelf)
                 {
                     Vector2 position = transformComponent.Value.position;
                     position -= new Vector2(speedComponent.SpeedValue * Time.deltaTime, 0);

@@ -28,7 +28,7 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (var entity in _filter)
             {
-                if (_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives <= 0)
+                if (_sharedData.GetPlayerCharacteristic.CurrentScore <= 0)
                 {
                     if (!_isPlayerDeathPool.Has(entity))
                     {

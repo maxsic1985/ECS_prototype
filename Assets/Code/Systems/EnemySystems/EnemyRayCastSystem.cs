@@ -36,12 +36,13 @@ namespace MSuhininTestovoe.B2B
             foreach (var entity in filter)
             {
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
+             
                 RaycastHit2D hit = Physics2D.CircleCast(transformComponent.Value.position,
-                    3, 
+                    3,
                     Vector2.left);
                 if (hit.collider == null) return;
-                if (hit.collider.gameObject.activeSelf==false) return;
-                if (hit.collider.gameObject.GetComponent<PlayerActor>() != null)
+                if (hit.collider.gameObject.GetComponent<PlayerActor>() != null
+                && transformComponent.Value.gameObject.activeSelf)
                 {
                     float distance = Vector2.Distance(hit.collider.gameObject.transform.position,
                         transformComponent.Value.position);
@@ -57,8 +58,8 @@ namespace MSuhininTestovoe.B2B
                     if (distance < 3 &&
                         !reached.reachedEndOfPath &&
                         !_isFollowComponentPool.Has(entity) &&
-                       Math.Abs(transformComponent.Value.position.x)
-                       < Math.Abs(hit.collider.gameObject.transform.position.x))
+                        Math.Abs(transformComponent.Value.position.x)
+                        < Math.Abs(hit.collider.gameObject.transform.position.x))
 
                     {
                         var enemyEntity = transformComponent.Value.GetComponent<EnemyActor>().Entity;
@@ -79,8 +80,9 @@ namespace MSuhininTestovoe.B2B
                             var enemyEntity = transformComponent.Value.GetComponent<EnemyActor>().Entity;
                             _isFollowComponentPool.Del(enemyEntity);
                             aiDestinationSetter.target = transformComponent.Value.transform;
-                            reached.Teleport(transformComponent.Value.gameObject.transform.position+Vector3.left, true);
-                          //  reached.Teleport(transformComponent.Value.gameObject.transform.position, true);
+                            reached.Teleport(transformComponent.Value.gameObject.transform.position + Vector3.left,
+                                true);
+                            //  reached.Teleport(transformComponent.Value.gameObject.transform.position, true);
                             reached.endReachedDistance = Single.PositiveInfinity;
                             reached.reachedEndOfPath = false;
                             reached.endReachedDistance = 0;

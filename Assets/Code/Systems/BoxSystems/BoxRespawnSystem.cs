@@ -37,7 +37,7 @@ namespace MSuhininTestovoe.B2B
            
                 Observable.Interval(TimeSpan.FromMilliseconds(10000)).Where(_ => true).Subscribe(x =>
                     {
-                        Respawn(_sharedData.GetPlayerCharacteristic.GetLives.GetCurrrentLives);
+                        Respawn(_sharedData.GetPlayerCharacteristic.CurrentScore);
                     })
                     .AddTo(_disposables);
          

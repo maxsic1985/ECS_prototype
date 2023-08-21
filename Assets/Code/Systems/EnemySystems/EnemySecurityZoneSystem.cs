@@ -1,22 +1,25 @@
-﻿using System;
-using LeoEcsPhysics;
+﻿using LeoEcsPhysics;
 using Leopotam.EcsLite;
-using Pathfinding;
+using Leopotam.EcsLite.Unity.Ugui;
+using LeopotamGroup.Globals;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
+    public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _world;
         private EcsPool<EnemyIsFollowingComponent> _isFollowComponentPool;
+        [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
 
 
         private PlayerSharedData _sharedData;
 
         private int _entity;
         private EcsFilter _enemyFilter;
+        private IPoolService _poolService;
+
         private EcsFilter _filterEnterToTrigger;
         private EcsFilter _filterExitFromTrigger;
         private EcsPool<IsRestartComponent> _isRestartPool;
@@ -25,13 +28,11 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
+            _poolService = Service<IPoolService>.Get();
 
             _enemyFilter = _world.Filter<IsEnemyComponent>().End();
 
             _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
-                //  .Inc<IsPlayerComponent>()
-                //  .Exc<EnemyPathfindingComponent>()
-                //  .Exc<EnemyIsFollowingComponent>()
                 .End();
 
             _filterExitFromTrigger = _world.Filter<OnTriggerExit2DEvent>()
@@ -45,76 +46,30 @@ namespace MSuhininTestovoe.B2B
         public void Run(IEcsSystems ecsSystems)
         {
             var poolEnter = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
-            var poolExit = ecsSystems.GetWorld().GetPool<OnTriggerExit2DEvent>();
-
             foreach (var entity in _filterEnterToTrigger)
             {
                 ref var eventData = ref poolEnter.Get(entity);
-
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-                //  if (eventData.collider2D.GetComponent<EnemyActor>() == null) return;
-                if (eventData.senderGameObject.GetComponent<PlayerActor>() != null
-                    && eventData.collider2D.GetComponent<EnemyActor>() != null)
-                {
-                    var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                    var reached = eventData.collider2D.GetComponent<AIPath>();
-                    var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                    if (!_isFollowComponentPool.Has(enemyEntity))
-                    {
-                        ref EnemyIsFollowingComponent enemyIsFollowingComponent =
-                            ref _isFollowComponentPool.Add(enemyEntity);
-                    }
-
-                    var target = eventData.senderGameObject.transform;
-                    aiDestinationSetter.target = target;
-                    reached.endReachedDistance = 0.5f;
-                    Debug.Log("StartFollowing");
-                }
-
-                else if (eventData.senderGameObject.GetComponent<PlayerActor>() != null
-                         && eventData.collider2D.GetComponent<BorderActor>() != null)
+                if (eventData.collider2D.GetComponent<BorderActor>() != null)
                 {
                     Debug.Log("StartFollowing");
 
                     _isRestartPool.Add(entity);
                     _isFollowComponentPool.Del(entity);
                     poolEnter.Del(entity);
-                    // SceneManager.LoadScene(0);
-                   // return;
+                    return;
                 }
-            }
-
-            ExitFromTRigger(poolExit);
-        }
-
-        private void ExitFromTRigger(EcsPool<OnTriggerExit2DEvent> poolExit)
-        {
-            foreach (var entity in _filterExitFromTrigger)
-            {
-                ref var eventData = ref poolExit.Get(entity);
 
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
                 if (eventData.collider2D.GetComponent<EnemyActor>() != null)
                 {
-                    var aiDestinationSetter = eventData.collider2D.GetComponent<AIDestinationSetter>();
-                    var enemyEntity = eventData.collider2D.GetComponent<EnemyActor>().Entity;
-                    _isFollowComponentPool.Del(enemyEntity);
-                    var reached = eventData.collider2D.GetComponent<AIPath>();
-                    aiDestinationSetter.target = eventData.collider2D.gameObject.transform;
-                    reached.Teleport(eventData.collider2D.gameObject.transform.position, true);
-                    reached.endReachedDistance = Single.PositiveInfinity;
-                    reached.reachedEndOfPath = false;
-                    reached.endReachedDistance = 0;
+                    var score = _sharedData.GetPlayerCharacteristic.AddScore(1);
+                    _coinslabel.text =score.ToString();
+                    _poolService.Return(eventData.collider2D.gameObject);
                 }
 
-                poolExit.Del(entity);
-                //   poolExit.Del(entity);
+                poolEnter.Del(entity);
             }
-        }
-
-        public void Destroy(IEcsSystems systems)
-        {
-            throw new NotImplementedException();
         }
     }
 }
