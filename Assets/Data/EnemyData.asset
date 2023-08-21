@@ -20,11 +20,11 @@ MonoBehaviour:
   CountForInstantiate: 1
   Lives: 1
   StartPositions:
-  - {x: 0, y: -3, z: 0}
-  - {x: 0, y: -2, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 2, z: 0}
-  - {x: 0, y: 3, z: 0}
+  - {x: 10, y: -3, z: 0}
+  - {x: 10, y: 0, z: 0}
+  - {x: 10, y: 0, z: 0}
+  - {x: 10, y: 2, z: 0}
+  - {x: 10, y: 3, z: 0}
   StartRotation:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}

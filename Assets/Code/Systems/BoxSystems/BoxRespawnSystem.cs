@@ -46,7 +46,7 @@ namespace MSuhininTestovoe.B2B
 
         private void Respawn(int cnt)
         {
-            foreach (var VARIABLE in filterTrigger)
+            foreach (var _ in filterTrigger)
             {
                 var spawnCnt = new System.Random().Next(1, cnt);
                 for (int i = 0; i < spawnCnt; i++)
@@ -54,7 +54,6 @@ namespace MSuhininTestovoe.B2B
                     if (_poolService == null)
                     {
                         _poolService = Service<IPoolService>.Get();
-                        Dispose();
                     }
 
                     var pooled = _poolService.Get(GameObjectsTypeId.Box);
@@ -64,9 +63,9 @@ namespace MSuhininTestovoe.B2B
                     {
                         ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
                     }
-              return;
               
                 }
+              return;
             }
         }
 
