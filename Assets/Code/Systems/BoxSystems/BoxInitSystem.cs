@@ -66,7 +66,13 @@ namespace MSuhininTestovoe.B2B
                         ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
                         ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
 
-                        transformComponent.Value = pooled.GetComponent<BoxView>().transform;
+                        var boxView = pooled.GetComponent<BoxView>();
+                        boxView.MinSpeedPingPong = dataInit.MinSpeedBox;
+                        boxView.MaxSpeedPingPong = dataInit.MaxSpeedBox;
+                        boxView.PingPongUpPoint = dataInit.UpPoint;
+                        boxView.PingPongDownPoint = dataInit.DownPoint;
+                        
+                        transformComponent.Value = boxView.transform;
                         var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
                         lenghtComponent.Value = backgroundLenght;
 

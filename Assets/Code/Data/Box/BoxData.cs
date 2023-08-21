@@ -8,8 +8,13 @@ namespace MSuhininTestovoe.B2B
     public class BoxData : ScriptableObject
     {
         public float Speed;
-        public int CoolDown;
-         public int StartBoxCount;
+        public int StartBoxCount;
         public float[] StartBoxPoints;
+
+        public int MinSpeedBox;
+        public int MaxSpeedBox;
+
+        public int UpPoint;
+        public int DownPoint;
     }
 }
