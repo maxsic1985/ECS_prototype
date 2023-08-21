@@ -1,52 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using LeoEcsPhysics;
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.ExtendedSystems;
-using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
-using TMPro;
 using UniRx;
-using UnityEngine;
+
+
 
 namespace MSuhininTestovoe.B2B
 {
     public class BoxRespawnSystem : IEcsInitSystem, IEcsDestroySystem,IDisposable
     {
-        private EcsFilter filterTrigger;
+        private EcsFilter filter;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
-        private EcsPool<IsBoxComponent> _isBoxComponentPool;
         private IPoolService _poolService;
         private List<IDisposable> _disposables = new List<IDisposable>();
         private PlayerSharedData _sharedData;
 
 
+      
         public void Init(IEcsSystems systems)
         {
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
             _poolService = Service<IPoolService>.Get();
             EcsWorld world = systems.GetWorld();
-            filterTrigger = systems.GetWorld()
+            filter = systems.GetWorld()
                 .Filter<IsBoxComponent>()
-                // .Inc<TransformComponent>()
-                // .Exc<IsMoveComponent>()
                 .End();
             _isMovingComponentPool = world.GetPool<IsMoveComponent>();
-            _isBoxComponentPool = world.GetPool<IsBoxComponent>();
-           
-                Observable.Interval(TimeSpan.FromMilliseconds(10000)).Where(_ => true).Subscribe(x =>
+
+
+            
+                Observable.Interval(TimeSpan.FromMilliseconds(LimitsConstants.COOLDOWN_BOX)).Where(_ => true).Subscribe(x =>
                     {
                         Respawn(_sharedData.GetPlayerCharacteristic.CurrentScore);
                     })
                     .AddTo(_disposables);
+              
+            }
          
            
-        }
+        
 
         private void Respawn(int cnt)
         {
-            foreach (var _ in filterTrigger)
+            foreach (var _ in filter)
             {
                 var spawnCnt = new System.Random().Next(1, cnt+1);
                 for (int i = 0; i < spawnCnt; i++)
@@ -72,17 +70,12 @@ namespace MSuhininTestovoe.B2B
         public void Destroy(IEcsSystems systems)
         {
             Dispose();
-            Debug.Log("here");
-            systems.DelHere<OnTriggerStay2DEvent>();
-            systems.DelHere<OnTriggerExit2DEvent>();
-
-            systems.DelHerePhysics();
-            _disposables.Clear();
         }
 
         public void Dispose()
         {
             _disposables.Clear();
         }
+
     }
 }

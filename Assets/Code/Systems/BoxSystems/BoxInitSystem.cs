@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
+using LeopotamGroup.Globals;
 using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
@@ -11,13 +12,20 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<IsPoolLoadedComponent> _loadPrefabPool;
-        private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
+        private EcsPool<BoxComponent> _boxComponentPool;
+        private EcsPool<SpeedComponent> _speedComponentPool;
+        private EcsPool<IsMoveComponent> _isMoveComponentPool;
+        private EcsPool<IsBoxComponent> _isBoxComponentPool;
+        private EcsPool<LenghtComponent> _lenghtComponentPool;
+        private IPoolService _poolService;
 
-        
+
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
+            _poolService = Service<IPoolService>.Get();
+
             _filter = _world.Filter<IsBoxComponent>()
                .Inc<ScriptableObjectComponent>()
                 .End();
@@ -25,7 +33,12 @@ namespace MSuhininTestovoe.B2B
            _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
             _boxComponentPool = _world.GetPool<BoxComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
+            _isBoxComponentPool = _world.GetPool<IsBoxComponent>();
+            _speedComponentPool = _world.GetPool<SpeedComponent>();
+            _isMoveComponentPool = _world.GetPool<IsMoveComponent>();
+            _lenghtComponentPool = _world.GetPool<LenghtComponent>();
         }
+        
 
         public void Run(IEcsSystems systems)
         {
@@ -40,7 +53,27 @@ namespace MSuhininTestovoe.B2B
                     boxComponent.Speed = dataInit.Speed;
                     boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
                     
+                   // ref BoxComponent boxComponent = ref _boxComponentPool.Get(entity);
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
+                        var newEntity = systems.GetWorld().NewEntity();
+                        pooled.gameObject.GetComponent<Actor>().AddEntity(newEntity);
 
+                        ref SpeedComponent speedComponent = ref _speedComponentPool.Add(newEntity);
+                        speedComponent.SpeedValue = boxComponent.Speed;
+
+                        ref IsMoveComponent isMoveComponent = ref _isMoveComponentPool.Add(newEntity);
+                        ref TransformComponent transformComponent = ref _transformComponentPool.Add(newEntity);
+                        ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
+                        ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
+
+                        transformComponent.Value = pooled.GetComponent<BoxView>().transform;
+                        var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
+                        lenghtComponent.Value = backgroundLenght;
+                  
+                        _poolService.Return(pooled);
+                    }
 
                     _transformComponentPool.Add(entity);
                 }

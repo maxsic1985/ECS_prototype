@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BoxundData 1
   m_EditorClassIdentifier: 
   Speed: 4
+  CoolDown: 10000
   StartBoxCount: 0
   StartBoxPoints:
   - 0

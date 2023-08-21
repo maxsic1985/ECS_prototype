@@ -7,9 +7,8 @@ namespace MSuhininTestovoe.B2B
         menuName = EditorMenuConstants.CREATE_DATA_MENU_NAME + nameof(BoxData))]
     public class BoxData : ScriptableObject
     {
-      //  [Header("Prefabs:")]
-     //   public AssetReferenceGameObject Value;
         public float Speed;
+        public int CoolDown;
         [HideInInspector] public int StartBoxCount;
         public float[] StartBoxPoints;
     }

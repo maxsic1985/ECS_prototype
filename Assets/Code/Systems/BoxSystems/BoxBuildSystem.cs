@@ -55,16 +55,13 @@ namespace MSuhininTestovoe.B2B
                     ref TransformComponent transformComponent = ref _transformComponentPool.Add(newEntity);
                     ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
                     ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
-
-
+                 //   ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
+                    
+                    
                     transformComponent.Value = pooled.GetComponent<BoxView>().transform;
-
                     var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
                     lenghtComponent.Value = backgroundLenght;
-
-
-                    //   transformComponent.Value = pooled.gameObject.GetComponent<BackgroundView>().transform;
-                    //   speedComponent.SpeedValue = 2;
+                  
                     _poolService.Return(pooled);
                 }
 
