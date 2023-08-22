@@ -12,8 +12,11 @@ namespace MSuhininTestovoe.B2B
 
         [Header("Position:")] public Vector3 StartPosition;
         [Header("Player moving data:")] 
-        public float MoveSpeed;
         public float Force;
+        public float AngularDrag;
+        public float GravityScale;
+        public float Mass;
+        public bool AutoMass;
         
     }
 }

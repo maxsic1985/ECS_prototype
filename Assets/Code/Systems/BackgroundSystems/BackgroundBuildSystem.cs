@@ -1,7 +1,8 @@
-﻿using System;
-using Leopotam.EcsLite;
+﻿using Leopotam.EcsLite;
 using UnityEngine;
 using Object = UnityEngine.Object;
+
+
 
 namespace MSuhininTestovoe.B2B
 {

@@ -31,7 +31,7 @@ namespace MSuhininTestovoe.B2B
                 ref PrefabComponent prefabComponent = ref _prefabPool.Get(entity);
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
                 ref PlayerStartPositionComponent playerPosition = ref _playerStartPositionComponentPool.Get(entity);
-                ref PlayerRigidBodyComponent playerRigidBodyComponent = ref _playerRigidBodyComponentPool.Add(entity);
+                ref PlayerRigidBodyComponent playerRigidBodyComponent = ref _playerRigidBodyComponentPool.Get(entity);
                 ref BoxColliderComponent boxColliderComponent = ref _playerBoxColliderComponentPool.Add(entity);
 
                 GameObject gameObject = Object.Instantiate(prefabComponent.Value);
@@ -40,6 +40,7 @@ namespace MSuhininTestovoe.B2B
                 gameObject.GetComponent<IActor>().AddEntity(entity);
                 boxColliderComponent.ColliderValue = gameObject.GetComponent<BoxCollider>();
                 playerRigidBodyComponent.PlayerRigidbody = gameObject.GetComponent<Rigidbody2D>();
+                playerRigidBodyComponent.SetRigidBodyParametrs();
                 _prefabPool.Del(entity);
             }
         }
