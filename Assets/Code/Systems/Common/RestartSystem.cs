@@ -33,7 +33,7 @@ namespace MSuhininTestovoe.B2B
                 var timeServise = Service<ITimeService>.Get();
                 timeServise.Resume();
                 _sharedData.GetPlayerCharacteristic.LoadInitValue();
-                Application.LoadLevelAsync((int)SceeneType.MAIN);
+                Application.LoadLevelAsync((int)SceeneType.GAME);
                 _isRestartPool.Del(entity);
                 foreach (var VARIABLE in _filterTriggerEnter)
                 {
