@@ -1,14 +1,15 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeoEcsPhysics;
+using UnityEditor;
 using UnityEngine;
-
 
 
 namespace MSuhininTestovoe.B2B
 {
     public sealed class EcsStartup : MonoBehaviour
     {
+
         private EcsSystems _systems;
         private bool _hasInitCompleted;
         [SerializeField] EcsUguiEmitter uguiEmitter;
@@ -36,6 +37,12 @@ namespace MSuhininTestovoe.B2B
                 .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
                 .Init();
 
+#if !UNITY_EDITOR && UNITY_WEBGL
+        // disable WebGLInput.captureAllKeyboardInput so elements in web page can handle keyboard inputs
+        WebGLInput.captureAllKeyboardInput = true;
+#endif
+            
+            
             _hasInitCompleted = true;
         }
 

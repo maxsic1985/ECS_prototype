@@ -32,7 +32,7 @@ namespace MSuhininTestovoe.B2B
             Observable.Interval(TimeSpan.FromMilliseconds(LimitsConstants.COOLDOWN_BOX))
                 .Where(_ => true).Subscribe(x =>
                 {
-                    Respawn(_sharedData.GetPlayerCharacteristic.CurrentScore);
+                    Respawn(_sharedData.GetPlayerCharacteristic.GetMaxBoxCountForPooling());
                 })
                 .AddTo(_disposables);
         }

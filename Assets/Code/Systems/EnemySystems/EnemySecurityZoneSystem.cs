@@ -3,7 +3,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
-
+using UnityEngine;
 
 
 namespace MSuhininTestovoe.B2B
@@ -33,12 +33,15 @@ namespace MSuhininTestovoe.B2B
 
         public void Run(IEcsSystems ecsSystems)
         {
+          
+
+
             var poolEnter = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
             foreach (var entity in _filterEnterToTrigger)
             {
                 ref var eventData = ref poolEnter.Get(entity);
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-            
+
                 if (eventData.collider2D.GetComponent<BorderActor>() != null)
                 {
                     _isRestartPool.Add(entity);
@@ -48,13 +51,14 @@ namespace MSuhininTestovoe.B2B
                 }
 
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
-            
+
                 if (eventData.collider2D.GetComponent<EnemyActor>() != null)
                 {
                     var score = _sharedData.GetPlayerCharacteristic.AddScore(1);
-                    _coinslabel.text =score.ToString();
+                    _coinslabel.text = score.ToString();
                     _poolService.Return(eventData.collider2D.gameObject);
                 }
+
                 poolEnter.Del(entity);
             }
         }

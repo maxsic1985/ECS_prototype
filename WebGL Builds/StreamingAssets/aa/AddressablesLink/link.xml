@@ -1,0 +1,74 @@
+<linker>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="MSuhininTestovoe.B2B.BackgroundData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.BackgroundView" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.BorderActor" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.BoxData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.BoxView" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.CameraLoadData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.EnemyActor" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.EnemyData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.PlayerActor" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.PlayerControlData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.PlayerSharedData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.PoolData" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.TransformView" preserve="all" />
+    <type fullname="PathfinderScan" preserve="all" />
+    <type fullname="MSuhininTestovoe.B2B.PlayerCharacteristic" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="AstarPathfindingProject, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="AstarPath" preserve="all" />
+    <type fullname="Pathfinding.AIDestinationSetter" preserve="all" />
+    <type fullname="Pathfinding.AIPath" preserve="all" />
+    <type fullname="Pathfinding.Seeker" preserve="all" />
+    <type fullname="Pathfinding.AstarColor" preserve="nothing" serialized="true" />
+    <type fullname="Pathfinding.AstarData" preserve="nothing" serialized="true" />
+    <type fullname="Pathfinding.EuclideanEmbedding" preserve="nothing" serialized="true" />
+    <type fullname="Pathfinding.AutoRepathPolicy" preserve="nothing" serialized="true" />
+    <type fullname="Pathfinding.GraphMask" preserve="nothing" serialized="true" />
+    <type fullname="Pathfinding.StartEndModifier" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="com.supremestranger.leoecs-lite-physics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="LeoEcsPhysics.OnTriggerEnter2DChecker" preserve="all" />
+    <type fullname="LeoEcsPhysics.OnTriggerExit2DChecker" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+    <type fullname="UnityEngine.AddressableAssets.AssetReferenceGameObject" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AudioListener" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Camera" preserve="all" />
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.SpriteRenderer" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.GridModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Grid" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.BoxCollider2D" preserve="all" />
+    <type fullname="UnityEngine.CompositeCollider2D" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody2D" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Tilemaps.Tile" preserve="all" />
+    <type fullname="UnityEngine.Tilemaps.Tilemap" preserve="all" />
+    <type fullname="UnityEngine.Tilemaps.TilemapCollider2D" preserve="all" />
+    <type fullname="UnityEngine.Tilemaps.TilemapRenderer" preserve="all" />
+  </assembly>
+</linker>

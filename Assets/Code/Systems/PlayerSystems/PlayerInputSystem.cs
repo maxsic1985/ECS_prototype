@@ -1,4 +1,6 @@
 ﻿using Leopotam.EcsLite;
+using Leopotam.EcsLite.Unity.Ugui;
+using TMPro;
 using UnityEngine;
 
 
@@ -8,11 +10,10 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsWorld _world;
         private EcsPool<IsPlayerControlComponent> _isPlayerControlComponent;
-
         private int _entity;
         private EcsFilter _filter;
 
-
+        
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
@@ -34,6 +35,11 @@ namespace MSuhininTestovoe.B2B
                         ref _isPlayerControlComponent.Add(entity);
                 }
                 else if (Input.GetMouseButton(0) && !_isPlayerControlComponent.Has(entity))
+                {
+                    ref IsPlayerControlComponent playerIsControllComponent =
+                        ref _isPlayerControlComponent.Add(entity);
+                }
+                else if (Input.GetButton("Submit") && !_isPlayerControlComponent.Has(entity))
                 {
                     ref IsPlayerControlComponent playerIsControllComponent =
                         ref _isPlayerControlComponent.Add(entity);
