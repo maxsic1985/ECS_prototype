@@ -329,6 +329,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Emmiter
       objectReference: {fileID: 0}
+    - target: {fileID: 1536552440841259436, guid: 607ab78d923b249e09c95de216107a51, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536552440841259436, guid: 607ab78d923b249e09c95de216107a51, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536552440841259440, guid: 607ab78d923b249e09c95de216107a51, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1536552440841259441, guid: 607ab78d923b249e09c95de216107a51, type: 3}
       propertyPath: m_Pivot.x
       value: 0
