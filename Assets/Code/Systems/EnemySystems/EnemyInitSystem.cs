@@ -1,7 +1,6 @@
 ﻿using Leopotam.EcsLite;
 
 
-
 namespace MSuhininTestovoe.B2B
 {
     public class EnemyInitSystem : IEcsInitSystem, IEcsRunSystem
@@ -62,7 +61,10 @@ namespace MSuhininTestovoe.B2B
             ref EnemyStartRotationComponent enemyStartRotationComponent =
                 ref _enemyStartRotationComponentPool.Add(entity);
 
-            var positionIndex = GetUniqeRandomArray(dataInit.CountForInstantiate, 0, dataInit.StartPositions.Length);
+            var positionIndex = GetUniqeRandomArray(
+                dataInit.CountForInstantiate,
+                0,
+                dataInit.StartPositions.Length);
 
             for (int i = 0; i < positionIndex.Length; i++)
             {

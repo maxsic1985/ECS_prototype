@@ -1,8 +1,8 @@
 ﻿using System;
 using Leopotam.EcsLite;
-using LeopotamGroup.Globals;
 using Pathfinding;
 using UnityEngine;
+
 
 
 namespace MSuhininTestovoe.B2B
@@ -13,6 +13,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
         private EcsPool<EnemyIsFollowingComponent> _isFollowComponentPool;
+        private EcsPool<EnemyPathfindingComponent> _enemyPathFindingComponentPool;
 
 
         public void Init(IEcsSystems systems)
@@ -36,7 +37,7 @@ namespace MSuhininTestovoe.B2B
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
 
                 RaycastHit2D hit = Physics2D.CircleCast(transformComponent.Value.position,
-                    4,
+                    LimitsConstants.ENEMY_RAYCAST_LENGHT,
                     Vector2.left);
                 if (hit.collider == null) return;
                 if (hit.collider.gameObject.GetComponent<PlayerActor>() != null
@@ -52,7 +53,7 @@ namespace MSuhininTestovoe.B2B
                         hit.collider.gameObject.transform.position,
                         Color.red);
 
-                    if (distance < 4 &&
+                    if (distance < LimitsConstants.ENEMY_RAYCAST_LENGHT &&
                         !reached.reachedEndOfPath &&
                         !_isFollowComponentPool.Has(entity) &&
                         Math.Abs(transformComponent.Value.position.x)
@@ -68,7 +69,7 @@ namespace MSuhininTestovoe.B2B
 
                         var target = hit.collider.gameObject.transform.GetChild(1).transform;
                         aiDestinationSetter.target = target;
-                        reached.endReachedDistance = 1.5f;
+                        reached.endReachedDistance = LimitsConstants.ENEMY_END_REACH_DISTANCE;
                     }
                     else if (reached.reachedEndOfPath)
                     {
