@@ -35,7 +35,6 @@ namespace MSuhininTestovoe.B2B
                 _sharedData.GetPlayerCharacteristic.LoadInitValue();
                Application.LoadLevelAsync(0);
                 _isRestartPool.Del(entity);
-                Debug.Log("rest");
                 foreach (var VARIABLE in _filterTriggerEnter)
                 {
                     trig.Del(VARIABLE);

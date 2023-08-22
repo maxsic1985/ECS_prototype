@@ -1,5 +1,6 @@
 using LeoEcsPhysics;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -7,6 +8,7 @@ namespace MSuhininTestovoe.B2B
     {
         public InitializeAllSystem(EcsSystems systems, IPoolService poolService)
         {
+            
             systems
                 .Add(new InitializeServiceSystem(poolService))
                 .Add(new LoadPrefabSystem())

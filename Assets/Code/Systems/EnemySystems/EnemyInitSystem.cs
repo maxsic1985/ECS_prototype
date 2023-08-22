@@ -38,7 +38,7 @@ namespace MSuhininTestovoe.B2B
 
                     ref EnemySecutityZoneComponent securityZoneComponent =
                         ref _enemySecutityZoneComponentPool.Add(entity);
-                    securityZoneComponent.distanceValue = dataInit.SecurityZoneDistance;
+                    securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
                     
                     ref EnemyHealthComponent enemyHealth =
                         ref _enemyHealthComponentPool.Add(entity);

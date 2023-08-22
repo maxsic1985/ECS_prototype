@@ -2,6 +2,6 @@
 {
     public struct EnemySecutityZoneComponent
     {
-        public float distanceValue;
+        public float DistanceValue;
     }
 }
