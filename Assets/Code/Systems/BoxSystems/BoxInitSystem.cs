@@ -3,6 +3,7 @@ using LeopotamGroup.Globals;
 using UnityEngine;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     public class BoxInitSystem : IEcsInitSystem, IEcsRunSystem

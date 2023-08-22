@@ -1,10 +1,10 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
-
-
     public class CameraBuildSystem: IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filter;

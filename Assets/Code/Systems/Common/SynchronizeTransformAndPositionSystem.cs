@@ -9,6 +9,7 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _filter;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PositionComponent> _positionComponentPool;
+     
         
         public void Init(IEcsSystems systems)
         {
@@ -18,6 +19,7 @@ namespace MSuhininTestovoe.B2B
             _positionComponentPool = world.GetPool<PositionComponent>();
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _filter)

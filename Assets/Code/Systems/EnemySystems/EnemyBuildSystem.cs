@@ -3,6 +3,8 @@ using LeopotamGroup.Globals;
 using Pathfinding;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class EnemyBuildSystem : IEcsInitSystem, IEcsRunSystem
@@ -16,7 +18,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<IsEnemyComponent> _isEnemyComponentPool;
-
         private EcsPool<BoxColliderComponent> _enemyBoxColliderComponentPool;
         private IPoolService _poolService;
 

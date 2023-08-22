@@ -1,6 +1,8 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class CameraFollowSystem : IEcsInitSystem, IEcsRunSystem

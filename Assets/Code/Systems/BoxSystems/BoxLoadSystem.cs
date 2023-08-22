@@ -1,6 +1,7 @@
 ﻿using Leopotam.EcsLite;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     public class BoxLoadSystem : IEcsInitSystem

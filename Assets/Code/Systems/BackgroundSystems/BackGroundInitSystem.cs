@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Leopotam.EcsLite;
-using UnityEngine;
+﻿using Leopotam.EcsLite;
+
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -40,15 +39,10 @@ namespace MSuhininTestovoe.B2B
                     backgroundComponent.Speed = dataInit.Speed;
                     backgroundComponent.SpawnPlatformPoint = dataInit.StartPlatformPosition;
                     
-
-
                     _transformComponentPool.Add(entity);
                 }
-
                 _scriptableObjectPool.Del(entity);
             }
         }
-
-       
     }
 }

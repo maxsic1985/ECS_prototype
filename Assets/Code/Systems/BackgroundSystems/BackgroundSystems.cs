@@ -1,6 +1,5 @@
-﻿using LeoEcsPhysics;
-using Leopotam.EcsLite;
-using Leopotam.EcsLite.ExtendedSystems;
+﻿using Leopotam.EcsLite;
+
 
 namespace MSuhininTestovoe.B2B
 {

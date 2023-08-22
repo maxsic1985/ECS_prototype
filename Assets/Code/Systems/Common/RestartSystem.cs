@@ -2,7 +2,7 @@
 using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -33,7 +33,7 @@ namespace MSuhininTestovoe.B2B
                 var timeServise = Service<ITimeService>.Get();
                 timeServise.Resume();
                 _sharedData.GetPlayerCharacteristic.LoadInitValue();
-               Application.LoadLevelAsync(0);
+                Application.LoadLevelAsync((int)SceeneType.MAIN);
                 _isRestartPool.Del(entity);
                 foreach (var VARIABLE in _filterTriggerEnter)
                 {

@@ -1,10 +1,10 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
-
-
     public class CameraInitSystem: IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filter;
@@ -16,7 +16,6 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<IsCameraComponent> _isCameraComponentPool;
 
         
-        
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
@@ -26,9 +25,9 @@ namespace MSuhininTestovoe.B2B
             _cameraStartPositionComponentPool = _world.GetPool<CameraStartPositionComponent>();
             _cameraStartRotationComponentPool = _world.GetPool<CameraStartRotationComponent>();
             _isCameraComponentPool = _world.GetPool<IsCameraComponent>();
-
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _filter)

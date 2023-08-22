@@ -1,5 +1,7 @@
 ﻿using Leopotam.EcsLite;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class EnemyInitSystem : IEcsInitSystem, IEcsRunSystem
@@ -27,6 +29,7 @@ namespace MSuhininTestovoe.B2B
             _enemyHealthComponentPool = _world.GetPool<EnemyHealthComponent>();
         }
 
+
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
@@ -34,26 +37,22 @@ namespace MSuhininTestovoe.B2B
                 if (_scriptableObjectPool.Get(entity).Value is EnemyData dataInit)
                 {
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                //    loadPrefabFromPool.Value = dataInit.EnemyPrefab;
-
                     ref EnemySecutityZoneComponent securityZoneComponent =
                         ref _enemySecutityZoneComponentPool.Add(entity);
                     securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
-                    
+
                     ref EnemyHealthComponent enemyHealth =
                         ref _enemyHealthComponentPool.Add(entity);
                     enemyHealth.HealthValue = dataInit.Lives;
 
-                    
                     SpawnEnemy(entity, dataInit);
-
-
                     _transformComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);
             }
         }
+
 
         private void SpawnEnemy(int entity, EnemyData dataInit)
         {
@@ -62,40 +61,39 @@ namespace MSuhininTestovoe.B2B
 
             ref EnemyStartRotationComponent enemyStartRotationComponent =
                 ref _enemyStartRotationComponentPool.Add(entity);
-            
 
-           var positionIndex= GetUniqeRandomArray(dataInit.CountForInstantiate,0,dataInit.StartPositions.Length);
+            var positionIndex = GetUniqeRandomArray(dataInit.CountForInstantiate, 0, dataInit.StartPositions.Length);
 
             for (int i = 0; i < positionIndex.Length; i++)
             {
-                enemyStartPositionComponent.Value=dataInit.StartPositions[positionIndex[i]];
-                enemyStartRotationComponent.Value=dataInit.StartRotation[positionIndex[i]];
+                enemyStartPositionComponent.Value = dataInit.StartPositions[positionIndex[i]];
+                enemyStartRotationComponent.Value = dataInit.StartRotation[positionIndex[i]];
             }
         }
-        
-        public int[] GetUniqeRandomArray(int size , int Min , int Max ) {
 
-            int [] UniqueArray = new int[size];
+        public int[] GetUniqeRandomArray(int size, int Min, int Max)
+        {
+            int[] UniqueArray = new int[size];
             var rnd = new System.Random();
             int Random;
 
-            for (int i = 0 ; i < size ; i++) {
-
+            for (int i = 0; i < size; i++)
+            {
                 Random = rnd.Next(Min, Max);
 
-                for (int j = i; j >= 0 ; j--) {
-
+                for (int j = i; j >= 0; j--)
+                {
                     if (UniqueArray[j] == Random)
-                    { Random = rnd.Next(Min, Max); j = i; }
-
+                    {
+                        Random = rnd.Next(Min, Max);
+                        j = i;
+                    }
                 }
 
                 UniqueArray[i] = Random;
-
             }
 
             return UniqueArray;
-
         }
     }
 }

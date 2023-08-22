@@ -22,6 +22,7 @@ namespace MSuhininTestovoe.B2B
             _timeService = Service<ITimeService>.Get();
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (var entity in _filter)
