@@ -10,8 +10,6 @@ namespace MSuhininTestovoe.B2B
     {
         private PlayerSharedData _playerShared;
         public PlayerSharedData GetPlayerSharedData => _playerShared;
-        private Transform _canvas;
-        public Transform GetCanvas => _canvas;
 
         public async Task Init()
         {

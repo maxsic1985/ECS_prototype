@@ -7,9 +7,6 @@ namespace MSuhininTestovoe.B2B
     {
         public float Speed;
         public int StartBoxCount;
-        public Transform ParentTransform;
-        public Vector2 ReturnToPoolPoint;
         public float[] SpawnBoxPoint;
-        public float BoxCountOnSceene;
     }
 }
