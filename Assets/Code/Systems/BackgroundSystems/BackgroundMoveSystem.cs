@@ -19,7 +19,6 @@ namespace MSuhininTestovoe.B2B
                 .Filter<TransformComponent>()
                 .Inc<IsMoveComponent>()
                 .Inc<SpeedComponent>()
-            //    .Inc<IsBackgroundComponent>()
                 .End();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _speedComponentPool = _world.GetPool<SpeedComponent>();

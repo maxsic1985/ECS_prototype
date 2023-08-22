@@ -4,6 +4,7 @@ using LeoEcsPhysics;
 using UnityEngine;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     public sealed class EcsStartup : MonoBehaviour
@@ -14,7 +15,6 @@ namespace MSuhininTestovoe.B2B
 
         private async void Start()
         {
-            //
             SharedData shared = new();
             await shared.Init();
 
@@ -57,10 +57,7 @@ namespace MSuhininTestovoe.B2B
                 EcsPhysicsEvents.ecsWorld = null;
                 _systems.GetWorld().Destroy();
                 _systems = null;
-               
             }
         }
-
-       
     }
 }

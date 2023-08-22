@@ -13,17 +13,11 @@ namespace MSuhininTestovoe.B2B
                 .Add(new LoadDataByNameSystem());
 
             new CommonSystems(systems);
-            new PlayerSystems(systems); 
-           new CameraSystems(systems);
-           new BackgroundSystems(systems);
-           new EnemySystems(systems);
-           new BoxSystems(systems);
-           
-           //new MenuSystems(systems);
-           // new DeathSystems(systems);
-
-
-           //   new SoundSystems(systems);
+            new PlayerSystems(systems);
+            new CameraSystems(systems);
+            new BackgroundSystems(systems);
+            new EnemySystems(systems);
+            new BoxSystems(systems);
         }
     }
 }
