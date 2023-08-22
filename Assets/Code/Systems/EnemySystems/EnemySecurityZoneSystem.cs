@@ -3,7 +3,8 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
-using UnityEngine;
+
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -12,16 +13,10 @@ namespace MSuhininTestovoe.B2B
         private EcsWorld _world;
         private EcsPool<EnemyIsFollowingComponent> _isFollowComponentPool;
         [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
-
-
         private PlayerSharedData _sharedData;
-
         private int _entity;
-        private EcsFilter _enemyFilter;
         private IPoolService _poolService;
-
         private EcsFilter _filterEnterToTrigger;
-        private EcsFilter _filterExitFromTrigger;
         private EcsPool<IsRestartComponent> _isRestartPool;
 
 
@@ -29,14 +24,7 @@ namespace MSuhininTestovoe.B2B
         {
             _world = systems.GetWorld();
             _poolService = Service<IPoolService>.Get();
-
-            _enemyFilter = _world.Filter<IsEnemyComponent>().End();
-
             _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
-                .End();
-
-            _filterExitFromTrigger = _world.Filter<OnTriggerExit2DEvent>()
-                //.Inc<EnemyPathfindingComponent>()
                 .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _isFollowComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
@@ -50,9 +38,9 @@ namespace MSuhininTestovoe.B2B
             {
                 ref var eventData = ref poolEnter.Get(entity);
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+            
                 if (eventData.collider2D.GetComponent<BorderActor>() != null)
                 {
-
                     _isRestartPool.Add(entity);
                     _isFollowComponentPool.Del(entity);
                     poolEnter.Del(entity);
@@ -60,13 +48,13 @@ namespace MSuhininTestovoe.B2B
                 }
 
                 if (eventData.senderGameObject.GetComponent<PlayerActor>() == null) return;
+            
                 if (eventData.collider2D.GetComponent<EnemyActor>() != null)
                 {
                     var score = _sharedData.GetPlayerCharacteristic.AddScore(1);
                     _coinslabel.text =score.ToString();
                     _poolService.Return(eventData.collider2D.gameObject);
                 }
-
                 poolEnter.Del(entity);
             }
         }

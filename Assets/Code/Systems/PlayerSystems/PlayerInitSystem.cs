@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
-using UnityEngine;
+
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -30,6 +31,7 @@ namespace MSuhininTestovoe.B2B
 
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)

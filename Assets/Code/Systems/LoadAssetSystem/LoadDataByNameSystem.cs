@@ -2,6 +2,7 @@ using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     public sealed class LoadDataByNameSystem : IEcsInitSystem, IEcsRunSystem

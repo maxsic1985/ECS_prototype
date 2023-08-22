@@ -1,5 +1,7 @@
 ﻿using Leopotam.EcsLite;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class EnemySystem: IEcsInitSystem

@@ -12,6 +12,7 @@ namespace MSuhininTestovoe.B2B
         private int _entity;
         private EcsFilter _filter;
 
+
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
@@ -22,6 +23,7 @@ namespace MSuhininTestovoe.B2B
             _isPlayerControlComponent = _world.GetPool<IsPlayerControlComponent>();
         }
 
+
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
@@ -31,7 +33,7 @@ namespace MSuhininTestovoe.B2B
                     ref IsPlayerControlComponent playerIsControllComponent =
                         ref _isPlayerControlComponent.Add(entity);
                 }
-               else if (Input.GetMouseButton(0) && !_isPlayerControlComponent.Has(entity))
+                else if (Input.GetMouseButton(0) && !_isPlayerControlComponent.Has(entity))
                 {
                     ref IsPlayerControlComponent playerIsControllComponent =
                         ref _isPlayerControlComponent.Add(entity);

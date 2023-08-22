@@ -1,6 +1,8 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class PlayerBuildSystem : IEcsInitSystem, IEcsRunSystem
@@ -24,6 +26,7 @@ namespace MSuhininTestovoe.B2B
             _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)

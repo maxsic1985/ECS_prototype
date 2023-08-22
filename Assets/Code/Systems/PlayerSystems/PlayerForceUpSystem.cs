@@ -2,6 +2,7 @@
 using UnityEngine;
 
 
+
 namespace MSuhininTestovoe.B2B
 {
     public class PlayerForceUpSystem : IEcsInitSystem, IEcsRunSystem
@@ -9,8 +10,8 @@ namespace MSuhininTestovoe.B2B
         private EcsFilter _playerFilter;
         private EcsPool<ForceComponent> _forceComponentPool;
         private EcsPool<PlayerRigidBodyComponent> _playerRigidBodyComponentPool;
-        private Vector3 playerPosition;
 
+        
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
@@ -24,6 +25,7 @@ namespace MSuhininTestovoe.B2B
             _playerRigidBodyComponentPool = world.GetPool<PlayerRigidBodyComponent>();
         }
 
+        
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _playerFilter)
@@ -33,7 +35,8 @@ namespace MSuhininTestovoe.B2B
                 if (rigitBodyComponent.PlayerRigidbody == null)
                     return;
 
-                rigitBodyComponent.PlayerRigidbody.AddForce(Vector2.up * forceComponent.ForceValue
+                rigitBodyComponent.PlayerRigidbody.AddForce(
+                    Vector2.up * forceComponent.ForceValue
                     , ForceMode2D.Force);
             }
         }

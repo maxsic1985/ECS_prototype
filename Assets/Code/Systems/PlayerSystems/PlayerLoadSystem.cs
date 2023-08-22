@@ -1,11 +1,14 @@
 ﻿using Leopotam.EcsLite;
 
+
+
 namespace MSuhininTestovoe.B2B
 {
     public class PlayerLoadSystem: IEcsInitSystem
     {
         private EcsPool<IsPlayerComponent> _isPlayerPool;
 
+        
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
