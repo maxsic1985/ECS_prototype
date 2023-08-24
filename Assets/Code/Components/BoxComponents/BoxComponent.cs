@@ -6,7 +6,6 @@ namespace MSuhininTestovoe.B2B
     public struct BoxComponent
     {
         public float Speed;
-        public int StartBoxCount;
-        public float[] SpawnBoxPoint;
+        public int SpawnHorisontalPoint;
     }
 }

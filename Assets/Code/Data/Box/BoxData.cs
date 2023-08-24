@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+
+
 
 namespace MSuhininTestovoe.B2B
 {
@@ -8,13 +9,14 @@ namespace MSuhininTestovoe.B2B
     public class BoxData : ScriptableObject
     {
         public float Speed;
-        public int StartBoxCount;
-        public float[] StartBoxPoints;
 
         public int MinSpeedBox;
         public int MaxSpeedBox;
 
-        public int UpPoint;
-        public int DownPoint;
+        public int UpperPoint;
+        public int DownerPoint;
+
+        public int SpawnHorisontalPoint;
+
     }
 }

@@ -58,9 +58,8 @@ namespace MSuhininTestovoe.B2B
                         var newEntity = systems.GetWorld().NewEntity();
                         
                         ref BoxComponent boxComponent = ref _boxComponentPool.Add(newEntity);
-                        boxComponent.StartBoxCount = dataInit.StartBoxCount;
                         boxComponent.Speed = dataInit.Speed;
-                        boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
+                        boxComponent.SpawnHorisontalPoint = dataInit.SpawnHorisontalPoint;
                         pooled.gameObject.GetComponent<Actor>().AddEntity(newEntity);
 
                         ref SpeedComponent speedComponent = ref _speedComponentPool.Add(newEntity);
@@ -71,8 +70,8 @@ namespace MSuhininTestovoe.B2B
                         ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
                         ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
                         ref PingPongPositionComponent pingPongComponent = ref _pingPongComponentPool.Add(newEntity);
-                        pingPongComponent.UpValue = dataInit.UpPoint;
-                        pingPongComponent.DownValue = dataInit.DownPoint;
+                        pingPongComponent.UpValue = dataInit.UpperPoint;
+                        pingPongComponent.DownValue = dataInit.DownerPoint;
 
                         ref PingPongSpeedComponent pingPongSpeedComponent = ref _pingPongSpeedComponentPool.Add(newEntity);
                         pingPongSpeedComponent.MinValue = dataInit.MinSpeedBox;

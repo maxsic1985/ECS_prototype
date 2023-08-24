@@ -1,7 +1,6 @@
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.Unity.Ugui;
-using LeopotamGroup.Globals;
 using UnityEngine;
+
 
 
 namespace MSuhininTestovoe.B2B
@@ -34,17 +33,14 @@ namespace MSuhininTestovoe.B2B
         {
             foreach (var entity in _filter)
             {
-                Debug.Log($"entity{entity}");
                 ref var position = ref _poolPosition.Get(entity);
                 ref var speed = ref _poolSpeedVector.Get(entity);
                 ref var pingPongPosition = ref _pingPongPosition.Get(entity);
 
-              //  float pingPong = Mathf.PingPong(Time.time * 10, 1);
                 float pingPong = Mathf.PingPong(Time.time * speed.CurrentValue, 1);
                 var downposition = new Vector2(0, pingPongPosition.DownValue);
                 var upPosition = new Vector2(0, pingPongPosition.UpValue);
                 var direction = Vector2.Lerp(downposition, upPosition, pingPong);
-               //  position.Value = new Vector2(  position.Value.position.x, direction.y);
                  position.Value.position = new Vector2(  position.Value.position.x, direction.y);
             }
         }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UniRx;
-
+using Vector3 = UnityEngine.Vector3;
 
 
 namespace MSuhininTestovoe.B2B
@@ -12,8 +13,9 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsWorld _world;
         private EcsFilter filter;
+        private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
-        private EcsPool<SpeedComponent> _speedComponentPool;
+        private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<PingPongSpeedComponent> _pingsPongSpeedComponentPool;
         private IPoolService _poolService;
         private List<IDisposable> _disposables = new List<IDisposable>();
@@ -30,8 +32,9 @@ namespace MSuhininTestovoe.B2B
                 .Filter<BoxComponent>()
                 .Inc<IsBoxComponent>()
                 .End();
+            _boxComponentPool = _world.GetPool<BoxComponent>();
             _isMovingComponentPool = _world.GetPool<IsMoveComponent>();
-            _speedComponentPool = _world.GetPool<SpeedComponent>();
+            _transformComponentPool = _world.GetPool<TransformComponent>();
             _pingsPongSpeedComponentPool = _world.GetPool<PingPongSpeedComponent>();
 
 
@@ -58,11 +61,17 @@ namespace MSuhininTestovoe.B2B
 
                     var pooled = _poolService.Get(GameObjectsTypeId.Box);
                     var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
-                   
+
                     ref PingPongSpeedComponent speedPingPong = ref _pingsPongSpeedComponentPool.Get(entity);
-                    speedPingPong.CurrentValue=speedPingPong.GetRandomSpeed;
-                    
-                    
+                    speedPingPong.CurrentValue = speedPingPong.GetRandomSpeed;
+
+                    ref BoxComponent boxComponent = ref _boxComponentPool.Get(entity);
+                    var horizontalPoint = boxComponent.SpawnHorisontalPoint;
+
+                    ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
+                    transformComponent.Value.position =
+                        new Vector3(new System.Random().Next(horizontalPoint - 5, horizontalPoint + 5), 0);
+
                     if (!_isMovingComponentPool.Has(entity))
                     {
                         ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);
