@@ -3,7 +3,6 @@ using LeopotamGroup.Globals;
 using UnityEngine;
 
 
-
 namespace MSuhininTestovoe.B2B
 {
     public class BoxInitSystem : IEcsInitSystem, IEcsRunSystem
@@ -17,6 +16,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<BoxComponent> _boxComponentPool;
         private EcsPool<IsBoxComponent> _isBoxComponentPool;
         private EcsPool<SpeedComponent> _speedComponentPool;
+        private EcsPool<PingPongPositionComponent> _pingPongComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
 
@@ -37,6 +37,7 @@ namespace MSuhininTestovoe.B2B
             _speedComponentPool = _world.GetPool<SpeedComponent>();
             _isMoveComponentPool = _world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();
+            _pingPongComponentPool = _world.GetPool<PingPongPositionComponent>();
         }
 
 
@@ -48,15 +49,16 @@ namespace MSuhininTestovoe.B2B
                 {
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _isPoolLoadedPool.Add(entity);
 
-                    ref BoxComponent boxComponent = ref _boxComponentPool.Add(entity);
-                    boxComponent.StartBoxCount = dataInit.StartBoxCount;
-                    boxComponent.Speed = dataInit.Speed;
-                    boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
 
                     for (int i = 0; i <= 10; i++)
                     {
                         GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
                         var newEntity = systems.GetWorld().NewEntity();
+                        
+                        ref BoxComponent boxComponent = ref _boxComponentPool.Add(newEntity);
+                        boxComponent.StartBoxCount = dataInit.StartBoxCount;
+                        boxComponent.Speed = dataInit.Speed;
+                        boxComponent.SpawnBoxPoint = dataInit.StartBoxPoints;
                         pooled.gameObject.GetComponent<Actor>().AddEntity(newEntity);
 
                         ref SpeedComponent speedComponent = ref _speedComponentPool.Add(newEntity);
@@ -66,21 +68,18 @@ namespace MSuhininTestovoe.B2B
                         ref TransformComponent transformComponent = ref _transformComponentPool.Add(newEntity);
                         ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
                         ref IsBoxComponent isBoxComponent = ref _isBoxComponentPool.Add(newEntity);
+                        ref PingPongPositionComponent pingPongComponent = ref _pingPongComponentPool.Add(newEntity);
+                        pingPongComponent.UpValue = dataInit.UpPoint;
+                        pingPongComponent.DownValue = dataInit.DownPoint;
 
-                        var boxView = pooled.GetComponent<BoxView>();
-                        boxView.MinSpeedPingPong = dataInit.MinSpeedBox;
-                        boxView.MaxSpeedPingPong = dataInit.MaxSpeedBox;
-                        boxView.PingPongUpPoint = dataInit.UpPoint;
-                        boxView.PingPongDownPoint = dataInit.DownPoint;
-                        
-                        transformComponent.Value = boxView.transform;
+                          var boxView = pooled.GetComponent<BoxView>();
+                          transformComponent.Value = boxView.transform;
+
                         var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
                         lenghtComponent.Value = backgroundLenght;
 
                         _poolService.Return(pooled);
                     }
-
-                    _transformComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);
