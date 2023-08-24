@@ -10,8 +10,11 @@ namespace MSuhininTestovoe.B2B
 {
     public class BoxRespawnSystem : IEcsInitSystem, IEcsDestroySystem, IDisposable
     {
+        private EcsWorld _world;
         private EcsFilter filter;
         private EcsPool<IsMoveComponent> _isMovingComponentPool;
+        private EcsPool<SpeedComponent> _speedComponentPool;
+        private EcsPool<PingPongSpeedComponent> _pingsPongSpeedComponentPool;
         private IPoolService _poolService;
         private List<IDisposable> _disposables = new List<IDisposable>();
         private PlayerSharedData _sharedData;
@@ -22,11 +25,14 @@ namespace MSuhininTestovoe.B2B
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
 
             _poolService = Service<IPoolService>.Get();
-            EcsWorld world = systems.GetWorld();
+            _world = systems.GetWorld();
             filter = systems.GetWorld()
-                .Filter<IsBoxComponent>()
+                .Filter<BoxComponent>()
+                .Inc<IsBoxComponent>()
                 .End();
-            _isMovingComponentPool = world.GetPool<IsMoveComponent>();
+            _isMovingComponentPool = _world.GetPool<IsMoveComponent>();
+            _speedComponentPool = _world.GetPool<SpeedComponent>();
+            _pingsPongSpeedComponentPool = _world.GetPool<PingPongSpeedComponent>();
 
 
             Observable.Interval(TimeSpan.FromMilliseconds(LimitsConstants.COOLDOWN_BOX))
@@ -51,8 +57,12 @@ namespace MSuhininTestovoe.B2B
                     }
 
                     var pooled = _poolService.Get(GameObjectsTypeId.Box);
-
                     var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
+                   
+                    ref PingPongSpeedComponent speedPingPong = ref _pingsPongSpeedComponentPool.Get(entity);
+                    speedPingPong.CurrentValue=speedPingPong.GetRandomSpeed;
+                    
+                    
                     if (!_isMovingComponentPool.Has(entity))
                     {
                         ref IsMoveComponent isMoveComponent = ref _isMovingComponentPool.Add(entity);

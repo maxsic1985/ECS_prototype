@@ -17,6 +17,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<IsBoxComponent> _isBoxComponentPool;
         private EcsPool<SpeedComponent> _speedComponentPool;
         private EcsPool<PingPongPositionComponent> _pingPongComponentPool;
+        private EcsPool<PingPongSpeedComponent> _pingPongSpeedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
 
@@ -38,6 +39,7 @@ namespace MSuhininTestovoe.B2B
             _isMoveComponentPool = _world.GetPool<IsMoveComponent>();
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();
             _pingPongComponentPool = _world.GetPool<PingPongPositionComponent>();
+            _pingPongSpeedComponentPool = _world.GetPool<PingPongSpeedComponent>();
         }
 
 
@@ -72,6 +74,11 @@ namespace MSuhininTestovoe.B2B
                         pingPongComponent.UpValue = dataInit.UpPoint;
                         pingPongComponent.DownValue = dataInit.DownPoint;
 
+                        ref PingPongSpeedComponent pingPongSpeedComponent = ref _pingPongSpeedComponentPool.Add(newEntity);
+                        pingPongSpeedComponent.MinValue = dataInit.MinSpeedBox;
+                        pingPongSpeedComponent.MaxValue = dataInit.MaxSpeedBox;
+                        pingPongSpeedComponent.CurrentValue = pingPongSpeedComponent.GetRandomSpeed;
+                        
                           var boxView = pooled.GetComponent<BoxView>();
                           transformComponent.Value = boxView.transform;
 
