@@ -37,9 +37,6 @@ namespace MSuhininTestovoe.B2B
                 if (_scriptableObjectPool.Get(entity).Value is EnemyData dataInit)
                 {
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                    ref EnemySecutityZoneComponent securityZoneComponent =
-                        ref _enemySecutityZoneComponentPool.Add(entity);
-                    securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
 
                     SpawnEnemy(entity, dataInit);
                     _transformComponentPool.Add(entity);
@@ -54,7 +51,7 @@ namespace MSuhininTestovoe.B2B
         {
             ref EnemyStartPositionComponent enemyStartPositionComponent =
                 ref _enemyStartPositionComponentPool.Add(entity);
-            
+
 
             ref EnemyStartRotationComponent enemyStartRotationComponent =
                 ref _enemyStartRotationComponentPool.Add(entity);
@@ -62,8 +59,10 @@ namespace MSuhininTestovoe.B2B
 
             enemyStartPositionComponent.Value = dataInit.StartPositions;
             enemyStartRotationComponent.Value = dataInit.StartRotation;
-        }
 
-        
+            ref EnemySecutityZoneComponent securityZoneComponent =
+                ref _enemySecutityZoneComponentPool.Add(entity);
+            securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
+        }
     }
 }
