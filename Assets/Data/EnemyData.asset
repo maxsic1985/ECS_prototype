@@ -19,8 +19,6 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   CountForInstantiate: 1
   Lives: 1
-  StartPositions:
-  - {x: 10, y: 0, z: 0}
-  StartRotation:
-  - {x: 0, y: 0, z: 0}
+  StartPositions: {x: 0, y: 0, z: 0}
+  StartRotation: {x: 0, y: 0, z: 0}
   SecurityZoneDistance: 10

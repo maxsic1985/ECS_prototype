@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UniRx;

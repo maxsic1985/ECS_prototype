@@ -18,7 +18,8 @@ namespace MSuhininTestovoe.B2B
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsEnemyComponent>().Inc<ScriptableObjectComponent>().End();
+            _filter = _world.Filter<IsEnemyComponent>()
+                .Inc<ScriptableObjectComponent>().End();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
             _enemyStartPositionComponentPool = _world.GetPool<EnemyStartPositionComponent>();
@@ -40,10 +41,6 @@ namespace MSuhininTestovoe.B2B
                         ref _enemySecutityZoneComponentPool.Add(entity);
                     securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
 
-                    ref EnemyHealthComponent enemyHealth =
-                        ref _enemyHealthComponentPool.Add(entity);
-                    enemyHealth.HealthValue = dataInit.Lives;
-
                     SpawnEnemy(entity, dataInit);
                     _transformComponentPool.Add(entity);
                 }
@@ -57,45 +54,16 @@ namespace MSuhininTestovoe.B2B
         {
             ref EnemyStartPositionComponent enemyStartPositionComponent =
                 ref _enemyStartPositionComponentPool.Add(entity);
+            
 
             ref EnemyStartRotationComponent enemyStartRotationComponent =
                 ref _enemyStartRotationComponentPool.Add(entity);
 
-            var positionIndex = GetUniqeRandomArray(
-                dataInit.CountForInstantiate,
-                0,
-                dataInit.StartPositions.Length);
 
-            for (int i = 0; i < positionIndex.Length; i++)
-            {
-                enemyStartPositionComponent.Value = dataInit.StartPositions[positionIndex[i]];
-                enemyStartRotationComponent.Value = dataInit.StartRotation[positionIndex[i]];
-            }
+            enemyStartPositionComponent.Value = dataInit.StartPositions;
+            enemyStartRotationComponent.Value = dataInit.StartRotation;
         }
 
-        public int[] GetUniqeRandomArray(int size, int Min, int Max)
-        {
-            int[] UniqueArray = new int[size];
-            var rnd = new System.Random();
-            int Random;
-
-            for (int i = 0; i < size; i++)
-            {
-                Random = rnd.Next(Min, Max);
-
-                for (int j = i; j >= 0; j--)
-                {
-                    if (UniqueArray[j] == Random)
-                    {
-                        Random = rnd.Next(Min, Max);
-                        j = i;
-                    }
-                }
-
-                UniqueArray[i] = Random;
-            }
-
-            return UniqueArray;
-        }
+        
     }
 }

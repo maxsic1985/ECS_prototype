@@ -18,8 +18,8 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   StartPosition: {x: -16, y: 0, z: 0}
-  Force: 1
-  AngularDrag: 0.3
-  GravityScale: 0.1
+  Force: 0.5
+  AngularDrag: 0.1
+  GravityScale: 0.3
   Mass: 0
   AutoMass: 1
