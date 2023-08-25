@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
 using UniRx;
-using UnityEngine.UIElements;
 using Vector3 = UnityEngine.Vector3;
+
 
 
 namespace MSuhininTestovoe.B2B
@@ -69,7 +69,9 @@ namespace MSuhininTestovoe.B2B
                     var horizontalPoint = boxComponent.SpawnHorisontalPoint;
 
                     ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
-                    var position = Extensions.GetRandomIntValue(horizontalPoint-5, horizontalPoint + 5);
+                    var position = Extensions.GetRandomIntValue(
+                        horizontalPoint - LimitsConstants.ENEMY_SPAWN_POSITION_X,
+                        horizontalPoint + LimitsConstants.ENEMY_SPAWN_POSITION_X);
                     transformComponent.Value.position =
                         new Vector3(position, 0);
 

@@ -1,6 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using LeopotamGroup.Globals;
-using UnityEngine;
+
 
 
 namespace MSuhininTestovoe.B2B
@@ -36,9 +36,6 @@ namespace MSuhininTestovoe.B2B
                 if (transformComponent.Value.gameObject.transform.position.x <
                     LimitsConstants.ENEMY_RETURN_TO_POOL_POSITION)
                 {
-                    transformComponent.Value.position = new Vector2(
-                        LimitsConstants.ENEMY_SPAWN_POSITION_X,
-                        new System.Random().Next(-LimitsConstants.ENEMY_SPAWN_POSITION_Y, LimitsConstants.ENEMY_SPAWN_POSITION_Y));
                     _poolService.Return(transformComponent.Value.gameObject);
                     _isMovingComponent.Del(entity);
                 }

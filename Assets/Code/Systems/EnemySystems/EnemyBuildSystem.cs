@@ -4,7 +4,6 @@ using Pathfinding;
 using UnityEngine;
 
 
-
 namespace MSuhininTestovoe.B2B
 {
     public class EnemyBuildSystem : IEcsInitSystem, IEcsRunSystem
@@ -65,8 +64,6 @@ namespace MSuhininTestovoe.B2B
                     transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
                     enemyPathfindingComponent.AIDestinationSetter =
                         pooled.gameObject.GetComponent<AIDestinationSetter>();
-                  //  pooled.gameObject.transform.position = enemyPosition.Value[0];
-//                    pooled.gameObject.transform.rotation = Quaternion.EulerAngles(enemyRotation.Value[0]);
                     pooled.gameObject.GetComponent<IActor>().AddEntity(newEntity);
                     enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
                     _poolService.Return(pooled);
