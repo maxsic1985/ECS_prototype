@@ -3,16 +3,17 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using LeopotamGroup.Globals;
 using TMPro;
-using UnityEngine;
+
 
 
 namespace MSuhininTestovoe.B2B
 {
     public class EnemySecurityZoneSystem : IEcsInitSystem, IEcsRunSystem
     {
+        [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
+       
         private EcsWorld _world;
         private EcsPool<EnemyIsFollowingComponent> _isFollowComponentPool;
-        [EcsUguiNamed(UIConstants.COINS_LBL)] readonly TextMeshProUGUI _coinslabel = default;
         private PlayerSharedData _sharedData;
         private int _entity;
         private IPoolService _poolService;
@@ -24,7 +25,8 @@ namespace MSuhininTestovoe.B2B
         {
             _world = systems.GetWorld();
             _poolService = Service<IPoolService>.Get();
-            _filterEnterToTrigger = _world.Filter<OnTriggerEnter2DEvent>()
+            _filterEnterToTrigger = _world
+                .Filter<OnTriggerEnter2DEvent>()
                 .End();
             _sharedData = systems.GetShared<SharedData>().GetPlayerSharedData;
             _isFollowComponentPool = _world.GetPool<EnemyIsFollowingComponent>();
@@ -33,9 +35,6 @@ namespace MSuhininTestovoe.B2B
 
         public void Run(IEcsSystems ecsSystems)
         {
-          
-
-
             var poolEnter = ecsSystems.GetWorld().GetPool<OnTriggerEnter2DEvent>();
             foreach (var entity in _filterEnterToTrigger)
             {

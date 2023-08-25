@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
-
-
     [CreateAssetMenu(fileName = nameof(CameraLoadData),
         menuName = EditorMenuConstants.CREATE_DATA_MENU_NAME + nameof(EnemyData))]
     public class EnemyData : ScriptableObject
@@ -15,7 +13,9 @@ namespace MSuhininTestovoe.B2B
         [Header("Rotations:")]
         public Vector3  StartRotation;
 
-        [Header("SecurityZone:")] public float SecurityZoneDistance;
+        [Header("Speed")] public int Speed;
+
+        [Header("SecurityZone:")] public float RayDistance;
     }
 }
 

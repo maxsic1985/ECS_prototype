@@ -4,7 +4,7 @@
 
 namespace MSuhininTestovoe.B2B
 {
-    public class EnemySystem: IEcsInitSystem
+    public class EnemyLoadSystem: IEcsInitSystem
     {
         private EcsPool<IsEnemyComponent> _isEnemyPool;
 
