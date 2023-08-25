@@ -5,12 +5,11 @@ namespace MSuhininTestovoe.B2B
 {
     public static class Extensions
     {
-      
         public static T GetorAddPool<T>(IEcsSystems ecsSystem, int entity) where T : struct
         {
             if (ecsSystem.GetWorld().GetPool<T>().Has(entity))
             {
-               return ecsSystem.GetWorld().GetPool<T>().Get(entity);
+                return ecsSystem.GetWorld().GetPool<T>().Get(entity);
             }
             else
             {
@@ -19,9 +18,8 @@ namespace MSuhininTestovoe.B2B
                     .GetPool<T>().Add(entity);
                 return component;
             }
-            
         }
-        
+
         public static int[] GetUniqeRandomArray(int size, int Min, int Max)
         {
             int[] UniqueArray = new int[size];
@@ -46,10 +44,14 @@ namespace MSuhininTestovoe.B2B
 
             return UniqueArray;
         }
+
+        public static int GetRandomIntValue(int Min, int Max)
+        {
+            var rnd = new System.Random();
+            int random;
+
+            random = rnd.Next(Min, Max);
+            return random;
+        }
     }
-    
-    
-    
-    
-    
 }

@@ -52,7 +52,12 @@ namespace MSuhininTestovoe.B2B
 
                 ref EnemyStartPositionComponent enemyStartPositionComponent = ref _enemyStartComponentPool.Get(entity);
                 ref TransformComponent transformComponent = ref _transformComponentPool.Get(entity);
-                transformComponent.Value.position = enemyStartPositionComponent.Value;
+                var position = Extensions.GetRandomIntValue(
+                    (int) transformComponent.Value.position.y - 4,
+                    (int) transformComponent.Value.position.y + 4);
+                transformComponent.Value.position =
+                    new Vector3(0, position);
+                
              
 
 
