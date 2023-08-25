@@ -10,9 +10,8 @@ namespace MSuhininTestovoe.B2B
         public EnemySystems(EcsSystems systems)
         {
             systems
-                .Add(new EnemySystem())
+                .Add(new EnemyLoadSystem())
                 .Add(new EnemyInitSystem())
-                .Add(new EnemyBuildSystem())
                 .Add(new EnemyMoveSystem())
                 .Add(new EnemySecurityZoneSystem())
                 .Add(new EnemyCheckPosiionSystem())

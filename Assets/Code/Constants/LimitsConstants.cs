@@ -7,7 +7,6 @@ namespace MSuhininTestovoe.B2B
         public const int ENEMY_RETURN_TO_POOL_POSITION = -20;
         public const int ENEMY_SPAWN_POSITION_X = 10;
         public const int ENEMY_SPAWN_POSITION_Y = 3;
-        public const int ENEMY_RAYCAST_LENGHT = 4;
         public const float ENEMY_END_REACH_DISTANCE = 1.5f;
     }
 }

@@ -1,4 +1,8 @@
 ﻿using Leopotam.EcsLite;
+using LeopotamGroup.Globals;
+using Pathfinding;
+using UnityEngine;
+
 
 
 namespace MSuhininTestovoe.B2B
@@ -7,18 +11,27 @@ namespace MSuhininTestovoe.B2B
     {
         private EcsFilter _filter;
         private EcsWorld _world;
+        private IPoolService _poolService;
+
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<IsPoolLoadedComponent> _loadPrefabPool;
         private EcsPool<EnemyStartPositionComponent> _enemyStartPositionComponentPool;
         private EcsPool<EnemyStartRotationComponent> _enemyStartRotationComponentPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<EnemySecutityZoneComponent> _enemySecutityZoneComponentPool;
-        private EcsPool<EnemyHealthComponent> _enemyHealthComponentPool;
+        private EcsPool<BoxColliderComponent> _enemyBoxColliderComponentPool;
+        private EcsPool<EnemyPathfindingComponent> _enemyPathfindingComponenPool;
+        private EcsPool<IsMoveComponent> _isMoveComponentPool;
+        private EcsPool<IsEnemyComponent> _isEnemyComponentPool;
+        private EcsPool<SpeedComponent> _speedComponentPool;
+
 
         public void Init(IEcsSystems systems)
         {
+            _poolService = Service<IPoolService>.Get();
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsEnemyComponent>()
+            _filter = _world
+                .Filter<IsEnemyComponent>()
                 .Inc<ScriptableObjectComponent>().End();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
             _loadPrefabPool = _world.GetPool<IsPoolLoadedComponent>();
@@ -26,7 +39,11 @@ namespace MSuhininTestovoe.B2B
             _enemyStartRotationComponentPool = _world.GetPool<EnemyStartRotationComponent>();
             _transformComponentPool = _world.GetPool<TransformComponent>();
             _enemySecutityZoneComponentPool = _world.GetPool<EnemySecutityZoneComponent>();
-            _enemyHealthComponentPool = _world.GetPool<EnemyHealthComponent>();
+            _enemyBoxColliderComponentPool = _world.GetPool<BoxColliderComponent>();
+            _enemyPathfindingComponenPool = _world.GetPool<EnemyPathfindingComponent>();
+            _speedComponentPool = _world.GetPool<SpeedComponent>();
+            _isMoveComponentPool = _world.GetPool<IsMoveComponent>();
+            _isEnemyComponentPool = _world.GetPool<IsEnemyComponent>();
         }
 
 
@@ -37,12 +54,8 @@ namespace MSuhininTestovoe.B2B
                 if (_scriptableObjectPool.Get(entity).Value is EnemyData dataInit)
                 {
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
-                    ref EnemySecutityZoneComponent securityZoneComponent =
-                        ref _enemySecutityZoneComponentPool.Add(entity);
-                    securityZoneComponent.DistanceValue = dataInit.SecurityZoneDistance;
 
                     SpawnEnemy(entity, dataInit);
-                    _transformComponentPool.Add(entity);
                 }
 
                 _scriptableObjectPool.Del(entity);
@@ -52,18 +65,51 @@ namespace MSuhininTestovoe.B2B
 
         private void SpawnEnemy(int entity, EnemyData dataInit)
         {
-            ref EnemyStartPositionComponent enemyStartPositionComponent =
-                ref _enemyStartPositionComponentPool.Add(entity);
-            
+            for (int i = 0; i <= 10; i++)
+            {
+                var newEntity = _world.NewEntity();
+                GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+                pooled.gameObject.GetComponent<Actor>().AddEntity(newEntity);
 
-            ref EnemyStartRotationComponent enemyStartRotationComponent =
-                ref _enemyStartRotationComponentPool.Add(entity);
+                ref IsEnemyComponent isBoxComponent = ref _isEnemyComponentPool.Add(newEntity);
+
+                ref EnemyStartPositionComponent enemyStartPositionComponent =
+                    ref _enemyStartPositionComponentPool.Add(newEntity);
+
+                ref EnemyStartRotationComponent enemyStartRotationComponent =
+                    ref _enemyStartRotationComponentPool.Add(newEntity);
+
+                enemyStartPositionComponent.Value = dataInit.StartPositions;
+                enemyStartRotationComponent.Value = dataInit.StartRotation;
+
+                ref EnemySecutityZoneComponent securityZoneComponent =
+                    ref _enemySecutityZoneComponentPool.Add(newEntity);
+                securityZoneComponent.DistanceValue = dataInit.RayDistance;
 
 
-            enemyStartPositionComponent.Value = dataInit.StartPositions;
-            enemyStartRotationComponent.Value = dataInit.StartRotation;
+                ref IsMoveComponent isMoveComponent = ref _isMoveComponentPool.Add(newEntity);
+
+                ref SpeedComponent speedComponent = ref _speedComponentPool.Add(newEntity);
+                speedComponent.SpeedValue = dataInit.Speed;
+
+
+                ref TransformComponent transformComponent = ref _transformComponentPool.Add(newEntity);
+                transformComponent.Value = pooled.gameObject.GetComponent<TransformView>().Transform;
+
+                ref EnemyPathfindingComponent enemyPathfindingComponent =
+                    ref _enemyPathfindingComponenPool.Add(newEntity);
+                enemyPathfindingComponent.AIDestinationSetter =
+                    pooled.gameObject.GetComponent<AIDestinationSetter>();
+                pooled.gameObject.GetComponent<IActor>().AddEntity(newEntity);
+
+                ref BoxColliderComponent enemyBoxColliderComponent =
+                    ref _enemyBoxColliderComponentPool.Add(newEntity);
+                enemyBoxColliderComponent.ColliderValue = pooled.GetComponent<BoxCollider>();
+                _poolService.Return(pooled);
+            }
+
+            _isEnemyComponentPool.Del(entity);
+            _loadPrefabPool.Del(entity);
         }
-
-        
     }
 }
