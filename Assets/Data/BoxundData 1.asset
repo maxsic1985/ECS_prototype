@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: BoxundData 1
   m_EditorClassIdentifier: 
   Speed: 3
-  StartBoxCount: 1
-  StartBoxPoints:
-  - 0
   MinSpeedBox: 1
   MaxSpeedBox: 5
-  UpPoint: 4
-  DownPoint: -4
+  UpperPoint: 4
+  DownerPoint: -4
+  SpawnHorisontalPoint: 1
