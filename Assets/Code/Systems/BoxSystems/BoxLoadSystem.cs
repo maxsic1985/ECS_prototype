@@ -20,6 +20,10 @@ namespace MSuhininTestovoe.B2B
             var loadDataByNameComponent = world.GetPool<LoadDataByNameComponent>();
             ref var loadFactoryDataComponent = ref loadDataByNameComponent.Add(entity);
             loadFactoryDataComponent.AddressableName = AssetsNamesConstants.BOX_DATA;
+            
+          //  var loadDataByNameComponent2 = world.GetPool<LoadDataByNameComponent>();
+          //  ref var loadFactoryDataComponent2 = ref loadDataByNameComponent.Add(entity);
+          //  loadFactoryDataComponent.AddressableName = AssetsNamesConstants.;
         }
     }
 }

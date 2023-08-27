@@ -52,11 +52,11 @@ namespace MSuhininTestovoe.B2B
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _isPoolLoadedPool.Add(entity);
 
 
-                    for (int i = 0; i <= 10; i++)
+                    for (int i = 0; i <= _poolService.Capacity; i++)
                     {
-                        GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
+                        GameObject pooled = _poolService.Get(GameObjectsTypeId.Box,_world);
                         var newEntity = systems.GetWorld().NewEntity();
-                        
+
                         ref BoxComponent boxComponent = ref _boxComponentPool.Add(newEntity);
                         boxComponent.Speed = dataInit.Speed;
                         boxComponent.SpawnHorisontalPoint = dataInit.SpawnHorisontalPoint;
@@ -73,13 +73,14 @@ namespace MSuhininTestovoe.B2B
                         pingPongComponent.UpValue = dataInit.UpperPoint;
                         pingPongComponent.DownValue = dataInit.DownerPoint;
 
-                        ref PingPongSpeedComponent pingPongSpeedComponent = ref _pingPongSpeedComponentPool.Add(newEntity);
+                        ref PingPongSpeedComponent pingPongSpeedComponent =
+                            ref _pingPongSpeedComponentPool.Add(newEntity);
                         pingPongSpeedComponent.MinValue = dataInit.MinSpeedBox;
                         pingPongSpeedComponent.MaxValue = dataInit.MaxSpeedBox;
                         pingPongSpeedComponent.CurrentValue = pingPongSpeedComponent.GetRandomSpeed;
-                        
-                          var boxView = pooled.GetComponent<BoxView>();
-                          transformComponent.Value = boxView.transform;
+
+                        var boxView = pooled.GetComponent<BoxView>();
+                        transformComponent.Value = boxView.transform;
 
                         var backgroundLenght = pooled.GetComponent<BackgroundView>().GetPlatformLenght();
                         lenghtComponent.Value = backgroundLenght;

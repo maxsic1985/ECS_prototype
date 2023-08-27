@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using System.Linq;
+using Leopotam.EcsLite;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
@@ -16,6 +17,7 @@ namespace MSuhininTestovoe.B2B
         private readonly Dictionary<GameObjectsTypeId, Pool> _poolsRepository;
         private readonly List<Task> _tasks = new();
         public int Count => _poolsRepository.Count;
+        public int Capacity { get; set; }
         private Transform PoolServiceTransform => _poolServiceGameObject.transform;
         private int _index;
         private GameObject _poolServiceGameObject;
@@ -36,6 +38,8 @@ namespace MSuhininTestovoe.B2B
             await Task.WhenAll(_tasks);
         }
 
+      
+
         private async Task<GameObject> LoadAssets(GameObjectsTypeId gameObjectsTypeId)
         {
             string name = Enum.GetName(typeof(GameObjectsTypeId), gameObjectsTypeId);
@@ -48,10 +52,13 @@ namespace MSuhininTestovoe.B2B
             await goResult.Task;
 
             Add(gameObjectsTypeId, goResult.Result, soResult.Result.Capacity);
-
+            Capacity = soResult.Result.Capacity;
             return goResult.Result;
         }
-
+        
+        
+        
+     
         public void Add(GameObjectsTypeId type, GameObject pooledObject, int capacity)
         {
             _poolsRepository.Add(type, new Pool(type, pooledObject, capacity));
@@ -76,7 +83,7 @@ namespace MSuhininTestovoe.B2B
             gameObject.SetActive(false);
         }
 
-        public GameObject Get(GameObjectsTypeId gameObjectsTypeId)
+        public GameObject Get(GameObjectsTypeId gameObjectsTypeId,EcsWorld world)
         {
             GameObject pooledObject = default;
 

@@ -65,10 +65,10 @@ namespace MSuhininTestovoe.B2B
 
         private void SpawnEnemy(int entity, EnemyData dataInit)
         {
-            for (int i = 0; i <= 10; i++)
+            for (int i = 0; i <= _poolService.Capacity; i++)
             {
                 var newEntity = _world.NewEntity();
-                GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+                GameObject pooled = _poolService.Get(GameObjectsTypeId.Enemy,_world);
                 pooled.gameObject.GetComponent<Actor>().AddEntity(newEntity);
 
                 ref IsEnemyComponent isBoxComponent = ref _isEnemyComponentPool.Add(newEntity);

@@ -18,8 +18,7 @@ namespace MSuhininTestovoe.B2B
 
         private void ReturnToPool()
         {
-           Debug.Log("enemy handlers");
-            //_poolService.Return(gameObject);
+            _poolService.Return(gameObject);
         }
     }
 }
