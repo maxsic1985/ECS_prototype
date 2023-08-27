@@ -52,7 +52,7 @@ namespace MSuhininTestovoe.B2B
                     ref IsPoolLoadedComponent loadPrefabFromPool = ref _isPoolLoadedPool.Add(entity);
 
 
-                    for (int i = 0; i <= dataInit.SpawnCount; i++)
+                    for (int i = 0; i <= _poolService.Capacity; i++)
                     {
                         GameObject pooled = _poolService.Get(GameObjectsTypeId.Box,_world);
                         var newEntity = systems.GetWorld().NewEntity();

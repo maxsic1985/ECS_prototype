@@ -17,9 +17,7 @@ namespace MSuhininTestovoe.B2B
         public int UpperPoint;
         public int DownerPoint;
         public int SpawnHorisontalPoint;
-    
-        [Header("Count spawn")]
-        public int SpawnCount;
+        
 
     }
 }

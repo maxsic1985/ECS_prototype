@@ -17,6 +17,7 @@ namespace MSuhininTestovoe.B2B
         private readonly Dictionary<GameObjectsTypeId, Pool> _poolsRepository;
         private readonly List<Task> _tasks = new();
         public int Count => _poolsRepository.Count;
+        public int Capacity { get; set; }
         private Transform PoolServiceTransform => _poolServiceGameObject.transform;
         private int _index;
         private GameObject _poolServiceGameObject;
@@ -51,10 +52,13 @@ namespace MSuhininTestovoe.B2B
             await goResult.Task;
 
             Add(gameObjectsTypeId, goResult.Result, soResult.Result.Capacity);
-
+            Capacity = soResult.Result.Capacity;
             return goResult.Result;
         }
-
+        
+        
+        
+     
         public void Add(GameObjectsTypeId type, GameObject pooledObject, int capacity)
         {
             _poolsRepository.Add(type, new Pool(type, pooledObject, capacity));

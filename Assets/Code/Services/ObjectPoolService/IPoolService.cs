@@ -13,5 +13,6 @@ namespace MSuhininTestovoe.B2B
         void Clear(GameObjectsTypeId gameObjectsTypeId);
         void Return(GameObject gameObject);
         int Count { get; }
+        int Capacity { get;  set; }
     }
 }
