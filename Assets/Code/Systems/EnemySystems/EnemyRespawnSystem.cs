@@ -17,12 +17,13 @@ namespace MSuhininTestovoe.B2B
         private List<IDisposable> _disposables = new List<IDisposable>();
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<EnemyStartPositionComponent> _enemyStartComponentPool;
+        private EcsWorld _world;
 
 
         public void Init(IEcsSystems systems)
         {
             _poolService = Service<IPoolService>.Get();
-            EcsWorld _world = systems.GetWorld();
+             _world = systems.GetWorld();
             filterTrigger = systems.GetWorld()
                 .Filter<IsEnemyComponent>()
                 .Inc<EnemyStartPositionComponent>()
@@ -48,7 +49,7 @@ namespace MSuhininTestovoe.B2B
                     Dispose();
                 }
 
-                var pooled = _poolService.Get(GameObjectsTypeId.Enemy);
+                var pooled = _poolService.Get(GameObjectsTypeId.Enemy,_world);
                 var entity = pooled.gameObject.GetComponent<EnemyActor>().Entity;
 
                 ref EnemyStartPositionComponent enemyStartPositionComponent = ref _enemyStartComponentPool.Get(entity);

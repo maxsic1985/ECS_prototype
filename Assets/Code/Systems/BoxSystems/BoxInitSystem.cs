@@ -54,7 +54,7 @@ namespace MSuhininTestovoe.B2B
 
                     for (int i = 0; i <= dataInit.SpawnCount; i++)
                     {
-                        GameObject pooled = _poolService.Get(GameObjectsTypeId.Box);
+                        GameObject pooled = _poolService.Get(GameObjectsTypeId.Box,_world);
                         var newEntity = systems.GetWorld().NewEntity();
 
                         ref BoxComponent boxComponent = ref _boxComponentPool.Add(newEntity);

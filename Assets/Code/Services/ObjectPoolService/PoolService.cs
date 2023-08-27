@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using System.Linq;
+using Leopotam.EcsLite;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
@@ -35,6 +36,8 @@ namespace MSuhininTestovoe.B2B
 
             await Task.WhenAll(_tasks);
         }
+
+      
 
         private async Task<GameObject> LoadAssets(GameObjectsTypeId gameObjectsTypeId)
         {
@@ -76,7 +79,7 @@ namespace MSuhininTestovoe.B2B
             gameObject.SetActive(false);
         }
 
-        public GameObject Get(GameObjectsTypeId gameObjectsTypeId)
+        public GameObject Get(GameObjectsTypeId gameObjectsTypeId,EcsWorld world)
         {
             GameObject pooledObject = default;
 

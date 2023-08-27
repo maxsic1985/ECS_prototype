@@ -59,7 +59,7 @@ namespace MSuhininTestovoe.B2B
                         _poolService = Service<IPoolService>.Get();
                     }
 
-                    var pooled = _poolService.Get(GameObjectsTypeId.Box);
+                    var pooled = _poolService.Get(GameObjectsTypeId.Box,_world);
                     var entity = pooled.gameObject.GetComponent<BorderActor>().Entity;
 
                     ref PingPongSpeedComponent speedPingPong = ref _pingsPongSpeedComponentPool.Get(entity);
