@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5260e9b2a364e5b8a15e1cbaa052bcb, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
-  EnemyPrefab:
-    m_AssetGUID: aee82e1da214342339ade8e72da88333
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  CountForInstantiate: 1
-  Lives: 1
   StartPositions: {x: 0, y: 0, z: 0}
   StartRotation: {x: 0, y: 0, z: 0}
-  SecurityZoneDistance: 10
+  Speed: 1
+  RayDistance: 3
