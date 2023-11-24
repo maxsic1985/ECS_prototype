@@ -16,3 +16,4 @@ MonoBehaviour:
   StartRotation: {x: 0, y: 0, z: 0}
   Speed: 3
   RayDistance: 5
+
