@@ -17,6 +17,7 @@ namespace MSuhininTestovoe.B2B
             var world = new EcsWorld();
             _systems.AddWorld(world, worldName);
             return this;
+            //dsdasd
         }
     }
 }
