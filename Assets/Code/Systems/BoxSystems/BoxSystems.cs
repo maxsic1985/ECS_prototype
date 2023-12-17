@@ -13,6 +13,8 @@ namespace MSuhininTestovoe.B2B
                 .Add(new BoxInitSystem())
                 .Add(new PingPongMovingSystem())
                 .Add(new BoxCheckPositionSystem())
+                .Add(new BoxScaleSystem())
+                .Add(new DEBUG_BoxScaleSystem())
                 .Add(new BoxRespawnSystem());
         }
     }

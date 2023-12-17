@@ -20,7 +20,7 @@ namespace MSuhininTestovoe.B2B
         private EcsPool<PingPongSpeedComponent> _pingPongSpeedComponentPool;
         private EcsPool<IsMoveComponent> _isMoveComponentPool;
         private EcsPool<LenghtComponent> _lenghtComponentPool;
-
+        private EcsPool<Scale2DComponent> _scale2DComponentPool;
 
         public void Init(IEcsSystems systems)
         {
@@ -40,9 +40,10 @@ namespace MSuhininTestovoe.B2B
             _lenghtComponentPool = _world.GetPool<LenghtComponent>();
             _pingPongComponentPool = _world.GetPool<PingPongPositionComponent>();
             _pingPongSpeedComponentPool = _world.GetPool<PingPongSpeedComponent>();
+            _scale2DComponentPool = _world.GetPool<Scale2DComponent>();
+
         }
-
-
+        
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
@@ -65,6 +66,9 @@ namespace MSuhininTestovoe.B2B
                         ref SpeedComponent speedComponent = ref _speedComponentPool.Add(newEntity);
                         speedComponent.SpeedValue = boxComponent.Speed;
 
+                        ref Scale2DComponent scale2D = ref _scale2DComponentPool.Add(newEntity);
+                        scale2D.ScaleValue = dataInit.Scale2D;
+                        
                         ref IsMoveComponent isMoveComponent = ref _isMoveComponentPool.Add(newEntity);
                         ref TransformComponent transformComponent = ref _transformComponentPool.Add(newEntity);
                         ref LenghtComponent lenghtComponent = ref _lenghtComponentPool.Add(newEntity);
