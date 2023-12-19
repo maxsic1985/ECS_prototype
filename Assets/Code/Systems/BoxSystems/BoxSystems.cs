@@ -11,6 +11,7 @@ namespace MSuhininTestovoe.B2B
             systems
                 .Add(new BoxLoadSystem())
                 .Add(new BoxInitSystem())
+                .Add(new BoxRotateSystem()) 
                 .Add(new PingPongMovingSystem())
                 .Add(new BoxCheckPositionSystem())
                 .Add(new BoxRespawnSystem());
