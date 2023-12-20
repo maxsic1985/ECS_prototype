@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92d641c-49fe-4afc-a56a-22b140b853e0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Systems/Common/RotateSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Systems/Common/RotateSystem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Systems/Common/CommonSystems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Systems/Common/CommonSystems.cs" afterDir="false" />
-    </list>
+    <list default="true" id="b92d641c-49fe-4afc-a56a-22b140b853e0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +87,7 @@
       <updated>1700847513713</updated>
       <workItem from="1700847516517" duration="786000" />
       <workItem from="1702984428218" duration="1669000" />
-      <workItem from="1703043529941" duration="412000" />
+      <workItem from="1703043529941" duration="765000" />
     </task>
     <servers />
   </component>
