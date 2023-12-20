@@ -9,6 +9,7 @@ namespace MSuhininTestovoe.B2B
         public CommonSystems(EcsSystems systems)
         {
             systems.Add(new RotateSystem());
+            systems.Add(new TestRotateSystem());
             systems.Add(new TransformMovingSystem());
             systems.Add(new SynchronizeTransformAndPositionSystem());
             systems.Add(new RestartSystem());

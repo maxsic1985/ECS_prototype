@@ -1,4 +1,5 @@
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace MSuhininTestovoe.B2B
 {
@@ -11,6 +12,7 @@ namespace MSuhininTestovoe.B2B
         {
             EcsWorld world = systems.GetWorld();
             _filter = world.Filter<IsRotateComponent>()
+                .Inc<TransformComponent>()
                 .End();
             _transformPool = world.GetPool<TransformComponent>();
         }
@@ -21,6 +23,7 @@ namespace MSuhininTestovoe.B2B
             {
                 ref TransformComponent trransformComponent = ref _transformPool.Get(entity);
                 trransformComponent.Value.Rotate(1,1,0);
+                Debug.Log("I'm rotating!");
             }
         }
     }
